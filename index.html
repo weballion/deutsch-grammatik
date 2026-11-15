@@ -52,7 +52,9 @@ var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить'};
 var app=document.getElementById('app');
 function render(h){app.innerHTML=h;app.style.animation='none';app.offsetHeight;app.style.animation=''}
-var DATA=null,byId={},S=null,run=null,saved=null,P={},UM=false,VIEW='home';
+var DATA=null,byId={},S=null,run=null,saved=null,P={},UM=false,THEME='classic',VIEW='home';
+var LEVELS={a2b2:{file:'data/tasks.json',label:'A2–B2',setKey:'dg_set',runKey:'dg_run',progPre:'dg_prog_',seenPre:'dg_seen_'},a1a2:{file:'data/tasks_a1a2.json',label:'A1–A2',setKey:'dg_set_a1a2',runKey:'dg_run_a1a2',progPre:'dg_prog_a1a2_',seenPre:'dg_seen_a1a2_'}};
+var LEVEL='a2b2';
 var TG=window.Telegram&&window.Telegram.WebApp;
 if(TG){try{TG.ready();TG.expand()}catch(e){}}
 var CS=TG&&TG.CloudStorage;
@@ -68,14 +70,14 @@ function toast(msg){var el=document.getElementById('toast');if(!el){el=document.
 function tgBack(fn){if(!TG||!TG.BackButton)return;if(tgBack._fn)TG.BackButton.offClick(tgBack._fn);tgBack._fn=fn||null;if(fn){TG.BackButton.onClick(fn);TG.BackButton.show()}else TG.BackButton.hide()}
 var THEME_MAP={bg_color:'--bg',secondary_bg_color:'--card'};
 function applyTheme(){if(!TG)return;
- if(S&&S.theme=='lavender'){Object.keys(THEME_MAP).forEach(function(k){document.documentElement.style.removeProperty(THEME_MAP[k])});return}
+ if(THEME=='lavender'){Object.keys(THEME_MAP).forEach(function(k){document.documentElement.style.removeProperty(THEME_MAP[k])});return}
  var p=TG.themeParams||{};
  Object.keys(THEME_MAP).forEach(function(k){if(p[k])document.documentElement.style.setProperty(THEME_MAP[k],'#'+String(p[k]).replace('#',''))})}
 applyTheme();
 if(TG&&TG.onEvent)TG.onEvent('themeChanged',applyTheme);
-function setTheme(t){S.theme=t;if(t=='lavender')document.documentElement.setAttribute('data-theme','lavender');else document.documentElement.removeAttribute('data-theme');applyTheme()}
+function setTheme(t){THEME=t;if(t=='lavender')document.documentElement.setAttribute('data-theme','lavender');else document.documentElement.removeAttribute('data-theme');applyTheme()}
 function setView(v){VIEW=v;document.body.className=v=='home'?'home':''}
-function saveSet(){csSet('dg_set',JSON.stringify({diff:S.diff,defer:S.defer,blocks:S.blocks,types:S.types,theme:S.theme}))}
+function saveSet(){csSet(LEVELS[LEVEL].setKey,JSON.stringify({diff:S.diff,defer:S.defer,blocks:S.blocks,types:S.types}))}
 function bank(k){return DATA.tasks.filter(function(t){return t.block==k})}
 function allTasks(){return DATA.tasks}
 function tw(k){var d=DATA.blocks[k].types,u=S.types[k]||{},o={};Object.keys(d).forEach(function(t){o[t]=u[t]!=null?u[t]:d[t]});return o}
@@ -88,13 +90,13 @@ function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(M
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
 function fmt(x){return String(x).replace('.',',')}
 function save(){var p=run?{S:S,ids:run.q.map(function(t){return t.id}),i:run.i,res:run.res.map(function(r){return{id:r.t.id,v:r.v,s:r.s,c:r.c}})}:null;
- csSet('dg_run',p?JSON.stringify(p):'')}
+ csSet(LEVELS[LEVEL].runKey,p?JSON.stringify(p):'')}
 function restore(p){S=p.S;run={q:p.ids.map(function(i){return byId[i]}),i:p.i,res:p.res.map(function(r){return{t:byId[r.id],v:r.v,s:r.s,c:r.c}})};}
 function parseSaved(x){try{var p=typeof x=='string'?JSON.parse(x):x;if(p&&p.ids&&p.i<p.ids.length&&p.ids.every(function(i){return byId[i]}))return p}catch(e){}return null}
 function saveP(){var keys=Object.keys(DATA.blocks);
- keys.forEach(function(k){csSet('dg_prog_'+k,JSON.stringify(P[k]||{last:[],errs:[]}));
+ keys.forEach(function(k){csSet(LEVELS[LEVEL].progPre+k,JSON.stringify(P[k]||{last:[],errs:[]}));
   var sn={};Object.keys(P.seen||{}).forEach(function(id){if(id.charAt(0)==k)sn[id]=P.seen[id]});
-  csSet('dg_seen_'+k,JSON.stringify(sn))})}
+  csSet(LEVELS[LEVEL].seenPre+k,JSON.stringify(sn))})}
 function pstat(k){var b=P[k];if(!b||!b.last||!b.last.length)return null;var s=0,n=0;b.last.forEach(function(x){s+=x.s;n+=x.n});return n?s/n:null}
 function weak(){return Object.keys(DATA.blocks).filter(function(k){var p=pstat(k);return p!==null&&p<0.7})}
 function errTasks(keys){var o=[];Object.keys(P).forEach(function(k){if(keys&&keys.indexOf(k)<0)return;(P[k].errs||[]).forEach(function(id){if(byId[id])o.push(byId[id])})});return o}
@@ -105,22 +107,30 @@ function startWeak(){var wk=weak(),pool=errTasks(wk.length?wk:null),seen={};pool
  if(wk.length)pool=pool.concat(shuffle(allTasks().filter(function(t){return wk.indexOf(t.block)>=0&&!seen[t.id]})));
  pool=pool.slice(0,S.diff);if(!pool.length)return false;run={q:shuffle(pool),i:0,res:[]};save();show();return true}
 function loadP(cb){var keys=Object.keys(DATA.blocks),want=[];
- keys.forEach(function(k){want.push('dg_prog_'+k,'dg_seen_'+k)});
+ keys.forEach(function(k){want.push(LEVELS[LEVEL].progPre+k,LEVELS[LEVEL].seenPre+k)});
  csGet(want,function(res){var p={seen:{}};
   keys.forEach(function(k){
-   try{var pr=JSON.parse(res['dg_prog_'+k]||'null');if(pr)p[k]=pr}catch(e){}
-   try{var sn=JSON.parse(res['dg_seen_'+k]||'null');if(sn)Object.keys(sn).forEach(function(id){p.seen[id]=sn[id]})}catch(e){}
+   try{var pr=JSON.parse(res[LEVELS[LEVEL].progPre+k]||'null');if(pr)p[k]=pr}catch(e){}
+   try{var sn=JSON.parse(res[LEVELS[LEVEL].seenPre+k]||'null');if(sn)Object.keys(sn).forEach(function(id){p.seen[id]=sn[id]})}catch(e){}
   });
   P=p;cb()})}
 function loadAll(cb){
- csGet(['dg_set','dg_uml','dg_run'],function(res){
-  try{var _s=JSON.parse(res.dg_set||'null');if(_s){Object.keys(_s).forEach(function(k){S[k]=_s[k]});S.blocks=S.blocks.filter(function(k){return DATA.blocks[k]})}}catch(e){}
-  UM=res.dg_uml=='1';
-  try{if(res.dg_run)saved=parseSaved(res.dg_run)}catch(e){}
-  setTheme(S.theme);
+ csGet([LEVELS[LEVEL].setKey,LEVELS[LEVEL].runKey],function(res){
+  try{var _s=JSON.parse(res[LEVELS[LEVEL].setKey]||'null');if(_s){Object.keys(_s).forEach(function(k){S[k]=_s[k]});S.blocks=S.blocks.filter(function(k){return DATA.blocks[k]})}}catch(e){}
+  try{if(res[LEVELS[LEVEL].runKey])saved=parseSaved(res[LEVELS[LEVEL].runKey])}catch(e){}
   loadP(cb)})}
+function loadLevel(lvl,cb){LEVEL=lvl;
+ document.body.className='home';render('<p class="mut">Загрузка…</p>');
+ fetch(LEVELS[lvl].file).then(function(r){return r.json()}).then(function(data){
+  DATA=data;byId={};DATA.tasks.forEach(function(t){byId[t.id]=t});
+  S={diff:10,defer:false,blocks:Object.keys(DATA.blocks),types:{}};
+  loadAll(cb);
+ }).catch(function(){render('<p class="mut">Не удалось загрузить задания. Проверьте подключение и обновите страницу.</p>')});
+}
+function setLevel(lvl){if(lvl==LEVEL)return;csSet('dg_level',lvl);run=null;saved=null;
+ loadLevel(lvl,function(){settings();setTimeout(function(){haptic();toast('Уровень: '+LEVELS[lvl].label)},300)})}
 function init(){home()}
-function sumLine(){var n=S.blocks.length;return (n==Object.keys(DATA.blocks).length?'Все блоки ('+n+')':'Блоков: '+n+' ('+S.blocks.join(', ')+')')+' · '+S.diff+' на блок · '+total()+' заданий'}
+function sumLine(){var n=S.blocks.length;return LEVELS[LEVEL].label+' · '+(n==Object.keys(DATA.blocks).length?'Все блоки ('+n+')':'Блоков: '+n+' ('+S.blocks.join(', ')+')')+' · '+S.diff+' на блок · '+total()+' заданий'}
 function home(){setView('home');tgBack(null);
  var icInf='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
  var icSet='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>';
@@ -138,11 +148,14 @@ function home(){setView('home');tgBack(null);
 }
 function settings(){setView('set');tgBack(home);
  var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">Настройки</h1>';
+ h+='<div class="frame"><small>Уровень</small><div class="seg" id="segLevel" style="margin-top:6px">';
+ Object.keys(LEVELS).forEach(function(lv){h+='<button data-lv="'+lv+'" class="'+(LEVEL==lv?'on':'')+'">'+LEVELS[lv].label+'</button>'});
+ h+='</div><p class="mut" style="margin:6px 0 0">Меняет банк заданий и набор доступных блоков. Прогресс и настройки по уровням раздельные.</p></div>';
  h+='<div class="frame"><small>Количество заданий (на каждый блок)</small><div class="seg" id="seg" style="margin-top:6px">';
  [5,10,15].forEach(function(n){h+='<button data-n="'+n+'" class="'+(S.diff==n?'on':'')+'">'+n+'</button>'});
  h+='</div><p class="mut" style="margin:6px 0 0" id="cnt"></p></div>';
  h+='<div class="frame"><small>Дизайн</small><div class="seg" id="segTheme" style="margin-top:6px">';
- [['Классический','classic'],['Лаванда','lavender']].forEach(function(d){h+='<button data-th="'+d[1]+'" class="'+(S.theme==d[1]?'on':'')+'">'+d[0]+'</button>'});
+ [['Классический','classic'],['Лаванда','lavender']].forEach(function(d){h+='<button data-th="'+d[1]+'" class="'+(THEME==d[1]?'on':'')+'">'+d[0]+'</button>'});
  h+='</div><p class="mut" style="margin:6px 0 0">Меняет только оформление, экраны остаются те же.</p></div>';
  h+='<div class="frame"><label><input type="checkbox" id="defer" '+(S.defer?'checked':'')+'> Показать результат в конце</label>';
  h+='<label style="margin-top:8px"><input type="checkbox" id="uml" '+(UM?'checked':'')+'> Кнопки ä ö ü ß под полем ввода</label></div>';
@@ -158,7 +171,8 @@ function settings(){setView('set');tgBack(home);
  function doneSet(){home();setTimeout(function(){haptic();toast('Настройки сохранены')},300)}
  document.getElementById('bk').onclick=doneSet;document.getElementById('bk2').onclick=doneSet;
  document.querySelectorAll('#seg button').forEach(function(b){b.onclick=function(){S.diff=+b.dataset.n;saveSet();document.querySelectorAll('#seg button').forEach(function(x){x.className=x===b?'on':''});upd()}});
- document.querySelectorAll('#segTheme button').forEach(function(b){b.onclick=function(){setTheme(b.dataset.th);saveSet();document.querySelectorAll('#segTheme button').forEach(function(x){x.className=x===b?'on':''})}});
+ document.querySelectorAll('#segTheme button').forEach(function(b){b.onclick=function(){setTheme(b.dataset.th);csSet('dg_theme',b.dataset.th);document.querySelectorAll('#segTheme button').forEach(function(x){x.className=x===b?'on':''})}});
+ document.querySelectorAll('#segLevel button').forEach(function(b){b.onclick=function(){if(b.dataset.lv==LEVEL)return;setLevel(b.dataset.lv)}});
  document.getElementById('defer').onchange=function(e){S.defer=e.target.checked;saveSet()};
  document.getElementById('uml').onchange=function(e){UM=e.target.checked;csSet('dg_uml',UM?'1':'0')};
  function selB(){S.blocks=[].slice.call(document.querySelectorAll('.blk')).filter(function(x){return x.checked}).map(function(x){return x.value});saveSet();upd()}
@@ -176,7 +190,8 @@ function info(){setView('info');tgBack(home);
  '<div class="frame inf"><h3 style="margin-top:0">Тест</h3><p>«Старт» запускает тест по блокам, выбранным в настройках. Задания из всех блоков перемешаны. «Количество заданий» задаёт их число на каждый блок: 5, 10 или 15.</p>'+
  '<p>Внутри блока задания делятся по типам в пропорциях из настроек (раскройте «Типы заданий» под блоком). Из банка сначала берутся задания, которые попадались вам реже всего, поэтому повторы начинаются только после того, как пройдены все задания нужного типа.</p>'+
  '<p>Незаконченный тест сохраняется: его можно продолжить с главной. «Отменить тест» сбрасывает его без сохранения результата.</p></div>'+
- '<div class="frame inf"><h3 style="margin-top:0">Откуда задания</h3><p>Все задания — из готового банка: '+n+' заданий, около 100 на каждый блок, в блоке M — фиксированный список глаголов с предлогами из учебника ('+DATA.tasks.filter(function(t){return t.block=='M'}).length+').</p></div>'+
+ '<div class="frame inf"><h3 style="margin-top:0">Откуда задания</h3><p>Все задания — из готового банка: '+n+' заданий'+(LEVEL=='a2b2'?', около 100 на каждый блок, в блоке M — фиксированный список глаголов с предлогами из учебника ('+DATA.tasks.filter(function(t){return t.block=='M'}).length+')':' для уровня A1–A2 (6 упрощённых блоков)')+'.</p></div>'+
+ '<div class="frame inf"><h3 style="margin-top:0">Уровень</h3><p>В настройках можно выбрать уровень A2–B2 (все 13 блоков) или A1–A2 (6 упрощённых блоков с более простыми заданиями, без сложных тем вроде Passiv, Konjunktiv II или Relativsätze). Это два разных банка заданий: прогресс, ошибки и выбор блоков хранятся отдельно для каждого уровня.</p></div>'+
  '<div class="frame inf"><h3 style="margin-top:0">Проверка и баллы</h3><p>Верно — 1 балл, почти верно — 0,5, неверно — 0. Регистр и знаки препинания не учитываются, кроме блока K «Правописание».</p>'+
  '<p>Выбор ответа, вставка слова и составление предложения проверяются по эталону сразу. Перевод, исправление и преобразование: при точном совпадении — сразу; иначе вы сравниваете свой ответ с эталоном сами и выбираете «Верно», «Почти» или «Неверно».</p>'+
  '<p>«Показать результат в конце» скрывает оценку после каждого ответа; итог и разбор ошибок всегда показываются в конце теста.</p></div>'+
@@ -288,10 +303,9 @@ function finish(){setView('result');tgBack(home);
  document.getElementById('again').onclick=start;var w2=document.getElementById('wk2');if(w2)w2.onclick=startWeak;document.getElementById('home').onclick=function(){run=null;home()};
 }
 document.body.className='home';render('<p class="mut">Загрузка…</p>');
-fetch('data/tasks.json').then(function(r){return r.json()}).then(function(data){
- DATA=data;
- DATA.tasks.forEach(function(t){byId[t.id]=t});
- S={diff:10,defer:false,blocks:Object.keys(DATA.blocks),types:{},theme:'classic'};
- loadAll(init);
-}).catch(function(){render('<p class="mut">Не удалось загрузить задания. Проверьте подключение и обновите страницу.</p>')});
+csGet(['dg_uml','dg_theme','dg_level'],function(res){
+ UM=res.dg_uml=='1';
+ setTheme(res.dg_theme=='lavender'?'lavender':'classic');
+ loadLevel(res.dg_level=='a1a2'?'a1a2':'a2b2',init);
+});
 </script></body></html>
