@@ -8,27 +8,37 @@
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf9f5">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1c1b19">
 <style>
-:root{--bg:#faf9f5;--card:#fff;--tx:#1f1e1d;--tx2:#6b6a66;--bd:#e3e1d8;--pri:#1f1e1d;--onpri:#fff;--ok:#2e7d32;--okbg:#e8f3e8;--bad:#b3261e;--badbg:#fbe9e7}
-@media(prefers-color-scheme:dark){:root{--bg:#1c1b19;--card:#262522;--tx:#f0eee6;--tx2:#a8a69e;--bd:#3a3834;--pri:#f0eee6;--onpri:#1c1b19;--ok:#7bc47f;--okbg:#22331f;--bad:#f2867d;--badbg:#3a2220}}
+:root{--bg:#faf9f5;--card:#fff;--tx:#1f1e1d;--tx2:#6b6a66;--bd:#e3e1d8;--pri:#1f1e1d;--onpri:#fff;--ok:#2e7d32;--okbg:#e8f3e8;--bad:#b3261e;--badbg:#fbe9e7;--radius:10px;--shadow:none;--glass:rgba(255,255,255,.7);--frame-shadow:0 8px 30px rgba(31,30,29,.08)}
+@media(prefers-color-scheme:dark){:root{--bg:#1c1b19;--card:#262522;--tx:#f0eee6;--tx2:#a8a69e;--bd:#3a3834;--pri:#f0eee6;--onpri:#1c1b19;--ok:#7bc47f;--okbg:#22331f;--bad:#f2867d;--badbg:#3a2220;--glass:rgba(38,37,34,.6);--frame-shadow:0 8px 30px rgba(0,0,0,.4)}}
+html[data-theme="lavender"]{color-scheme:light;--bg:#f3f1fb;--card:#fff;--tx:#2a2440;--tx2:#8a84a3;--bd:#e5e1f5;--pri:#6c5ce7;--onpri:#fff;--radius:16px;--shadow:0 4px 20px rgba(108,92,231,.14);--glass:rgba(255,255,255,.55);--frame-shadow:0 10px 40px rgba(108,92,231,.18)}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,sans-serif}
+body.home{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+body.home main{margin:auto;width:100%}
+html[data-theme="lavender"] body{position:relative}
+html[data-theme="lavender"] body::before,html[data-theme="lavender"] body::after{content:"";position:fixed;z-index:-1;border-radius:50%;filter:blur(80px);opacity:.55;pointer-events:none}
+html[data-theme="lavender"] body::before{width:320px;height:320px;top:-100px;left:-100px;background:#c7b6f7}
+html[data-theme="lavender"] body::after{width:360px;height:360px;bottom:-120px;right:-100px;background:#f7c9e6}
 main{max-width:520px;margin:0 auto;padding:20px 16px 40px}
+.frame{background:var(--glass);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:20px;box-shadow:var(--frame-shadow);padding:26px 22px;margin-bottom:14px}
+#app{animation:pgfade .22s ease}
+@keyframes pgfade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){#app{animation:none}}
 h1{font-size:24px;margin:2px 0 18px;font-weight:600}small,.mut{color:var(--tx2);font-size:13px}
-button{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:11px 14px;cursor:pointer}
-button.pri{background:var(--pri);color:var(--onpri);border-color:var(--pri);font-weight:600;width:100%;height:48px;margin-top:10px}
+button{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:var(--radius);padding:11px 14px;cursor:pointer}
+button.pri{background:var(--pri);color:var(--onpri);border-color:var(--pri);font-weight:600;width:100%;height:48px;margin-top:10px;box-shadow:var(--shadow)}
 button.sec{width:100%;height:46px;margin-top:8px}
 .seg{display:flex;gap:6px}.seg button{flex:1}.seg button.on{border-color:var(--tx);font-weight:600}
-details{border:1px solid var(--bd);border-radius:10px;padding:10px 12px;background:var(--card);margin:14px 0}summary{cursor:pointer}
-.grid{display:grid;grid-template-columns:1fr;gap:8px 10px;margin-top:10px;font-size:14px}
+details{border:1px solid var(--bd);border-radius:var(--radius);padding:10px 12px;background:var(--card);margin:14px 0;box-shadow:var(--shadow)}summary{cursor:pointer}
 label{display:flex;gap:8px;align-items:center}input[type=checkbox]{width:18px;height:18px}
 .top{display:flex;justify-content:space-between;font-size:13px;color:var(--tx2)}
 .bar{height:5px;background:var(--bd);border-radius:3px;margin:8px 0 16px}.bar i{display:block;height:100%;background:var(--pri);border-radius:3px;transition:width .2s}
 .tag{font-size:12px;color:var(--tx2);margin-bottom:4px}.q{font-size:18px;margin:6px 0 14px;white-space:pre-wrap}
 .opt{display:block;width:100%;text-align:left;margin-bottom:8px}.opt.ok{background:var(--okbg);border-color:var(--ok)}.opt.bad{background:var(--badbg);border-color:var(--bad)}
-input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:11px}
-.fb{margin-top:14px;padding:12px;border-radius:10px;font-size:15px}.fb.ok{background:var(--okbg);color:var(--ok)}.fb.bad{background:var(--badbg);color:var(--bad)}
+input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:var(--radius);padding:11px}
+.fb{margin-top:14px;padding:12px;border-radius:var(--radius);font-size:15px;box-shadow:var(--shadow)}.fb.ok{background:var(--okbg);color:var(--ok)}.fb.bad{background:var(--badbg);color:var(--bad)}
 .fb .h{color:var(--tx);font-size:14px;margin-top:6px}.fb a{color:var(--tx);text-decoration:underline;cursor:pointer;font-size:14px;display:inline-block;margin-top:8px}
 .big{font-size:36px;font-weight:700;margin:4px 0 12px}.row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bd);font-size:15px}
-.blk{font-size:15px;font-weight:600;margin:0 0 2px}.note{font-size:13px;color:var(--tx2);margin:-8px 0 12px}.fb.half{background:#fff4d6;color:#7a5b00}@media(prefers-color-scheme:dark){.fb.half{background:#3a3217;color:#e8c766}}.bl{min-height:56px;border:1.5px dashed var(--bd);border-radius:10px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:12px}.bp{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}.chip{padding:8px 12px}.chip.on{background:var(--pri);color:var(--onpri);border-color:var(--pri)}.rw{text-align:right;margin-bottom:4px}.rw button{padding:6px 10px;font-size:13px}.lnk{background:none;border:none;color:var(--tx2);font-size:13px;text-decoration:underline;padding:4px 0}.cx{display:flex;gap:8px;align-items:center;justify-content:flex-end;font-size:13px}.cx button{padding:6px 10px;font-size:13px}.bi{border-bottom:1px solid var(--bd);padding-bottom:8px}.bi:last-child{border:none}.ty{margin:6px 0 0 26px;padding:6px 10px;font-size:13px}.ty summary{color:var(--tx2)}.tyf{margin:4px 0 0 26px;font-size:12px;color:var(--tx2)}.tr{display:flex;justify-content:space-between;align-items:center;padding:4px 0}.st{display:flex;align-items:center;gap:10px}.st button{padding:2px 12px;font-size:16px}.st b{min-width:18px;text-align:center}.ld{width:30%!important;animation:ld 1.2s ease-in-out infinite alternate}@keyframes ld{from{margin-left:0}to{margin-left:70%}}.hd{display:flex;justify-content:space-between;align-items:flex-end}.ic{display:flex;gap:8px}.ic button{width:42px;height:42px;padding:0;font-size:20px;border-radius:50%}.big2{height:60px;font-size:20px}.sum{display:block;width:100%;text-align:center;margin:6px 0 10px}.inf h3{font-size:16px;margin:18px 0 4px}.inf p,.inf li{font-size:15px;margin:4px 0}.inf ul{padding-left:20px;margin:4px 0}.sa{display:flex;gap:8px;margin-top:10px}.sa button{flex:1}.um{display:flex;gap:6px;margin:8px 0 0}.um button{flex:1;padding:8px 0;font-size:17px}.err{border:1px solid var(--bd);background:var(--card);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:14px}
+.blk{font-size:15px;font-weight:600;margin:0 0 2px}.note{font-size:13px;color:var(--tx2);margin:-8px 0 12px}.fb.half{background:#fff4d6;color:#7a5b00}@media(prefers-color-scheme:dark){.fb.half{background:#3a3217;color:#e8c766}}.bl{min-height:56px;border:1.5px dashed var(--bd);border-radius:var(--radius);padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:12px}.bp{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}.chip{padding:8px 12px}.chip.on{background:var(--pri);color:var(--onpri);border-color:var(--pri)}.rw{text-align:right;margin-bottom:4px}.rw button{padding:6px 10px;font-size:13px}.lnk{background:none;border:none;color:var(--tx2);font-size:13px;text-decoration:underline;padding:4px 0}.cx{display:flex;gap:8px;align-items:center;justify-content:flex-end;font-size:13px}.cx button{padding:6px 10px;font-size:13px}.ty{margin:6px 0 0 26px;padding:6px 10px;font-size:13px}.ty summary{color:var(--tx2)}.tyf{margin:4px 0 0 26px;font-size:12px;color:var(--tx2)}.tr{display:flex;justify-content:space-between;align-items:center;padding:4px 0}input[type=range]{width:100%;accent-color:var(--pri);margin:0 0 10px;height:28px}.ld{width:30%!important;animation:ld 1.2s ease-in-out infinite alternate}@keyframes ld{from{margin-left:0}to{margin-left:70%}}.hd{display:flex;justify-content:space-between;align-items:flex-end}.ic{display:flex;gap:8px}.ic button{width:42px;height:42px;padding:0;border-radius:50%;display:flex;align-items:center;justify-content:center}.big2{height:60px;font-size:20px}.sum{display:block;width:100%;text-align:center;margin:6px 0 10px}.inf h3{font-size:16px;margin:18px 0 4px}.inf p,.inf li{font-size:15px;margin:4px 0}.inf ul{padding-left:20px;margin:4px 0}.sa{display:flex;gap:8px;margin-top:10px}.sa button{flex:1}.um{display:flex;gap:6px;margin:8px 0 0}.um button{flex:1;padding:8px 0;font-size:17px}.err{border:1px solid var(--bd);background:var(--card);border-radius:var(--radius);padding:10px 12px;margin-bottom:8px;font-size:14px;box-shadow:var(--shadow)}
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
@@ -36,6 +46,7 @@ var TYPE={choice:"Выбор ответа",fill:"Вставить слово",fi
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить'};
 var app=document.getElementById('app');
+function render(h){app.innerHTML=h;app.style.animation='none';app.offsetHeight;app.style.animation=''}
 var DATA=null,byId={},S=null,run=null,saved=null,P={},UM=false,VIEW='home';
 var TG=window.Telegram&&window.Telegram.WebApp;
 if(TG){try{TG.ready();TG.expand()}catch(e){}}
@@ -46,11 +57,16 @@ function csGet(keys,cb){
  var o={};keys.forEach(function(k){try{var v=localStorage.getItem(k);if(v!=null)o[k]=v}catch(e){}});cb(o)}
 function haptic(){if(TG&&TG.HapticFeedback)try{TG.HapticFeedback.impactOccurred('light')}catch(e){}}
 function tgBack(fn){if(!TG||!TG.BackButton)return;if(tgBack._fn)TG.BackButton.offClick(tgBack._fn);tgBack._fn=fn||null;if(fn){TG.BackButton.onClick(fn);TG.BackButton.show()}else TG.BackButton.hide()}
-function applyTheme(){if(!TG)return;var p=TG.themeParams||{},map={bg_color:'--bg',secondary_bg_color:'--card',text_color:'--tx',hint_color:'--tx2',section_separator_color:'--bd',button_color:'--pri',button_text_color:'--onpri'};
- Object.keys(map).forEach(function(k){if(p[k])document.documentElement.style.setProperty(map[k],'#'+String(p[k]).replace('#',''))})}
+var THEME_MAP={bg_color:'--bg',secondary_bg_color:'--card',text_color:'--tx',hint_color:'--tx2',section_separator_color:'--bd',button_color:'--pri',button_text_color:'--onpri'};
+function applyTheme(){if(!TG)return;
+ if(S&&S.theme=='lavender'){Object.keys(THEME_MAP).forEach(function(k){document.documentElement.style.removeProperty(THEME_MAP[k])});return}
+ var p=TG.themeParams||{};
+ Object.keys(THEME_MAP).forEach(function(k){if(p[k])document.documentElement.style.setProperty(THEME_MAP[k],'#'+String(p[k]).replace('#',''))})}
 applyTheme();
 if(TG&&TG.onEvent)TG.onEvent('themeChanged',applyTheme);
-function saveSet(){csSet('dg_set',JSON.stringify({diff:S.diff,defer:S.defer,blocks:S.blocks,types:S.types}))}
+function setTheme(t){S.theme=t;if(t=='lavender')document.documentElement.setAttribute('data-theme','lavender');else document.documentElement.removeAttribute('data-theme');applyTheme()}
+function setView(v){VIEW=v;document.body.className=v=='home'?'home':''}
+function saveSet(){csSet('dg_set',JSON.stringify({diff:S.diff,defer:S.defer,blocks:S.blocks,types:S.types,theme:S.theme}))}
 function bank(k){return DATA.tasks.filter(function(t){return t.block==k})}
 function allTasks(){return DATA.tasks}
 function tw(k){var d=DATA.blocks[k].types,u=S.types[k]||{},o={};Object.keys(d).forEach(function(t){o[t]=u[t]!=null?u[t]:d[t]});return o}
@@ -92,71 +108,81 @@ function loadAll(cb){
   try{var _s=JSON.parse(res.dg_set||'null');if(_s){Object.keys(_s).forEach(function(k){S[k]=_s[k]});S.blocks=S.blocks.filter(function(k){return DATA.blocks[k]})}}catch(e){}
   UM=res.dg_uml=='1';
   try{if(res.dg_run)saved=parseSaved(res.dg_run)}catch(e){}
+  setTheme(S.theme);
   loadP(cb)})}
 function init(){home()}
-function sumLine(){var n=S.blocks.length,d={5:'Легко',10:'Средне',15:'Сложно'}[S.diff];return (n==Object.keys(DATA.blocks).length?'Все блоки ('+n+')':'Блоков: '+n+' ('+S.blocks.join(', ')+')')+' · '+d+' · '+total()+' заданий'}
-function home(){VIEW='home';tgBack(null);
- var h='<div class="hd"><div><small>Deutsch</small><h1 style="margin-bottom:0">Грамматика</h1></div><div class="ic"><button id="inf" aria-label="Как это работает">ⓘ</button><button id="set" aria-label="Настройки">⚙</button></div></div><div style="height:18px"></div>';
+function sumLine(){var n=S.blocks.length;return (n==Object.keys(DATA.blocks).length?'Все блоки ('+n+')':'Блоков: '+n+' ('+S.blocks.join(', ')+')')+' · '+S.diff+' на блок · '+total()+' заданий'}
+function home(){setView('home');tgBack(null);
+ var icInf='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
+ var icSet='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>';
+ var h='<div class="hd"><div><small>Deutsch</small><h1 style="margin-bottom:0">Грамматика</h1></div><div class="ic"><button id="inf" aria-label="Как это работает">'+icInf+'</button><button id="set" aria-label="Настройки">'+icSet+'</button></div></div><div style="height:18px"></div>';
  if(saved)h+='<button class="sec" id="resume" style="margin:0 0 4px">Продолжить тест (вопрос '+(saved.i+1)+' из '+saved.ids.length+')</button>';
  h+='<button class="pri big2" id="go">Старт</button><button class="lnk sum" id="sum">'+esc(sumLine())+'</button>';
  h+='<button class="sec" id="weak">Работа над ошибками</button><p class="mut" id="wmsg" style="margin:6px 0 0"></p>';
  var st=Object.keys(DATA.blocks).filter(function(k){return pstat(k)!==null}).sort(function(a,b){return pstat(a)-pstat(b)});
  if(st.length){h+='<p style="margin:18px 0 4px"><small>Где больше ошибок (последние 3 прохождения)</small></p>';st.forEach(function(k){var p=Math.round(pstat(k)*100);h+='<div class="row"><span>'+k+' '+esc(DATA.blocks[k].name)+'</span><span style="'+(p<70?'color:var(--bad);font-weight:600':'')+'">'+p+'%</span></div>'});h+='<p class="mut" style="margin-top:6px">Слабый блок: ниже 70%.</p>'}
- app.innerHTML=h;
+ render('<div class="frame">'+h+'</div>');
  var r=document.getElementById('resume');if(r)r.onclick=function(){restore(saved);show()};
  document.getElementById('set').onclick=settings;document.getElementById('sum').onclick=settings;document.getElementById('inf').onclick=info;
  document.getElementById('weak').onclick=function(){if(!startWeak())document.getElementById('wmsg').textContent='Пока ошибок нет: задания с ошибками появятся здесь после первых тестов.'};
  document.getElementById('go').onclick=function(){if(!S.blocks.length){settings();return}start()};
 }
-function settings(){VIEW='set';tgBack(home);
+function settings(){setView('set');tgBack(home);
  var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">Настройки</h1>';
- h+='<small>Сложность (заданий на каждый блок)</small><div class="seg" id="seg" style="margin-top:6px">';
- [['Легко',5],['Средне',10],['Сложно',15]].forEach(function(d){h+='<button data-n="'+d[1]+'" class="'+(S.diff==d[1]?'on':'')+'">'+d[0]+' · '+d[1]+'</button>'});
- h+='</div><p class="mut" style="margin:6px 0 14px" id="cnt"></p>';
- h+='<label><input type="checkbox" id="defer" '+(S.defer?'checked':'')+'> Показать результат в конце</label>';
- h+='<label style="margin-top:8px"><input type="checkbox" id="uml" '+(UM?'checked':'')+'> Кнопки ä ö ü ß под полем ввода</label>';
- h+='<div class="hd" style="margin:20px 0 6px"><small id="sm"></small><span><button class="lnk" id="all">Все</button> · <button class="lnk" id="none">Снять</button></span></div><div class="grid" style="margin-top:0">';
+ h+='<div class="frame"><small>Количество заданий (на каждый блок)</small><div class="seg" id="seg" style="margin-top:6px">';
+ [5,10,15].forEach(function(n){h+='<button data-n="'+n+'" class="'+(S.diff==n?'on':'')+'">'+n+'</button>'});
+ h+='</div><p class="mut" style="margin:6px 0 0" id="cnt"></p></div>';
+ h+='<div class="frame"><small>Дизайн</small><div class="seg" id="segTheme" style="margin-top:6px">';
+ [['Классический','classic'],['Лаванда','lavender']].forEach(function(d){h+='<button data-th="'+d[1]+'" class="'+(S.theme==d[1]?'on':'')+'">'+d[0]+'</button>'});
+ h+='</div><p class="mut" style="margin:6px 0 0">Меняет только оформление, экраны остаются те же.</p></div>';
+ h+='<div class="frame"><label><input type="checkbox" id="defer" '+(S.defer?'checked':'')+'> Показать результат в конце</label>';
+ h+='<label style="margin-top:8px"><input type="checkbox" id="uml" '+(UM?'checked':'')+'> Кнопки ä ö ü ß под полем ввода</label></div>';
+ h+='<div class="hd" style="margin:20px 0 10px"><small id="sm"></small><span><button class="lnk" id="all">Все</button> · <button class="lnk" id="none">Снять</button></span></div>';
  Object.keys(DATA.blocks).forEach(function(k){var b=DATA.blocks[k];
-  h+='<div class="bi"><label style="align-items:flex-start"><input type="checkbox" class="blk" value="'+k+'" '+(S.blocks.indexOf(k)>=0?'checked':'')+' style="margin-top:3px"><span>'+k+' '+b.name+' <small>'+b.level+'</small>'+(b.example?'<br><small style="font-size:12px">'+esc(b.example)+'</small>':'')+'</span></label>';
+  h+='<div class="frame"><label style="align-items:flex-start"><input type="checkbox" class="blk" value="'+k+'" '+(S.blocks.indexOf(k)>=0?'checked':'')+' style="margin-top:3px"><span>'+k+' '+b.name+' <small>'+b.level+'</small>'+(b.example?'<br><small style="font-size:12px">'+esc(b.example)+'</small>':'')+'</span></label>';
   if(fixedB(k))h+='<div class="tyf">Только выбор ответа, фиксированный список ('+bank(k).length+')</div>';
-  else{h+='<details class="ty"><summary id="ts'+k+'"></summary>';Object.keys(b.types).forEach(function(t){h+='<div class="tr"><span>'+TYPE[t]+'</span><span class="st"><button data-k="'+k+'" data-t="'+t+'" data-d="-1">−</button><b id="tv'+k+t+'">'+tw(k)[t]+'</b><button data-k="'+k+'" data-t="'+t+'" data-d="1">+</button></span></div>'});
+  else{h+='<details class="ty"><summary id="ts'+k+'"></summary>';Object.keys(b.types).forEach(function(t){h+='<div class="tr"><span>'+TYPE[t]+'</span><span class="mut" id="tv'+k+t+'">'+(plan(k,S.diff)[t]||0)+' из '+S.diff+'</span></div><input type="range" class="sl" id="sl'+k+t+'" min="0" max="20" value="'+tw(k)[t]+'" data-k="'+k+'" data-t="'+t+'">'});
    h+='<div class="tr"><button class="lnk" data-rk="'+k+'">Сбросить к стандарту</button></div></details>'}
   h+='</div>'});
- h+='</div><button class="pri" id="bk2">Готово</button>';
- app.innerHTML=h;upd();window.scrollTo(0,0);
+ h+='<button class="pri" id="bk2">Готово</button>';
+ render(h);upd();window.scrollTo(0,0);
  document.getElementById('bk').onclick=home;document.getElementById('bk2').onclick=home;
  document.querySelectorAll('#seg button').forEach(function(b){b.onclick=function(){S.diff=+b.dataset.n;saveSet();document.querySelectorAll('#seg button').forEach(function(x){x.className=x===b?'on':''});upd()}});
+ document.querySelectorAll('#segTheme button').forEach(function(b){b.onclick=function(){setTheme(b.dataset.th);saveSet();document.querySelectorAll('#segTheme button').forEach(function(x){x.className=x===b?'on':''})}});
  document.getElementById('defer').onchange=function(e){S.defer=e.target.checked;saveSet()};
  document.getElementById('uml').onchange=function(e){UM=e.target.checked;csSet('dg_uml',UM?'1':'0')};
  function selB(){S.blocks=[].slice.call(document.querySelectorAll('.blk')).filter(function(x){return x.checked}).map(function(x){return x.value});saveSet();upd()}
  document.querySelectorAll('.blk').forEach(function(c){c.onchange=selB});
  document.getElementById('all').onclick=function(){document.querySelectorAll('.blk').forEach(function(c){c.checked=true});selB()};
  document.getElementById('none').onclick=function(){document.querySelectorAll('.blk').forEach(function(c){c.checked=false});selB()};
- document.querySelectorAll('.st button').forEach(function(b){b.onclick=function(){var k=b.dataset.k,t=b.dataset.t,w=tw(k);w[t]=Math.max(0,Math.min(20,w[t]+ +b.dataset.d));
-  if(!Object.keys(w).some(function(x){return w[x]>0}))return;S.types[k]=w;saveSet();document.getElementById('tv'+k+t).textContent=w[t];upd()}});
- document.querySelectorAll('[data-rk]').forEach(function(b){b.onclick=function(){var k=b.dataset.rk;delete S.types[k];saveSet();Object.keys(tw(k)).forEach(function(t){document.getElementById('tv'+k+t).textContent=tw(k)[t]});upd()}});
+ document.querySelectorAll('.sl').forEach(function(el){el.oninput=function(){var k=el.dataset.k,t=el.dataset.t,w=tw(k);w[t]=+el.value;
+  if(!Object.keys(w).some(function(x){return w[x]>0})){w[t]=1;el.value=1}
+  S.types[k]=w;saveSet();upd()}});
+ document.querySelectorAll('[data-rk]').forEach(function(b){b.onclick=function(){var k=b.dataset.rk;delete S.types[k];saveSet();Object.keys(tw(k)).forEach(function(t){document.getElementById('sl'+k+t).value=tw(k)[t]});upd()}});
 }
-function info(){VIEW='info';tgBack(home);
+function info(){setView('info');tgBack(home);
  var n=DATA.tasks.length;
- var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">Как это работает</h1><div class="inf">'+
- '<h3>Тест</h3><p>«Старт» запускает тест по блокам, выбранным в настройках. Задания из всех блоков перемешаны. Сложность задаёт число заданий на каждый блок: Легко 5, Средне 10, Сложно 15.</p>'+
+ var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">Как это работает</h1>'+
+ '<div class="frame inf"><h3 style="margin-top:0">Тест</h3><p>«Старт» запускает тест по блокам, выбранным в настройках. Задания из всех блоков перемешаны. «Количество заданий» задаёт их число на каждый блок: 5, 10 или 15.</p>'+
  '<p>Внутри блока задания делятся по типам в пропорциях из настроек (раскройте «Типы заданий» под блоком). Из банка сначала берутся задания, которые попадались вам реже всего, поэтому повторы начинаются только после того, как пройдены все задания нужного типа.</p>'+
- '<p>Незаконченный тест сохраняется: его можно продолжить с главной. «Отменить тест» сбрасывает его без сохранения результата.</p>'+
- '<h3>Откуда задания</h3><p>Все задания — из готового банка: '+n+' заданий, около 100 на каждый блок, в блоке M — фиксированный список глаголов с предлогами из учебника ('+DATA.tasks.filter(function(t){return t.block=='M'}).length+').</p>'+
- '<h3>Проверка и баллы</h3><p>Верно — 1 балл, почти верно — 0,5, неверно — 0. Регистр и знаки препинания не учитываются, кроме блока K «Правописание».</p>'+
+ '<p>Незаконченный тест сохраняется: его можно продолжить с главной. «Отменить тест» сбрасывает его без сохранения результата.</p></div>'+
+ '<div class="frame inf"><h3 style="margin-top:0">Откуда задания</h3><p>Все задания — из готового банка: '+n+' заданий, около 100 на каждый блок, в блоке M — фиксированный список глаголов с предлогами из учебника ('+DATA.tasks.filter(function(t){return t.block=='M'}).length+').</p></div>'+
+ '<div class="frame inf"><h3 style="margin-top:0">Проверка и баллы</h3><p>Верно — 1 балл, почти верно — 0,5, неверно — 0. Регистр и знаки препинания не учитываются, кроме блока K «Правописание».</p>'+
  '<p>Выбор ответа, вставка слова и составление предложения проверяются по эталону сразу. Перевод, исправление и преобразование: при точном совпадении — сразу; иначе вы сравниваете свой ответ с эталоном сами и выбираете «Верно», «Почти» или «Неверно».</p>'+
- '<p>«Показать результат в конце» скрывает оценку после каждого ответа; итог и разбор ошибок всегда показываются в конце теста.</p>'+
- '<h3>Ошибки и прогресс</h3><p>«Где больше ошибок» показывает процент баллов по каждому блоку за последние 3 прохождения. Блок ниже 70% считается слабым.</p>'+
- '<p>«Работа над ошибками» собирает тест из заданий, где вы ошиблись, сначала в слабых блоках, и добирает задания из этих же блоков. Задание уходит из списка ошибок, когда вы ответите на него верно.</p>'+
- '<h3>Прочее</h3><p>Кнопки ä ö ü ß под полем ввода включаются в настройках. Настройки и прогресс сохраняются автоматически в облаке Telegram (Cloud Storage), на этом же аккаунте они доступны с любого устройства.</p>'+
+ '<p>«Показать результат в конце» скрывает оценку после каждого ответа; итог и разбор ошибок всегда показываются в конце теста.</p></div>'+
+ '<div class="frame inf"><h3 style="margin-top:0">Ошибки и прогресс</h3><p>«Где больше ошибок» показывает процент баллов по каждому блоку за последние 3 прохождения. Блок ниже 70% считается слабым.</p>'+
+ '<p>«Работа над ошибками» собирает тест из заданий, где вы ошиблись, сначала в слабых блоках, и добирает задания из этих же блоков. Задание уходит из списка ошибок, когда вы ответите на него верно.</p></div>'+
+ '<div class="frame inf"><h3 style="margin-top:0">Прочее</h3><p>Кнопки ä ö ü ß под полем ввода включаются в настройках. Настройки и прогресс сохраняются автоматически в облаке Telegram (Cloud Storage), на этом же аккаунте они доступны с любого устройства.</p>'+
+ '<p>Дизайн в настройках — «Классический» или «Лаванда»: меняется только оформление (цвета, скругления, тени, размытый фон), логика и экраны те же. «Лаванда» всегда светлая, не зависит от темы телефона.</p>'+
  '<p class="mut">Описание обновлено: 15.11.2026.</p></div><button class="pri" id="bk2">Понятно</button>';
- app.innerHTML=h;window.scrollTo(0,0);document.getElementById('bk').onclick=home;document.getElementById('bk2').onclick=home;
+ render(h);window.scrollTo(0,0);document.getElementById('bk').onclick=home;document.getElementById('bk2').onclick=home;
 }
 function cntB(k){return Math.min(S.diff,bank(k).length)}
 function total(){var n=0;S.blocks.forEach(function(k){n+=cntB(k)});return n}
 function upd(){var sm=document.getElementById('sm');if(!sm)return;sm.textContent='Грамматические блоки: выбрано '+S.blocks.length+' из '+Object.keys(DATA.blocks).length;
  Object.keys(DATA.blocks).forEach(function(k){var e=document.getElementById('ts'+k);if(!e)return;var p=plan(k,S.diff),w=tw(k);
-  e.textContent='Типы заданий: '+Object.keys(w).filter(function(t){return w[t]>0}).map(function(t){return TSH[t]+' '+(p[t]||0)}).join(', ')+' · в банке: '+bank(k).length});
+  e.textContent='Типы заданий: '+Object.keys(w).filter(function(t){return w[t]>0}).map(function(t){return TSH[t]+' '+(p[t]||0)}).join(', ')+' · в банке: '+bank(k).length;
+  Object.keys(w).forEach(function(t){var tv=document.getElementById('tv'+k+t);if(tv)tv.textContent=(p[t]||0)+' из '+S.diff})});
  document.getElementById('cnt').textContent='Всего в тесте: '+total()+' заданий.'}
 function start(){
  var pool=[],skip={},warn=[];
@@ -188,9 +214,9 @@ function bindCancel(){var w=document.getElementById('cxw');
  document.getElementById('cx').onclick=ask}
 function umRow(){return UM?'<div class="um">'+['ä','ö','ü','ß'].map(function(c){return '<button type="button" data-c="'+c+'">'+c+'</button>'}).join('')+'</div>':''}
 function umBind(el){document.querySelectorAll('.um button').forEach(function(b){b.onmousedown=function(e){e.preventDefault()};b.onclick=function(){var c=b.dataset.c,a=el.selectionStart,z=el.selectionEnd;el.value=el.value.slice(0,a)+c+el.value.slice(z);el.focus();el.selectionStart=el.selectionEnd=a+1}})}
-function show(){VIEW='quiz';
+function show(){setView('quiz');
  var t=run.q[run.i];
- var h='<div id="cxw" style="text-align:right;margin-bottom:4px"><button class="lnk" id="cx">Отменить тест</button></div><div class="top"><span>Вопрос '+(run.i+1)+' из '+run.q.length+'</span><span>'+(S.defer?'':'Баллы: '+fmt(score()))+'</span></div><div class="bar"><i style="width:'+(run.i/run.q.length*100)+'%"></i></div>';
+ var h='<div id="cxw" style="text-align:right;margin-bottom:8px"><button class="lnk" id="cx">Отменить тест</button></div><div class="frame"><div class="top"><span>Вопрос '+(run.i+1)+' из '+run.q.length+'</span><span>'+(S.defer?'':'Баллы: '+fmt(score()))+'</span></div><div class="bar"><i style="width:'+(run.i/run.q.length*100)+'%"></i></div>';
  h+='<div class="blk">Блок '+t.block+' · '+esc(DATA.blocks[t.block].name)+'</div><div class="tag">'+TYPE[t.type]+'</div>'+(run.warn&&run.i==0?'<div class="note" style="margin:0 0 10px">'+esc(run.warn)+'</div>':'')+'<div class="q">'+esc(t.prompt)+(t.type=='choice'||t.type=='fill'?'\n'+esc(t.text):'')+'</div>';
  if(t.note)h+='<div class="note">Часть речи: '+esc(t.note)+'</div>';
  if(t.type=='choice'){shuffle(t.options).forEach(function(o){h+='<button class="opt" data-v="'+esc(o)+'">'+esc(o)+'</button>'})}
@@ -199,7 +225,7 @@ function show(){VIEW='quiz';
  else{
   if(t.type!='fix')h+='<div class="q" style="font-size:16px;color:var(--tx2)">'+esc(t.text)+'</div>';
   h+='<textarea id="in" rows="3" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ваш ответ">'+(t.type=='fix'?esc(t.text):'')+'</textarea>'+umRow()+'<button class="pri" id="chk">Проверить</button>'}
- h+='<div id="fb"></div>';app.innerHTML=h;
+ h+='<div id="fb"></div></div>';render(h);
  bindCancel();
  tgBack(function(){var c=document.getElementById('cx');if(c)c.click()});
  if(t.type=='choice')document.querySelectorAll('.opt').forEach(function(b){b.onclick=function(){answer(b.dataset.v,b)}});
@@ -240,21 +266,22 @@ function selfAsk(t,v,rec,last){document.getElementById('chk').style.display='non
   x.innerHTML='<b>'+(rec.s==1?'Засчитано.':rec.s==0.5?'Полбалла.':'Не засчитано.')+'</b> Эталон: '+esc(t.answers[0])+'<div class="h">'+esc(t.hint)+'</div>';
   var nb=document.createElement('button');nb.className='pri';nb.textContent=last?'Результат':'Дальше';nb.onclick=next;document.getElementById('fb').appendChild(nb)}})}
 function next(){run.i++;if(run.i<run.q.length){save();show()}else finish()}
-function finish(){VIEW='result';tgBack(home);
- recordProgress();var sc=score(),h='<small>Результат</small><div class="big">'+fmt(sc)+' из '+run.res.length+'</div><small>По блокам</small>';
+function finish(){setView('result');tgBack(home);
+ recordProgress();var sc=score(),h='<div class="frame"><small>Результат</small><div class="big">'+fmt(sc)+' из '+run.res.length+'</div><small>По блокам</small>';
  Object.keys(DATA.blocks).forEach(function(k){var r=run.res.filter(function(x){return x.t.block==k});if(r.length)h+='<div class="row"><span>'+k+' '+DATA.blocks[k].name+'</span><span>'+fmt(r.reduce(function(a,x){return a+x.s},0))+' из '+r.length+'</span></div>'});
+ h+='</div>';
  var bad=run.res.filter(function(r){return r.s<1});
  if(bad.length){h+='<p><small>Разбор ошибок ('+bad.length+')</small></p>';bad.forEach(function(r){h+='<div class="err"><div class="mut">'+TYPE[r.t.type]+' · блок '+r.t.block+' · '+fmt(r.s)+(r.s==0?' баллов':' балла')+'</div>'+esc(r.t.prompt)+' '+esc(r.t.text)+'<br>Ваш ответ: '+esc(r.v)+'<br>Эталон: '+esc(r.t.answers[0])+(r.c?'<div class="mut" style="margin-top:4px">'+esc(r.c)+'</div>':'')+'<div class="mut" style="margin-top:4px">'+esc(r.t.hint)+'</div></div>'})}
- else h+='<p>Ошибок нет.</p>';
+ else h+='<div class="frame"><p style="margin:0">Ошибок нет.</p></div>';
  var hasW=weak().length||errTasks().length;h+=(hasW?'<button class="pri" id="wk2">Работа над ошибками</button>':'')+'<button class="'+(hasW?'sec':'pri')+'" id="again">Пройти ещё раз</button><button class="sec" id="home">На главную</button>';
- app.innerHTML=h;run.done=true;var keep=run;run=null;saved=null;save();run=keep;
+ render(h);run.done=true;var keep=run;run=null;saved=null;save();run=keep;
  document.getElementById('again').onclick=start;var w2=document.getElementById('wk2');if(w2)w2.onclick=startWeak;document.getElementById('home').onclick=function(){run=null;home()};
 }
-app.innerHTML='<p class="mut">Загрузка…</p>';
+document.body.className='home';render('<p class="mut">Загрузка…</p>');
 fetch('data/tasks.json').then(function(r){return r.json()}).then(function(data){
  DATA=data;
  DATA.tasks.forEach(function(t){byId[t.id]=t});
- S={diff:10,defer:false,blocks:Object.keys(DATA.blocks),types:{}};
+ S={diff:10,defer:false,blocks:Object.keys(DATA.blocks),types:{},theme:'classic'};
  loadAll(init);
-}).catch(function(){app.innerHTML='<p class="mut">Не удалось загрузить задания. Проверьте подключение и обновите страницу.</p>'});
+}).catch(function(){render('<p class="mut">Не удалось загрузить задания. Проверьте подключение и обновите страницу.</p>')});
 </script></body></html>
