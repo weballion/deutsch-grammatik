@@ -1,7 +1,8 @@
-"""Проверка банка заданий: python3 scripts/validate.py"""
+"""Проверка банка заданий: uv run scripts/validate.py [путь_к_tasks.json]"""
 import json,re,sys,collections
 def norm(s): return re.sub(r"\s+"," ",re.sub(r"[.,!?;:\"«»„“”]"," ",s.lower())).strip()
-d=json.load(open("data/tasks.json",encoding="utf-8"));B=d["blocks"];errs=[];seen={};ids=set()
+path=sys.argv[1] if len(sys.argv)>1 else "data/tasks.json"
+d=json.load(open(path,encoding="utf-8"));B=d["blocks"];errs=[];seen={};ids=set()
 for t in d["tasks"]:
     i=t.get("id");k=t.get("block");ty=t.get("type")
     if i in ids: errs.append(f"{i}: повтор id")
