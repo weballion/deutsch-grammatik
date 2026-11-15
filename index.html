@@ -47,6 +47,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
+var APP_VERSION='v1';
 var TYPE={choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать"};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить'};
@@ -140,6 +141,7 @@ function home(){setView('home');tgBack(null);
  h+='<button class="sec" id="weak">Работа над ошибками</button><p class="mut" id="wmsg" style="margin:6px 0 0"></p>';
  var st=Object.keys(DATA.blocks).filter(function(k){return pstat(k)!==null}).sort(function(a,b){return pstat(a)-pstat(b)});
  if(st.length){h+='<p style="margin:18px 0 4px"><small>Где больше ошибок (последние 3 прохождения)</small></p>';st.forEach(function(k){var p=Math.round(pstat(k)*100);h+='<div class="row"><span>'+k+' '+esc(DATA.blocks[k].name)+'</span><span style="'+(p<70?'color:var(--bad);font-weight:600':'')+'">'+p+'%</span></div>'});h+='<p class="mut" style="margin-top:6px">Слабый блок: ниже 70%.</p>'}
+ h+='<p class="mut" style="text-align:center;margin:20px 0 0">'+APP_VERSION+'</p>';
  render('<div class="frame">'+h+'</div>');
  var r=document.getElementById('resume');if(r)r.onclick=function(){restore(saved);show()};
  document.getElementById('set').onclick=settings;document.getElementById('sum').onclick=settings;document.getElementById('inf').onclick=info;
