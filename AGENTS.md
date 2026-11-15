@@ -136,7 +136,7 @@ Nachdem (блок J): главное в Präsens/Futur I → придаточн�
 - Статический сайт: `index.html` + `data/tasks.json`, хостинг GitHub Pages (HTTPS). Сервер не нужен. `index.html` грузит банк через `fetch('data/tasks.json')`.
 - Без ИИ: только банк + самооценка.
 - Хранение: `Telegram.WebApp.CloudStorage` (лимиты: 1024 ключа, значение до 4096 символов — прогресс и счётчики показов разбиты по ключам на блок: `dg_prog_<блок>`, `dg_seen_<блок>`), запасной вариант вне Telegram — `localStorage`.
-- Тема из `themeParams` (с обновлением на `themeChanged`), системная кнопка «Назад» (`BackButton`) дублирует внутреннюю навигацию, лёгкая вибрация (`HapticFeedback.impactOccurred('light')`) на ответах, `ready()` и `expand()` при старте.
+- Классический дизайн берёт из `themeParams` (с обновлением на `themeChanged`) только фон страницы и карточек (`bg_color`/`secondary_bg_color`) — акценты, текст и цвета верно/неверно остаются нашей палитрой, чтобы вид не зависел от случайной темы клиента Telegram у пользователя. Лаванда themeParams не использует вовсе. Системная кнопка «Назад» (`BackButton`) дублирует внутреннюю навигацию, лёгкая вибрация (`HapticFeedback.impactOccurred('light')`) на ответах, `ready()` и `expand()` при старте.
 - Бот через @BotFather; ссылка на Pages задаётся как Mini App / кнопка меню.
 
 ## 10. Порядок работы
