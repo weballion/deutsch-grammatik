@@ -132,7 +132,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v8';
+var APP_VERSION='v9';
 var TYPE={choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать"};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить'};
@@ -175,9 +175,9 @@ function norm(s){return s.toLowerCase().replace(/[.,!?;:"«»„“”]/g,' ').r
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
 function fmt(x){return String(x).replace('.',',')}
-function save(){var p=run?{S:S,ids:run.q.map(function(t){return t.id}),i:run.i,res:run.res.map(function(r){return{id:r.t.id,v:r.v,s:r.s,c:r.c}})}:null;
+function save(){var p=run?{S:S,ids:run.q.map(function(t){return t.id}),i:run.i,res:run.res.map(function(r){return{id:r.t.id,v:r.v,s:r.s}})}:null;
  csSet(LEVELS[LEVEL].runKey,p?JSON.stringify(p):'')}
-function restore(p){S=p.S;run={q:p.ids.map(function(i){return byId[i]}),i:p.i,res:p.res.map(function(r){return{t:byId[r.id],v:r.v,s:r.s,c:r.c}})};}
+function restore(p){S=p.S;run={q:p.ids.map(function(i){return byId[i]}),i:p.i,res:p.res.map(function(r){return{t:byId[r.id],v:r.v,s:r.s}})};}
 function parseSaved(x){try{var p=typeof x=='string'?JSON.parse(x):x;if(p&&p.ids&&p.i<p.ids.length&&p.ids.every(function(i){return byId[i]}))return p}catch(e){}return null}
 function saveP(){var keys=Object.keys(DATA.blocks);
  keys.forEach(function(k){csSet(LEVELS[LEVEL].progPre+k,JSON.stringify(P[k]||{last:[],errs:[]}));
@@ -377,15 +377,15 @@ function show(){setView('quiz');
 }
 function grade(t,v){
  var st=DATA.blocks[t.block].strict,sq=function(x){return x.trim().replace(/\s+/g,' ')};var exact=t.answers.some(function(a){return st?sq(a)==sq(v):norm(a)==norm(v)});
- if(exact)return{s:1,c:''};
- if(!FREE[t.type])return{s:0,c:''};
- return{s:0,c:'',self:1};
+ if(exact)return{s:1};
+ if(!FREE[t.type])return{s:0};
+ return{s:0,self:1};
 }
 function answer(v,btn){
  haptic();
  var t=run.q[run.i];
  if(btn){document.querySelectorAll('.opt').forEach(function(b){b.disabled=true})}else{document.getElementById('chk').disabled=true;var inp=document.getElementById('in');if(inp)inp.disabled=true}
- var g=grade(t,v);var rec={t:t,v:v,s:g.s,c:g.c};run.res.push(rec);run.i++;var last=run.i>=run.q.length;save();run.i--;
+ var g=grade(t,v);var rec={t:t,v:v,s:g.s};run.res.push(rec);run.i++;var last=run.i>=run.q.length;save();run.i--;
  if(g.self){selfAsk(t,v,rec,last);return}
  if(S.defer){next();return}
  if(t.type=='choice'){document.querySelectorAll('.opt').forEach(function(b){if(norm(b.dataset.v)==norm(t.answers[0]))b.classList.add('ok');else if(b===btn&&g.s==0)b.classList.add('bad')})}
@@ -394,7 +394,6 @@ function answer(v,btn){
  setMood(g.s>0?'happy':'sad');
  var f='<div class="fb '+cls+'"><b>'+(g.s==1?'Верно.':g.s==0.5?'Почти: полбалла.':'Неверно.')+'</b>';
  if(g.s<1)f+=' Эталон: '+esc(t.answers[0]);
- if(g.c)f+='<div class="h">'+esc(g.c)+'</div>';
  f+='<div class="h">'+esc(t.hint)+'</div>';
  f+='</div><button class="pri" id="nx">'+(last?'Результат':'Дальше')+'</button>';
  document.getElementById('fb').innerHTML=f;
@@ -415,7 +414,7 @@ function finish(){setView('result');tgBack(home);
  Object.keys(DATA.blocks).forEach(function(k){var r=run.res.filter(function(x){return x.t.block==k});if(r.length)h+='<div class="row"><span>'+k+' '+DATA.blocks[k].name+'</span><span>'+fmt(r.reduce(function(a,x){return a+x.s},0))+' из '+r.length+'</span></div>'});
  h+='</div>';
  var bad=run.res.filter(function(r){return r.s<1});
- if(bad.length){h+='<p><small>Разбор ошибок ('+bad.length+')</small></p>';bad.forEach(function(r){h+='<div class="err"><div class="mut">'+TYPE[r.t.type]+' · блок '+r.t.block+' · '+fmt(r.s)+(r.s==0?' баллов':' балла')+'</div>'+esc(r.t.prompt)+' '+esc(r.t.text)+'<br>Ваш ответ: '+esc(r.v)+'<br>Эталон: '+esc(r.t.answers[0])+(r.c?'<div class="mut" style="margin-top:4px">'+esc(r.c)+'</div>':'')+'<div class="mut" style="margin-top:4px">'+esc(r.t.hint)+'</div></div>'})}
+ if(bad.length){h+='<p><small>Разбор ошибок ('+bad.length+')</small></p>';bad.forEach(function(r){h+='<div class="err"><div class="mut">'+TYPE[r.t.type]+' · блок '+r.t.block+' · '+fmt(r.s)+(r.s==0?' баллов':' балла')+'</div>'+esc(r.t.prompt)+' '+esc(r.t.text)+'<br>Ваш ответ: '+esc(r.v)+'<br>Эталон: '+esc(r.t.answers[0])+'<div class="mut" style="margin-top:4px">'+esc(r.t.hint)+'</div></div>'})}
  else h+='<div class="frame"><p style="margin:0">Ошибок нет.</p></div>';
  var hasW=weak().length||errTasks().length;h+=(hasW?'<button class="pri" id="wk2">Работа над ошибками</button>':'')+'<button class="'+(hasW?'sec':'pri')+'" id="again">Пройти ещё раз</button><button class="sec" id="home">На главную</button>';
  render(h);run.done=true;var keep=run;run=null;saved=null;save();run=keep;
