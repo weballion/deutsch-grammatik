@@ -132,7 +132,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v13';
+var APP_VERSION='v14';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -459,7 +459,7 @@ function settings(){setView('set');tgBack(home);
   if(fixedB(k))h+='<div class="tyf">'+L('onlyChoiceFixed',bank(k).length)+'</div>';
   else if(Object.keys(b.types).length<=1){var onlyT=Object.keys(b.types)[0],tn=TYPE[LANG][onlyT];tn=tn.charAt(0).toLowerCase()+tn.slice(1);
    h+='<div class="tyf">'+L('onlyType',tn,bank(k).length)+'</div>'}
-  else{h+='<details class="ty"><summary id="ts'+k+'"></summary>';Object.keys(b.types).forEach(function(ty){h+='<div class="tr"><span>'+TYPE[LANG][ty]+'</span><span class="mut" id="tv'+k+ty+'">'+ofN(plan(k,S.diff)[ty]||0,S.diff)+'</span></div><input type="range" class="sl" id="sl'+k+ty+'" min="0" max="20" value="'+tw(k)[ty]+'" data-k="'+k+'" data-t="'+ty+'">'});
+  else{h+='<details class="ty"><summary id="ts'+k+'"></summary>';var w0=tw(k),sum0=Object.keys(w0).reduce(function(a,ty){return a+w0[ty]},0)||1;Object.keys(b.types).forEach(function(ty){h+='<div class="tr"><span>'+TYPE[LANG][ty]+'</span><span class="mut" id="tv'+k+ty+'">'+ofN(plan(k,S.diff)[ty]||0,S.diff)+'</span></div><input type="range" class="sl" id="sl'+k+ty+'" min="0" max="'+sum0+'" value="'+w0[ty]+'" data-k="'+k+'" data-t="'+ty+'">'});
    h+='<div class="tr"><button class="lnk" data-rk="'+k+'">'+L('resetDefault')+'</button></div></details>'}
   h+='</div>'});
  h+='<button class="pri" id="bk2">Готово</button>';
@@ -506,8 +506,10 @@ function cntB(k){return Math.min(S.diff,bank(k).length)}
 function total(){var n=0;S.blocks.forEach(function(k){n+=cntB(k)});return n}
 function upd(){var sm=document.getElementById('sm');if(!sm)return;sm.textContent=L('blocksSelected',S.blocks.length,Object.keys(DATA.blocks).length);
  Object.keys(DATA.blocks).forEach(function(k){var e=document.getElementById('ts'+k);if(!e)return;var p=plan(k,S.diff),w=tw(k);
+  var sum=Object.keys(w).reduce(function(a,ty){return a+w[ty]},0)||1;
   e.textContent=Object.keys(w).filter(function(ty){return w[ty]>0}).map(function(ty){return TSH[LANG][ty]+' '+(p[ty]||0)}).join(', ')+' · '+L('inBank')+': '+bank(k).length;
-  Object.keys(w).forEach(function(ty){var tv=document.getElementById('tv'+k+ty);if(tv)tv.textContent=ofN(p[ty]||0,S.diff)})});
+  Object.keys(w).forEach(function(ty){var tv=document.getElementById('tv'+k+ty);if(tv)tv.textContent=ofN(p[ty]||0,S.diff);
+   var sl=document.getElementById('sl'+k+ty);if(sl){sl.max=sum;sl.value=w[ty]}})});
  document.getElementById('cnt').textContent=L('inTestTotal',total())
 }
 function start(){
