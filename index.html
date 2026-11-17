@@ -132,13 +132,194 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v11';
-var TYPE={choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити"};
+var APP_VERSION='v12';
+var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
-var TSH={choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати'};
+var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить'}};
+var I18N={
+uk:{
+ loading:'Завантаження…',
+ loadError:'Не вдалося завантажити завдання. Перевірте з’єднання та оновіть сторінку.',
+ levelToast:function(l){return 'Рівень: '+l},
+ appName:'Граматика',
+ infoAria:'Як це працює',
+ settingsAria:'Налаштування',
+ resume:function(i,n){return 'Продовжити тест (запитання '+ofN(i,n)+')'},
+ mistakes:'Робота над помилками',
+ noMistakesYet:'Поки помилок немає: завдання з помилками з’являться тут після перших тестів.',
+ allBlocks:function(n){return 'Усі блоки ('+n+')'},
+ someBlocks:function(n,list){return 'Блоків: '+n+' ('+list+')'},
+ perBlockTasks:function(n){return ' на блок · '+n+' завдань'},
+ whereMoreMistakes:'Де більше помилок (останні 3 проходження)',
+ settingsTitle:'Налаштування',
+ level:'Рівень',
+ levelHint:'Змінює банк завдань і набір доступних блоків. Прогрес і налаштування за рівнями окремі.',
+ taskCount:'Кількість завдань (на кожен блок)',
+ theme_classic:'Темна',theme_lavender:'Світла',theme_liquid:'Glass',
+ designHint:'Змінює лише оформлення, екрани залишаються ті самі.',
+ language:'Мова',
+ lang_uk:'Українська',lang_ru:'Русский',
+ languageHint:'Визначається мовою Telegram; можна вибрати вручну.',
+ showResultAtEnd:'Показати результат наприкінці',
+ umlautRow:'Кнопки ä ö ü ß під полем введення',
+ all:'Усі',none:'Жодного',
+ onlyChoiceFixed:function(n){return 'Лише вибір відповіді, фіксований список ('+n+')'},
+ onlyType:function(tn,n){return 'Лише '+tn+' (у банку: '+n+')'},
+ inBank:'у банку',
+ resetDefault:'Скинути до стандарту',
+ settingsSaved:'Налаштування збережено',
+ blocksSelected:function(n,total){return 'Граматичні блоки: вибрано '+ofN(n,total)},
+ inTestTotal:function(n){return 'Усього в тесті: '+n+' завдань.'},
+ questionN:function(i,n){return 'Запитання '+ofN(i,n)},
+ infoTestH:'Тест',
+ infoTest1:'«Старт» запускає тест за блоками, вибраними в налаштуваннях. Завдання з усіх блоків перемішані. «Кількість завдань» задає їх число на кожен блок: 5, 10 або 15.',
+ infoTest2:'Усередині блоку завдання діляться за типами у пропорціях з налаштувань (розгорніть «Типи завдань» під блоком). З банку спочатку беруться завдання, які траплялися вам рідше за всіх, тому повтори починаються лише після того, як пройдені всі завдання потрібного типу.',
+ infoTest3:'Незакінчений тест зберігається: його можна продовжити з головної. «Скасувати тест» скидає його без збереження результату.',
+ infoSourceH:'Звідки завдання',
+ infoSource:function(n,levelBit){return 'Усі завдання — з готового банку: '+n+' завдань'+levelBit+'.'},
+ infoSourceA2B2:function(m){return ', близько 100 на кожен блок, у блоці M — фіксований список дієслів із прийменниками з підручника ('+m+')'},
+ infoSourceA1A2:' для рівня A1–A2 (6 спрощених блоків)',
+ infoLevelH:'Рівень',
+ infoLevel:'У налаштуваннях можна вибрати рівень A2–B2 (усі 13 блоків) або A1–A2 (6 спрощених блоків із простішими завданнями, без складних тем, як Passiv, Konjunktiv II чи Relativsätze). Це два різні банки завдань: прогрес, помилки і вибір блоків зберігаються окремо для кожного рівня.',
+ infoGradeH:'Перевірка і бали',
+ infoGrade1:'Правильно — 1 бал, майже правильно — 0,5, неправильно — 0. Регістр і розділові знаки не враховуються, крім блоку K «Правопис».',
+ infoGrade2:'Вибір відповіді, вставка слова і складання речення перевіряються за зразком одразу. Переклад, виправлення і перетворення: при точному збігу — одразу; інакше ви порівнюєте свою відповідь із зразком самі й обираєте «Правильно», «Майже» або «Неправильно».',
+ infoGrade3:'«Показати результат наприкінці» приховує оцінку після кожної відповіді; підсумок і аналіз помилок завжди показуються в кінці тесту.',
+ infoErrH:'Помилки і прогрес',
+ infoErr1:'«Де більше помилок» показує відсоток балів за кожним блоком за останні 3 проходження, найгірші блоки зверху (не більше 10). Блок нижче 70% вважається слабким і підсвічується червоним.',
+ infoErr2:'«Робота над помилками» збирає тест із завдань, де ви помилилися, спочатку в слабких блоках, і добирає завдання з цих же блоків. Завдання йде зі списку помилок, коли ви відповісте на нього правильно.',
+ infoOtherH:'Інше',
+ infoOther1:'Кнопки ä ö ü ß під полем введення включаються в налаштуваннях. Налаштування і прогрес зберігаються автоматично в хмарі Telegram (Cloud Storage), на цьому ж акаунті вони доступні з будь-якого пристрою.',
+ infoOther2:'Мова інтерфейсу визначається мовою Telegram; змінити її вручну можна в налаштуваннях (Українська/Русский).',
+ infoOther3:'Дизайн у налаштуваннях — «Темна» або «Світла»: змінюється лише оформлення (кольори, скруглення, тіні, розмитий фон), логіка і екрани ті самі. «Темна» підлаштовується під тему телефону (світла чи темна), «Світла» завжди світла, не залежить від теми телефону.',
+ infoUpdated:'Опис оновлено: 17.11.2026.',
+ understood:'Зрозуміло',
+ partOfSpeech:'Частина мови: ',
+ answerPh:'Ваша відповідь',
+ check:'Перевірити',
+ buildHint:'Натискайте слова по порядку, щоб скласти речення. Натисніть на слово в рядку, щоб прибрати його.',
+ reset:'Скинути',
+ pasteAria:'Вставити текст у поле відповіді',
+ pasteTitle:'Вставити в поле відповіді',
+ yourSentence:'Ваше речення',
+ useAllWords:'Використовуйте всі слова.',
+ cancelTest:'Скасувати тест',
+ cancelConfirm:'Скасувати тест? Результат не збережеться.',
+ yes:'Так',no:'Ні',
+ points:'Бали: ',
+ correct:'Правильно.',almostHalf:'Майже: половина бала.',incorrect:'Неправильно.',
+ reference:' Еталон: ',
+ next:'Далі',
+ compareRef:'Порівняйте з еталоном.',
+ yourAnswer:'Ваша відповідь: ',
+ refAnswer:'Еталон: ',
+ orSep:'<br>або: ',
+ saCorrect:'Правильно',saAlmost:'Майже',saWrong:'Неправильно',
+ counted:'Зараховано.',halfPoint:'Половина бала.',notCounted:'Не зараховано.',
+ byBlocks:'За блоками',
+ errReview:function(n){return 'Аналіз помилок ('+n+')'},
+ ptsFull:' балів',ptsHalf:' бала',
+ noErrors:'Помилок немає.',
+ again:'Пройти ще раз',
+ toHome:'На головну',
+ blockTasksLeft:function(k){return 'Блок '+k+': у банку менше завдань, ніж потрібно.'},
+ noTasksForBlocks:'Для вибраних блоків немає завдань. Виберіть блоки в налаштуваннях.'
+},
+ru:{
+ loading:'Загрузка…',
+ loadError:'Не удалось загрузить задания. Проверьте подключение и обновите страницу.',
+ levelToast:function(l){return 'Уровень: '+l},
+ appName:'Грамматика',
+ infoAria:'Как это работает',
+ settingsAria:'Настройки',
+ resume:function(i,n){return 'Продолжить тест (вопрос '+ofN(i,n)+')'},
+ mistakes:'Работа над ошибками',
+ noMistakesYet:'Пока ошибок нет: задания с ошибками появятся здесь после первых тестов.',
+ allBlocks:function(n){return 'Все блоки ('+n+')'},
+ someBlocks:function(n,list){return 'Блоков: '+n+' ('+list+')'},
+ perBlockTasks:function(n){return ' на блок · '+n+' заданий'},
+ whereMoreMistakes:'Где больше ошибок (последние 3 прохождения)',
+ settingsTitle:'Настройки',
+ level:'Уровень',
+ levelHint:'Меняет банк заданий и набор доступных блоков. Прогресс и настройки по уровням раздельные.',
+ taskCount:'Количество заданий (на каждый блок)',
+ theme_classic:'Тёмный',theme_lavender:'Светлый',theme_liquid:'Glass',
+ designHint:'Меняет только оформление, экраны остаются те же.',
+ language:'Язык',
+ lang_uk:'Українська',lang_ru:'Русский',
+ languageHint:'Определяется языком Telegram; можно выбрать вручную.',
+ showResultAtEnd:'Показать результат в конце',
+ umlautRow:'Кнопки ä ö ü ß под полем ввода',
+ all:'Все',none:'Снять',
+ onlyChoiceFixed:function(n){return 'Только выбор ответа, фиксированный список ('+n+')'},
+ onlyType:function(tn,n){return 'Только '+tn+' (в банке: '+n+')'},
+ inBank:'в банке',
+ resetDefault:'Сбросить к стандарту',
+ settingsSaved:'Настройки сохранены',
+ blocksSelected:function(n,total){return 'Грамматические блоки: выбрано '+ofN(n,total)},
+ inTestTotal:function(n){return 'Всего в тесте: '+n+' заданий.'},
+ questionN:function(i,n){return 'Вопрос '+ofN(i,n)},
+ infoTestH:'Тест',
+ infoTest1:'«Старт» запускает тест по блокам, выбранным в настройках. Задания из всех блоков перемешаны. «Количество заданий» задаёт их число на каждый блок: 5, 10 или 15.',
+ infoTest2:'Внутри блока задания делятся по типам в пропорциях из настроек (раскройте «Типы заданий» под блоком). Из банка сначала берутся задания, которые попадались вам реже всего, поэтому повторы начинаются только после того, как пройдены все задания нужного типа.',
+ infoTest3:'Незаконченный тест сохраняется: его можно продолжить с главной. «Отменить тест» сбрасывает его без сохранения результата.',
+ infoSourceH:'Откуда задания',
+ infoSource:function(n,levelBit){return 'Все задания — из готового банка: '+n+' заданий'+levelBit+'.'},
+ infoSourceA2B2:function(m){return ', около 100 на каждый блок, в блоке M — фиксированный список глаголов с предлогами из учебника ('+m+')'},
+ infoSourceA1A2:' для уровня A1–A2 (6 упрощённых блоков)',
+ infoLevelH:'Уровень',
+ infoLevel:'В настройках можно выбрать уровень A2–B2 (все 13 блоков) или A1–A2 (6 упрощённых блоков с более простыми заданиями, без сложных тем вроде Passiv, Konjunktiv II или Relativsätze). Это два разных банка заданий: прогресс, ошибки и выбор блоков хранятся отдельно для каждого уровня.',
+ infoGradeH:'Проверка и баллы',
+ infoGrade1:'Верно — 1 балл, почти верно — 0,5, неверно — 0. Регистр и знаки препинания не учитываются, кроме блока K «Правописание».',
+ infoGrade2:'Выбор ответа, вставка слова и составление предложения проверяются по эталону сразу. Перевод, исправление и преобразование: при точном совпадении — сразу; иначе вы сравниваете свой ответ с эталоном сами и выбираете «Верно», «Почти» или «Неверно».',
+ infoGrade3:'«Показать результат в конце» скрывает оценку после каждого ответа; итог и разбор ошибок всегда показываются в конце теста.',
+ infoErrH:'Ошибки и прогресс',
+ infoErr1:'«Где больше ошибок» показывает процент баллов по каждому блоку за последние 3 прохождения, худшие блоки сверху (не более 10). Блок ниже 70% считается слабым и подсвечивается красным.',
+ infoErr2:'«Работа над ошибками» собирает тест из заданий, где вы ошиблись, сначала в слабых блоках, и добирает задания из этих же блоков. Задание уходит из списка ошибок, когда вы ответите на него верно.',
+ infoOtherH:'Прочее',
+ infoOther1:'Кнопки ä ö ü ß под полем ввода включаются в настройках. Настройки и прогресс сохраняются автоматически в облаке Telegram (Cloud Storage), на этом же аккаунте они доступны с любого устройства.',
+ infoOther2:'Язык интерфейса определяется языком Telegram; изменить его вручную можно в настройках (Українська/Русский).',
+ infoOther3:'Дизайн в настройках — «Тёмный» или «Светлый»: меняется только оформление (цвета, скругления, тени, размытый фон), логика и экраны те же. «Тёмный» подстраивается под тему телефона (светлая или тёмная), «Светлый» всегда светлый, не зависит от темы телефона.',
+ infoUpdated:'Описание обновлено: 17.11.2026.',
+ understood:'Понятно',
+ partOfSpeech:'Часть речи: ',
+ answerPh:'Ваш ответ',
+ check:'Проверить',
+ buildHint:'Нажимайте слова по порядку, чтобы собрать предложение. Нажмите на слово в строке, чтобы убрать его.',
+ reset:'Сбросить',
+ pasteAria:'Вставить текст в поле ответа',
+ pasteTitle:'Вставить в поле ответа',
+ yourSentence:'Ваше предложение',
+ useAllWords:'Используйте все слова.',
+ cancelTest:'Отменить тест',
+ cancelConfirm:'Отменить тест? Результат не сохранится.',
+ yes:'Да',no:'Нет',
+ points:'Баллы: ',
+ correct:'Верно.',almostHalf:'Почти: полбалла.',incorrect:'Неверно.',
+ reference:' Эталон: ',
+ next:'Дальше',
+ compareRef:'Сравните с эталоном.',
+ yourAnswer:'Ваш ответ: ',
+ refAnswer:'Эталон: ',
+ orSep:'<br>или: ',
+ saCorrect:'Верно',saAlmost:'Почти',saWrong:'Неверно',
+ counted:'Засчитано.',halfPoint:'Полбалла.',notCounted:'Не засчитано.',
+ byBlocks:'По блокам',
+ errReview:function(n){return 'Разбор ошибок ('+n+')'},
+ ptsFull:' баллов',ptsHalf:' балла',
+ noErrors:'Ошибок нет.',
+ again:'Пройти ещё раз',
+ toHome:'На главную',
+ blockTasksLeft:function(k){return 'Блок '+k+': в банке меньше заданий, чем нужно.'},
+ noTasksForBlocks:'Для выбранных блоков нет заданий. Выберите блоки в настройках.'
+}
+};
+function L(k){var v=I18N[LANG][k];return typeof v=='function'?v.apply(null,Array.prototype.slice.call(arguments,1)):v}
+function loc(v){return v&&typeof v=='object'?v[LANG]:v}
+function ofN(a,b){return a+(LANG=='ru'?' из ':' з ')+b}
 var app=document.getElementById('app');
 function render(h){app.innerHTML=h;app.style.animation='none';app.offsetHeight;app.style.animation=''}
-var DATA=null,byId={},S=null,run=null,saved=null,P={},UM=false,THEME='classic',VIEW='home';
+var DATA=null,byId={},S=null,run=null,saved=null,P={},UM=false,THEME='classic',VIEW='home',LANG='uk';
 var LEVELS={a2b2:{file:'data/tasks.json',label:'A2–B2',setKey:'dg_set',runKey:'dg_run',progPre:'dg_prog_',seenPre:'dg_seen_'},a1a2:{file:'data/tasks_a1a2.json',label:'A1–A2',setKey:'dg_set_a1a2',runKey:'dg_run_a1a2',progPre:'dg_prog_a1a2_',seenPre:'dg_seen_a1a2_'}};
 var LEVEL='a2b2';
 var TG=window.Telegram&&window.Telegram.WebApp;
@@ -149,6 +330,8 @@ function csGet(keys,cb){
  if(CS){try{CS.getItems(keys,function(err,res){cb(err?{}:res||{})});return}catch(e){}cb({});return}
  var o={};keys.forEach(function(k){try{var v=localStorage.getItem(k);if(v!=null)o[k]=v}catch(e){}});cb(o)}
 function haptic(){if(TG&&TG.HapticFeedback)try{TG.HapticFeedback.impactOccurred('light')}catch(e){}}
+function detectLang(){var c=TG&&TG.initDataUnsafe&&TG.initDataUnsafe.user&&TG.initDataUnsafe.user.language_code;return c&&String(c).toLowerCase().indexOf('ru')==0?'ru':'uk'}
+function setLang(l){LANG=l;document.documentElement.lang=l}
 var toastT=null;
 function toast(msg){var el=document.getElementById('toast');if(!el){el=document.createElement('div');el.id='toast';el.className='toast';document.body.appendChild(el)}
  el.textContent=msg;el.classList.remove('show');void el.offsetWidth;el.classList.add('show');
@@ -205,7 +388,7 @@ function loadAll(cb){
   try{var _s=JSON.parse(res[LEVELS[LEVEL].setKey]||'null');if(_s){Object.keys(_s).forEach(function(k){S[k]=_s[k]});S.blocks=S.blocks.filter(function(k){return DATA.blocks[k]})}}catch(e){}
   try{if(res[LEVELS[LEVEL].runKey])saved=parseSaved(res[LEVELS[LEVEL].runKey])}catch(e){}
   loadP(cb)})}
-function loaderHtml(){return '<div class="loader"><div class="spin"></div><p class="mut">Завантаження…</p></div>'}
+function loaderHtml(){return '<div class="loader"><div class="spin"></div><p class="mut">'+L('loading')+'</p></div>'}
 function robotHtml(mood,cls){return '<div class="rwrap '+cls+'" id="rbot" data-mood="'+mood+'"><svg class="rsvg" viewBox="0 0 220 260">'+
  '<defs><filter id="rsoft" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000" flood-opacity=".16"/></filter></defs>'+
  '<ellipse class="rshadow" cx="110" cy="236" rx="46" ry="9" fill="#000" opacity=".14"/>'+
@@ -232,55 +415,59 @@ function loadLevel(lvl,cb){LEVEL=lvl;
   DATA=data;byId={};DATA.tasks.forEach(function(t){byId[t.id]=t});
   S={diff:10,defer:false,blocks:Object.keys(DATA.blocks),types:{}};
   setTimeout(function(){loadAll(cb)},Math.max(0,900-(Date.now()-t0)));
- }).catch(function(){render('<p class="mut">Не вдалося завантажити завдання. Перевірте з’єднання та оновіть сторінку.</p>')});
+ }).catch(function(){render('<p class="mut">'+L('loadError')+'</p>')});
 }
 function setLevel(lvl){if(lvl==LEVEL)return;csSet('dg_level',lvl);run=null;saved=null;
- loadLevel(lvl,function(){settings();setTimeout(function(){haptic();toast('Рівень: '+LEVELS[lvl].label)},300)})}
+ loadLevel(lvl,function(){settings();setTimeout(function(){haptic();toast(L('levelToast',LEVELS[lvl].label))},300)})}
 function init(){home()}
-function sumLine(){var n=S.blocks.length;return LEVELS[LEVEL].label+' · '+(n==Object.keys(DATA.blocks).length?'Усі блоки ('+n+')':'Блоків: '+n+' ('+S.blocks.join(', ')+')')+' · '+S.diff+' на блок · '+total()+' завдань'}
+function sumLine(){var n=S.blocks.length;return LEVELS[LEVEL].label+' · '+(n==Object.keys(DATA.blocks).length?L('allBlocks',n):L('someBlocks',n,S.blocks.join(', ')))+' · '+S.diff+L('perBlockTasks',total())}
 function home(){setView('home');tgBack(null);
  var icInf='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
  var icSet='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>';
- var h='<div class="hd"><div style="display:flex;align-items:center;gap:10px">'+robotHtml('greet','rbot-md')+'<div><small>Deutsch</small><h1 style="margin-bottom:0">Граматика</h1></div></div><div class="ic"><button id="inf" aria-label="Як це працює">'+icInf+'</button><button id="set" aria-label="Налаштування">'+icSet+'</button></div></div><div style="height:18px"></div>';
- if(saved)h+='<button class="sec" id="resume" style="margin:0 0 4px">Продовжити тест (запитання '+(saved.i+1)+' з '+saved.ids.length+')</button>';
+ var h='<div class="hd"><div style="display:flex;align-items:center;gap:10px">'+robotHtml('greet','rbot-md')+'<div><small>Deutsch</small><h1 style="margin-bottom:0">'+L('appName')+'</h1></div></div><div class="ic"><button id="inf" aria-label="'+L('infoAria')+'">'+icInf+'</button><button id="set" aria-label="'+L('settingsAria')+'">'+icSet+'</button></div></div><div style="height:18px"></div>';
+ if(saved)h+='<button class="sec" id="resume" style="margin:0 0 4px">'+L('resume',saved.i+1,saved.ids.length)+'</button>';
  h+='<button class="pri big2" id="go">Старт</button><button class="lnk sum" id="sum">'+esc(sumLine())+'</button>';
- h+='<button class="sec" id="weak">Робота над помилками</button><p class="mut" id="wmsg" style="margin:6px 0 0"></p>';
+ h+='<button class="sec" id="weak">'+L('mistakes')+'</button><p class="mut" id="wmsg" style="margin:6px 0 0"></p>';
  var st=Object.keys(DATA.blocks).filter(function(k){return pstat(k)!==null}).sort(function(a,b){return pstat(a)-pstat(b)}).slice(0,10);
- if(st.length){h+='<p style="margin:18px 0 4px"><small>Де більше помилок (останні 3 проходження)</small></p>';st.forEach(function(k){var p=Math.round(pstat(k)*100);h+='<div class="row"><span><span class="bltag">'+k+'</span> '+esc(DATA.blocks[k].name)+'</span><span style="'+(p<70?'color:var(--bad);font-weight:600':'')+'">'+p+'%</span></div>'})}
+ if(st.length){h+='<p style="margin:18px 0 4px"><small>'+L('whereMoreMistakes')+'</small></p>';st.forEach(function(k){var p=Math.round(pstat(k)*100);h+='<div class="row"><span><span class="bltag">'+k+'</span> '+esc(loc(DATA.blocks[k].name))+'</span><span style="'+(p<70?'color:var(--bad);font-weight:600':'')+'">'+p+'%</span></div>'})}
  h+='<p class="mut" style="text-align:center;margin:20px 0 0">'+APP_VERSION+'</p>';
  render('<div class="frame">'+h+'</div>');
  var r=document.getElementById('resume');if(r)r.onclick=function(){restore(saved);show()};
  document.getElementById('set').onclick=settings;document.getElementById('sum').onclick=settings;document.getElementById('inf').onclick=info;
- document.getElementById('weak').onclick=function(){if(!startWeak())document.getElementById('wmsg').textContent='Поки помилок немає: завдання з помилками з’являться тут після перших тестів.'};
+ document.getElementById('weak').onclick=function(){if(!startWeak())document.getElementById('wmsg').textContent=L('noMistakesYet')};
  document.getElementById('go').onclick=function(){if(!S.blocks.length){settings();return}start()};
 }
 function settings(){setView('set');tgBack(home);
- var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">Налаштування</h1>';
- h+='<div class="frame"><small>Рівень</small><div class="seg" id="segLevel" style="margin-top:6px"><div class="segThumb"></div>';
+ var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">'+L('settingsTitle')+'</h1>';
+ h+='<div class="frame"><small>'+L('language')+'</small><div class="seg" id="segLang" style="margin-top:6px"><div class="segThumb"></div>';
+ [['uk',L('lang_uk')],['ru',L('lang_ru')]].forEach(function(d){h+='<button data-lg="'+d[0]+'" class="'+(LANG==d[0]?'on':'')+'">'+d[1]+'</button>'});
+ h+='</div><p class="mut" style="margin:6px 0 0">'+L('languageHint')+'</p></div>';
+ h+='<div class="frame"><small>'+L('level')+'</small><div class="seg" id="segLevel" style="margin-top:6px"><div class="segThumb"></div>';
  Object.keys(LEVELS).forEach(function(lv){h+='<button data-lv="'+lv+'" class="'+(LEVEL==lv?'on':'')+'">'+LEVELS[lv].label+'</button>'});
- h+='</div><p class="mut" style="margin:6px 0 0">Змінює банк завдань і набір доступних блоків. Прогрес і налаштування за рівнями окремі.</p></div>';
- h+='<div class="frame"><small>Кількість завдань (на кожен блок)</small><div class="seg" id="seg" style="margin-top:6px"><div class="segThumb"></div>';
+ h+='</div><p class="mut" style="margin:6px 0 0">'+L('levelHint')+'</p></div>';
+ h+='<div class="frame"><small>'+L('taskCount')+'</small><div class="seg" id="seg" style="margin-top:6px"><div class="segThumb"></div>';
  [5,10,15].forEach(function(n){h+='<button data-n="'+n+'" class="'+(S.diff==n?'on':'')+'">'+n+'</button>'});
  h+='</div><p class="mut" style="margin:6px 0 0" id="cnt"></p></div>';
  h+='<div class="frame"><small>Дизайн</small><div class="seg" id="segTheme" style="margin-top:6px"><div class="segThumb"></div>';
- [['Темна','classic'],['Світла','lavender'],['Glass','liquid']].forEach(function(d){h+='<button data-th="'+d[1]+'" class="'+(THEME==d[1]?'on':'')+'">'+d[0]+'</button>'});
- h+='</div><p class="mut" style="margin:6px 0 0">Змінює лише оформлення, екрани залишаються ті самі.</p></div>';
- h+='<div class="frame"><label class="swrow"><input type="checkbox" id="defer" class="swin" '+(S.defer?'checked':'')+'><span class="sw"><span class="swth"></span></span><span>Показати результат наприкінці</span></label>';
- h+='<label class="swrow" style="margin-top:12px"><input type="checkbox" id="uml" class="swin" '+(UM?'checked':'')+'><span class="sw"><span class="swth"></span></span><span>Кнопки ä ö ü ß під полем введення</span></label></div>';
- h+='<div class="hd" style="margin:20px 0 10px"><small id="sm"></small><span><button class="lnk" id="all">Усі</button> · <button class="lnk" id="none">Жодного</button></span></div>';
+ [['theme_classic','classic'],['theme_lavender','lavender'],['theme_liquid','liquid']].forEach(function(d){h+='<button data-th="'+d[1]+'" class="'+(THEME==d[1]?'on':'')+'">'+L(d[0])+'</button>'});
+ h+='</div><p class="mut" style="margin:6px 0 0">'+L('designHint')+'</p></div>';
+ h+='<div class="frame"><label class="swrow"><input type="checkbox" id="defer" class="swin" '+(S.defer?'checked':'')+'><span class="sw"><span class="swth"></span></span><span>'+L('showResultAtEnd')+'</span></label>';
+ h+='<label class="swrow" style="margin-top:12px"><input type="checkbox" id="uml" class="swin" '+(UM?'checked':'')+'><span class="sw"><span class="swth"></span></span><span>'+L('umlautRow')+'</span></label></div>';
+ h+='<div class="hd" style="margin:20px 0 10px"><small id="sm"></small><span><button class="lnk" id="all">'+L('all')+'</button> · <button class="lnk" id="none">'+L('none')+'</button></span></div>';
  Object.keys(DATA.blocks).forEach(function(k){var b=DATA.blocks[k];
-  h+='<div class="frame"><label class="cbrow"><input type="checkbox" class="blk cbin" value="'+k+'" '+(S.blocks.indexOf(k)>=0?'checked':'')+'><span class="cbx"></span><span><span class="bltag">'+k+'</span> '+b.name+' <small>'+b.level+'</small>'+(b.example?'<br><small style="font-size:12px">'+esc(b.example)+'</small>':'')+'</span></label>';
-  if(fixedB(k))h+='<div class="tyf">Лише вибір відповіді, фіксований список ('+bank(k).length+')</div>';
-  else if(Object.keys(b.types).length<=1){var onlyT=Object.keys(b.types)[0],tn=TYPE[onlyT];tn=tn.charAt(0).toLowerCase()+tn.slice(1);
-   h+='<div class="tyf">Лише '+tn+' (у банку: '+bank(k).length+')</div>'}
-  else{h+='<details class="ty"><summary id="ts'+k+'"></summary>';Object.keys(b.types).forEach(function(t){h+='<div class="tr"><span>'+TYPE[t]+'</span><span class="mut" id="tv'+k+t+'">'+(plan(k,S.diff)[t]||0)+' з '+S.diff+'</span></div><input type="range" class="sl" id="sl'+k+t+'" min="0" max="20" value="'+tw(k)[t]+'" data-k="'+k+'" data-t="'+t+'">'});
-   h+='<div class="tr"><button class="lnk" data-rk="'+k+'">Скинути до стандарту</button></div></details>'}
+  h+='<div class="frame"><label class="cbrow"><input type="checkbox" class="blk cbin" value="'+k+'" '+(S.blocks.indexOf(k)>=0?'checked':'')+'><span class="cbx"></span><span><span class="bltag">'+k+'</span> '+esc(loc(b.name))+' <small>'+b.level+'</small>'+(b.example?'<br><small style="font-size:12px">'+esc(loc(b.example))+'</small>':'')+'</span></label>';
+  if(fixedB(k))h+='<div class="tyf">'+L('onlyChoiceFixed',bank(k).length)+'</div>';
+  else if(Object.keys(b.types).length<=1){var onlyT=Object.keys(b.types)[0],tn=TYPE[LANG][onlyT];tn=tn.charAt(0).toLowerCase()+tn.slice(1);
+   h+='<div class="tyf">'+L('onlyType',tn,bank(k).length)+'</div>'}
+  else{h+='<details class="ty"><summary id="ts'+k+'"></summary>';Object.keys(b.types).forEach(function(ty){h+='<div class="tr"><span>'+TYPE[LANG][ty]+'</span><span class="mut" id="tv'+k+ty+'">'+ofN(plan(k,S.diff)[ty]||0,S.diff)+'</span></div><input type="range" class="sl" id="sl'+k+ty+'" min="0" max="20" value="'+tw(k)[ty]+'" data-k="'+k+'" data-t="'+ty+'">'});
+   h+='<div class="tr"><button class="lnk" data-rk="'+k+'">'+L('resetDefault')+'</button></div></details>'}
   h+='</div>'});
  h+='<button class="pri" id="bk2">Готово</button>';
  render(h);upd();window.scrollTo(0,0);
- ['segLevel','seg','segTheme'].forEach(function(id){segMove(id,true)});
- function doneSet(){home();setTimeout(function(){haptic();toast('Налаштування збережено')},300)}
+ ['segLang','segLevel','seg','segTheme'].forEach(function(id){segMove(id,true)});
+ function doneSet(){home();setTimeout(function(){haptic();toast(L('settingsSaved'))},300)}
  document.getElementById('bk').onclick=doneSet;document.getElementById('bk2').onclick=doneSet;
+ document.querySelectorAll('#segLang button').forEach(function(b){b.onclick=function(){if(b.dataset.lg==LANG)return;setLang(b.dataset.lg);csSet('dg_lang',b.dataset.lg);settings()}});
  document.querySelectorAll('#seg button').forEach(function(b){b.onclick=function(){S.diff=+b.dataset.n;saveSet();document.querySelectorAll('#seg button').forEach(function(x){x.className=x===b?'on':''});segMove('seg');upd()}});
  document.querySelectorAll('#segTheme button').forEach(function(b){b.onclick=function(){setTheme(b.dataset.th);csSet('dg_theme',b.dataset.th);document.querySelectorAll('#segTheme button').forEach(function(x){x.className=x===b?'on':''});segMove('segTheme')}});
  document.querySelectorAll('#segLevel button').forEach(function(b){b.onclick=function(){if(b.dataset.lv==LEVEL)return;setLevel(b.dataset.lv)}});
@@ -290,63 +477,66 @@ function settings(){setView('set');tgBack(home);
  document.querySelectorAll('.blk').forEach(function(c){c.onchange=selB});
  document.getElementById('all').onclick=function(){document.querySelectorAll('.blk').forEach(function(c){c.checked=true});selB()};
  document.getElementById('none').onclick=function(){document.querySelectorAll('.blk').forEach(function(c){c.checked=false});selB()};
- document.querySelectorAll('.sl').forEach(function(el){el.oninput=function(){var k=el.dataset.k,t=el.dataset.t,w=tw(k);w[t]=+el.value;
-  if(!Object.keys(w).some(function(x){return w[x]>0})){w[t]=1;el.value=1}
+ document.querySelectorAll('.sl').forEach(function(el){el.oninput=function(){var k=el.dataset.k,ty=el.dataset.t,w=tw(k);w[ty]=+el.value;
+  if(!Object.keys(w).some(function(x){return w[x]>0})){w[ty]=1;el.value=1}
   S.types[k]=w;saveSet();upd()}});
- document.querySelectorAll('[data-rk]').forEach(function(b){b.onclick=function(){var k=b.dataset.rk;delete S.types[k];saveSet();Object.keys(tw(k)).forEach(function(t){document.getElementById('sl'+k+t).value=tw(k)[t]});upd()}});
+ document.querySelectorAll('[data-rk]').forEach(function(b){b.onclick=function(){var k=b.dataset.rk;delete S.types[k];saveSet();Object.keys(tw(k)).forEach(function(ty){document.getElementById('sl'+k+ty).value=tw(k)[ty]});upd()}});
 }
 function info(){setView('info');tgBack(home);
  var n=DATA.tasks.length;
- var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">Як це працює</h1>'+
- '<div class="frame inf"><h3 style="margin-top:0">Тест</h3><p>«Старт» запускає тест за блоками, вибраними в налаштуваннях. Завдання з усіх блоків перемішані. «Кількість завдань» задає їх число на кожен блок: 5, 10 або 15.</p>'+
- '<p>Усередині блоку завдання діляться за типами у пропорціях з налаштувань (розгорніть «Типи завдань» під блоком). З банку спочатку беруться завдання, які траплялися вам рідше за всіх, тому повтори починаються лише після того, як пройдені всі завдання потрібного типу.</p>'+
- '<p>Незакінчений тест зберігається: його можна продовжити з головної. «Скасувати тест» скидає його без збереження результату.</p></div>'+
- '<div class="frame inf"><h3 style="margin-top:0">Звідки завдання</h3><p>Усі завдання — з готового банку: '+n+' завдань'+(LEVEL=='a2b2'?', близько 100 на кожен блок, у блоці M — фіксований список дієслів із прийменниками з підручника ('+DATA.tasks.filter(function(t){return t.block=='M'}).length+')':' для рівня A1–A2 (6 спрощених блоків)')+'.</p></div>'+
- '<div class="frame inf"><h3 style="margin-top:0">Рівень</h3><p>У налаштуваннях можна вибрати рівень A2–B2 (усі 13 блоків) або A1–A2 (6 спрощених блоків із простішими завданнями, без складних тем, як Passiv, Konjunktiv II чи Relativsätze). Це два різні банки завдань: прогрес, помилки і вибір блоків зберігаються окремо для кожного рівня.</p></div>'+
- '<div class="frame inf"><h3 style="margin-top:0">Перевірка і бали</h3><p>Правильно — 1 бал, майже правильно — 0,5, неправильно — 0. Регістр і розділові знаки не враховуються, крім блоку K «Правопис».</p>'+
- '<p>Вибір відповіді, вставка слова і складання речення перевіряються за зразком одразу. Переклад, виправлення і перетворення: при точному збігу — одразу; інакше ви порівнюєте свою відповідь із зразком самі й обираєте «Правильно», «Майже» або «Неправильно».</p>'+
- '<p>«Показати результат наприкінці» приховує оцінку після кожної відповіді; підсумок і аналіз помилок завжди показуються в кінці тесту.</p></div>'+
- '<div class="frame inf"><h3 style="margin-top:0">Помилки і прогрес</h3><p>«Де більше помилок» показує відсоток балів за кожним блоком за останні 3 проходження, найгірші блоки зверху (не більше 10). Блок нижче 70% вважається слабким і підсвічується червоним.</p>'+
- '<p>«Робота над помилками» збирає тест із завдань, де ви помилилися, спочатку в слабких блоках, і добирає завдання з цих же блоків. Завдання йде зі списку помилок, коли ви відповісте на нього правильно.</p></div>'+
- '<div class="frame inf"><h3 style="margin-top:0">Інше</h3><p>Кнопки ä ö ü ß під полем введення включаються в налаштуваннях. Налаштування і прогрес зберігаються автоматично в хмарі Telegram (Cloud Storage), на цьому ж акаунті вони доступні з будь-якого пристрою.</p>'+
- '<p>Дизайн у налаштуваннях — «Темна» або «Світла»: змінюється лише оформлення (кольори, скруглення, тіні, розмитий фон), логіка і екрани ті самі. «Темна» підлаштовується під тему телефону (світла чи темна), «Світла» завжди світла, не залежить від теми телефону.</p>'+
- '<p class="mut">Опис оновлено: 17.11.2026.</p></div><button class="pri" id="bk2">Зрозуміло</button>';
+ var levelBit=LEVEL=='a2b2'?L('infoSourceA2B2',DATA.tasks.filter(function(x){return x.block=='M'}).length):L('infoSourceA1A2');
+ var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">'+L('infoAria')+'</h1>'+
+ '<div class="frame inf"><h3 style="margin-top:0">'+L('infoTestH')+'</h3><p>'+L('infoTest1')+'</p>'+
+ '<p>'+L('infoTest2')+'</p>'+
+ '<p>'+L('infoTest3')+'</p></div>'+
+ '<div class="frame inf"><h3 style="margin-top:0">'+L('infoSourceH')+'</h3><p>'+L('infoSource',n,levelBit)+'</p></div>'+
+ '<div class="frame inf"><h3 style="margin-top:0">'+L('infoLevelH')+'</h3><p>'+L('infoLevel')+'</p></div>'+
+ '<div class="frame inf"><h3 style="margin-top:0">'+L('infoGradeH')+'</h3><p>'+L('infoGrade1')+'</p>'+
+ '<p>'+L('infoGrade2')+'</p>'+
+ '<p>'+L('infoGrade3')+'</p></div>'+
+ '<div class="frame inf"><h3 style="margin-top:0">'+L('infoErrH')+'</h3><p>'+L('infoErr1')+'</p>'+
+ '<p>'+L('infoErr2')+'</p></div>'+
+ '<div class="frame inf"><h3 style="margin-top:0">'+L('infoOtherH')+'</h3><p>'+L('infoOther1')+'</p>'+
+ '<p>'+L('infoOther2')+'</p>'+
+ '<p>'+L('infoOther3')+'</p>'+
+ '<p class="mut">'+L('infoUpdated')+'</p></div><button class="pri" id="bk2">'+L('understood')+'</button>';
  render(h);window.scrollTo(0,0);document.getElementById('bk').onclick=home;document.getElementById('bk2').onclick=home;
 }
 function cntB(k){return Math.min(S.diff,bank(k).length)}
 function total(){var n=0;S.blocks.forEach(function(k){n+=cntB(k)});return n}
-function upd(){var sm=document.getElementById('sm');if(!sm)return;sm.textContent='Граматичні блоки: вибрано '+S.blocks.length+' з '+Object.keys(DATA.blocks).length;
+function upd(){var sm=document.getElementById('sm');if(!sm)return;sm.textContent=L('blocksSelected',S.blocks.length,Object.keys(DATA.blocks).length);
  Object.keys(DATA.blocks).forEach(function(k){var e=document.getElementById('ts'+k);if(!e)return;var p=plan(k,S.diff),w=tw(k);
-  e.textContent='Типи завдань: '+Object.keys(w).filter(function(t){return w[t]>0}).map(function(t){return TSH[t]+' '+(p[t]||0)}).join(', ')+' · у банку: '+bank(k).length;
-  Object.keys(w).forEach(function(t){var tv=document.getElementById('tv'+k+t);if(tv)tv.textContent=(p[t]||0)+' з '+S.diff})});
- document.getElementById('cnt').textContent='Усього в тесті: '+total()+' завдань.'}
+  e.textContent=Object.keys(w).filter(function(ty){return w[ty]>0}).map(function(ty){return TSH[LANG][ty]+' '+(p[ty]||0)}).join(', ')+' · '+L('inBank')+': '+bank(k).length;
+  Object.keys(w).forEach(function(ty){var tv=document.getElementById('tv'+k+ty);if(tv)tv.textContent=ofN(p[ty]||0,S.diff)})});
+ document.getElementById('cnt').textContent=L('inTestTotal',total())
+}
 function start(){
  var pool=[],skip={},warn=[];
  S.blocks.forEach(function(k){var n=S.diff,bk=bank(k),p=plan(k,n),got=[];
-  Object.keys(p).forEach(function(t){got=got.concat(pick(bk.filter(function(x){return x.type==t}),p[t],skip))});
+  Object.keys(p).forEach(function(ty){got=got.concat(pick(bk.filter(function(x){return x.type==ty}),p[ty],skip))});
   got=got.concat(pick(bk,Math.min(n,bk.length)-got.length,skip));
-  if(got.length<Math.min(n,bk.length))warn.push('Блок '+k+': у банку менше завдань, ніж потрібно.');
+  if(got.length<Math.min(n,bk.length))warn.push(L('blockTasksLeft',k));
   pool=pool.concat(got)});
- if(!pool.length){home();document.getElementById('wmsg').textContent=warn.join(' ')||'Для вибраних блоків немає завдань. Виберіть блоки в налаштуваннях.';return}
+ if(!pool.length){home();document.getElementById('wmsg').textContent=warn.join(' ')||L('noTasksForBlocks');return}
  run={q:shuffle(pool),i:0,res:[],warn:warn.join(' ')};save();show();
 }
 function score(){return run.res.reduce(function(a,r){return a+r.s},0)}
 function buildInit(t){
- var toks=shuffle(t.text.split(' / ').map(function(w,i){return{w:w.trim(),i:i}})),placed=[];
+ var toks=shuffle(loc(t.text).split(' / ').map(function(w,i){return{w:w.trim(),i:i}})),placed=[];
  function draw(){
   var bl=document.getElementById('bl'),bp=document.getElementById('bp');if(!bl)return;
-  bl.innerHTML=placed.length?'':'<span class="mut">Ваше речення</span>';
+  bl.innerHTML=placed.length?'':'<span class="mut">'+L('yourSentence')+'</span>';
   placed.forEach(function(k){var b=document.createElement('button');b.className='chip on';b.textContent=k.w;b.onclick=function(){if(bl.dataset.lock)return;placed.splice(placed.indexOf(k),1);draw()};bl.appendChild(b)});
   bp.innerHTML='';
   toks.forEach(function(k){var b=document.createElement('button');b.className='chip';b.textContent=k.w;if(placed.indexOf(k)>=0){b.disabled=true;b.style.opacity='.35'}b.onclick=function(){if(bl.dataset.lock)return;placed.push(k);draw();document.getElementById('be').textContent=''};bp.appendChild(b)})}
  draw();
  document.getElementById('rs').onclick=function(){if(document.getElementById('bl').dataset.lock)return;placed=[];draw()};
- document.getElementById('chk').onclick=function(){if(placed.length<toks.length){document.getElementById('be').textContent='Використовуйте всі слова.';return}
+ document.getElementById('chk').onclick=function(){if(placed.length<toks.length){document.getElementById('be').textContent=L('useAllWords');return}
   document.getElementById('bl').dataset.lock=1;document.getElementById('rs').disabled=true;answer(placed.map(function(k){return k.w}).join(' '))}}
 function bindCancel(){var w=document.getElementById('cxw');
- function ask(){w.innerHTML='<div class="cx"><span>Скасувати тест? Результат не збережеться.</span><button id="cxy">Так</button><button id="cxn">Ні</button></div>';
+ function ask(){w.innerHTML='<div class="cx"><span>'+L('cancelConfirm')+'</span><button id="cxy">'+L('yes')+'</button><button id="cxn">'+L('no')+'</button></div>';
   document.getElementById('cxy').onclick=function(){run=null;saved=null;save();home()};
-  document.getElementById('cxn').onclick=function(){w.innerHTML='<button class="lnk" id="cx">Скасувати тест</button>';document.getElementById('cx').onclick=ask}}
+  document.getElementById('cxn').onclick=function(){w.innerHTML='<button class="lnk" id="cx">'+L('cancelTest')+'</button>';document.getElementById('cx').onclick=ask}}
  document.getElementById('cx').onclick=ask}
 var icCopy='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
 function capFirst(el){if(!el.value)return;var c=el.value.charAt(0),u=c.toUpperCase();if(c===u)return;
@@ -355,16 +545,16 @@ function umRow(){return UM?'<div class="um">'+['ä','ö','ü','ß'].map(function
 function umBind(el){document.querySelectorAll('.um button').forEach(function(b){b.onmousedown=function(e){e.preventDefault()};b.onclick=function(){var c=b.dataset.c,a=el.selectionStart,z=el.selectionEnd;el.value=el.value.slice(0,a)+c+el.value.slice(z);el.focus();el.selectionStart=el.selectionEnd=a+1}})}
 function show(){setView('quiz');
  var t=run.q[run.i];
- var h='<div class="qtop">'+robotHtml('think','rbot-sm')+'<div id="cxw"><button class="lnk" id="cx">Скасувати тест</button></div></div><div class="frame"><div class="top"><span>Запитання '+(run.i+1)+' з '+run.q.length+'</span><span>'+(S.defer?'':'Бали: '+fmt(score()))+'</span></div><div class="bar"><i style="width:'+(run.i/run.q.length*100)+'%"></i></div>';
- var typeLbl=TYPE[t.type].charAt(0).toLowerCase()+TYPE[t.type].slice(1);
- h+='<div class="blk">Блок '+t.block+' · '+esc(DATA.blocks[t.block].name)+' · '+typeLbl+'</div>'+(run.warn&&run.i==0?'<div class="note" style="margin:0 0 10px">'+esc(run.warn)+'</div>':'')+'<div class="q">'+esc(t.prompt)+(t.type=='choice'||t.type=='fill'?'\n'+esc(t.text):'')+'</div>';
- if(t.note)h+='<div class="note">Частина мови: '+esc(t.note)+'</div>';
+ var h='<div class="qtop">'+robotHtml('think','rbot-sm')+'<div id="cxw"><button class="lnk" id="cx">'+L('cancelTest')+'</button></div></div><div class="frame"><div class="top"><span>'+L('questionN',run.i+1,run.q.length)+'</span><span>'+(S.defer?'':L('points')+fmt(score()))+'</span></div><div class="bar"><i style="width:'+(run.i/run.q.length*100)+'%"></i></div>';
+ var typeLbl=TYPE[LANG][t.type].charAt(0).toLowerCase()+TYPE[LANG][t.type].slice(1);
+ h+='<div class="blk">Блок '+t.block+' · '+esc(loc(DATA.blocks[t.block].name))+' · '+typeLbl+'</div>'+(run.warn&&run.i==0?'<div class="note" style="margin:0 0 10px">'+esc(run.warn)+'</div>':'')+'<div class="q">'+esc(loc(t.prompt))+(t.type=='choice'||t.type=='fill'?'\n'+esc(loc(t.text)):'')+'</div>';
+ if(t.note)h+='<div class="note">'+L('partOfSpeech')+esc(loc(t.note))+'</div>';
  if(t.type=='choice'){shuffle(t.options).forEach(function(o){h+='<button class="opt" data-v="'+esc(o)+'">'+esc(o)+'</button>'})}
- else if(t.type=='fill'){h+='<input type="text" id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ваша відповідь">'+umRow()+'<button class="pri" id="chk">Перевірити</button>'}
- else if(t.type=='build'){h+='<div class="note" style="margin-top:-6px">Натискайте слова по порядку, щоб скласти речення. Натисніть на слово в рядку, щоб прибрати його.</div><div id="bl" class="bl"></div><div id="bp" class="bp"></div><div class="rw"><button id="rs">Скинути</button></div><div id="be" class="mut" style="color:var(--bad);min-height:18px"></div><button class="pri" id="chk">Перевірити</button>'}
+ else if(t.type=='fill'){h+='<input type="text" id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="'+L('answerPh')+'">'+umRow()+'<button class="pri" id="chk">'+L('check')+'</button>'}
+ else if(t.type=='build'){h+='<div class="note" style="margin-top:-6px">'+L('buildHint')+'</div><div id="bl" class="bl"></div><div id="bp" class="bp"></div><div class="rw"><button id="rs">'+L('reset')+'</button></div><div id="be" class="mut" style="color:var(--bad);min-height:18px"></div><button class="pri" id="chk">'+L('check')+'</button>'}
  else{
-  if(t.type!='fix')h+='<div class="q" style="font-size:16px;color:var(--tx2)">'+esc(t.text)+(t.type=='combine'?' <button type="button" id="cp" class="cpy" aria-label="Вставити текст у поле відповіді" title="Вставити в поле відповіді">'+icCopy+'</button>':'')+'</div>';
-  h+='<textarea id="in" rows="3" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ваша відповідь">'+(t.type=='fix'?esc(t.text):'')+'</textarea>'+umRow()+'<button class="pri" id="chk">Перевірити</button>'}
+  if(t.type!='fix')h+='<div class="q" style="font-size:16px;color:var(--tx2)">'+esc(loc(t.text))+(t.type=='combine'?' <button type="button" id="cp" class="cpy" aria-label="'+L('pasteAria')+'" title="'+L('pasteTitle')+'">'+icCopy+'</button>':'')+'</div>';
+  h+='<textarea id="in" rows="3" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="'+L('answerPh')+'">'+(t.type=='fix'?esc(loc(t.text)):'')+'</textarea>'+umRow()+'<button class="pri" id="chk">'+L('check')+'</button>'}
  h+='<div id="fb"></div></div>';render(h);
  bindCancel();
  tgBack(function(){var c=document.getElementById('cx');if(c)c.click()});
@@ -373,7 +563,7 @@ function show(){setView('quiz');
  else{var el=document.getElementById('in');el.focus();umBind(el);document.getElementById('chk').onclick=function(){var v=el.value.trim();if(!v){el.style.borderColor='var(--bad)';return}answer(v)};
   if(t.type=='fill')el.onkeydown=function(e){if(e.key=='Enter')document.getElementById('chk').click()};
   else if(t.type=='translate'||t.type=='combine')el.oninput=function(){capFirst(el)};
-  var cp=document.getElementById('cp');if(cp)cp.onclick=function(){el.value=t.text;capFirst(el);el.focus();el.selectionStart=el.selectionEnd=el.value.length}}
+  var cp=document.getElementById('cp');if(cp)cp.onclick=function(){el.value=loc(t.text);capFirst(el);el.focus();el.selectionStart=el.selectionEnd=el.value.length}}
 }
 function grade(t,v){
  var st=DATA.blocks[t.block].strict,sq=function(x){return x.trim().replace(/\s+/g,' ')};var exact=t.answers.some(function(a){return st?sq(a)==sq(v):norm(a)==norm(v)});
@@ -392,38 +582,39 @@ function answer(v,btn){
  else{document.getElementById('chk').style.display='none'}
  var cls=g.s==1?'ok':g.s==0.5?'half':'bad';
  setMood(g.s>0?'happy':'sad');
- var f='<div class="fb '+cls+'"><b>'+(g.s==1?'Правильно.':g.s==0.5?'Майже: половина бала.':'Неправильно.')+'</b>';
- if(g.s<1)f+=' Еталон: '+esc(t.answers[0]);
- f+='<div class="h">'+esc(t.hint)+'</div>';
- f+='</div><button class="pri" id="nx">'+(last?'Результат':'Далі')+'</button>';
+ var f='<div class="fb '+cls+'"><b>'+(g.s==1?L('correct'):g.s==0.5?L('almostHalf'):L('incorrect'))+'</b>';
+ if(g.s<1)f+=L('reference')+esc(t.answers[0]);
+ f+='<div class="h">'+esc(loc(t.hint))+'</div>';
+ f+='</div><button class="pri" id="nx">'+(last?'Результат':L('next'))+'</button>';
  document.getElementById('fb').innerHTML=f;
  document.getElementById('nx').onclick=next;
 }
 function selfAsk(t,v,rec,last){document.getElementById('chk').style.display='none';
- var f='<div class="fb half" id="sfb"><b>Порівняйте з еталоном.</b><div class="h">Ваша відповідь: '+esc(v)+'</div><div class="h">Еталон: '+t.answers.map(esc).join('<br>або: ')+'</div><div class="sa"><button data-s="1">Правильно</button><button data-s="0.5">Майже</button><button data-s="0">Неправильно</button></div></div>';
+ var f='<div class="fb half" id="sfb"><b>'+L('compareRef')+'</b><div class="h">'+L('yourAnswer')+esc(v)+'</div><div class="h">'+L('refAnswer')+t.answers.map(esc).join(L('orSep'))+'</div><div class="sa"><button data-s="1">'+L('saCorrect')+'</button><button data-s="0.5">'+L('saAlmost')+'</button><button data-s="0">'+L('saWrong')+'</button></div></div>';
  document.getElementById('fb').innerHTML=f;
  document.querySelectorAll('.sa button').forEach(function(b){b.onclick=function(){haptic();rec.s=+b.dataset.s;run.i++;save();run.i--;
   if(S.defer){next();return}
   setMood(rec.s>0?'happy':'sad');
   var x=document.getElementById('sfb');x.className='fb '+(rec.s==1?'ok':rec.s==0.5?'half':'bad');
-  x.innerHTML='<b>'+(rec.s==1?'Зараховано.':rec.s==0.5?'Половина бала.':'Не зараховано.')+'</b> Еталон: '+esc(t.answers[0])+'<div class="h">'+esc(t.hint)+'</div>';
-  var nb=document.createElement('button');nb.className='pri';nb.textContent=last?'Результат':'Далі';nb.onclick=next;document.getElementById('fb').appendChild(nb)}})}
+  x.innerHTML='<b>'+(rec.s==1?L('counted'):rec.s==0.5?L('halfPoint'):L('notCounted'))+'</b> '+L('refAnswer')+esc(t.answers[0])+'<div class="h">'+esc(loc(t.hint))+'</div>';
+  var nb=document.createElement('button');nb.className='pri';nb.textContent=last?'Результат':L('next');nb.onclick=next;document.getElementById('fb').appendChild(nb)}})}
 function next(){run.i++;if(run.i<run.q.length){save();show()}else finish()}
 function finish(){setView('result');tgBack(home);
- recordProgress();var sc=score(),h='<div class="frame"><small>Результат</small><div class="big">'+fmt(sc)+' з '+run.res.length+'</div><small>За блоками</small>';
- Object.keys(DATA.blocks).forEach(function(k){var r=run.res.filter(function(x){return x.t.block==k});if(r.length)h+='<div class="row"><span>'+k+' '+DATA.blocks[k].name+'</span><span>'+fmt(r.reduce(function(a,x){return a+x.s},0))+' з '+r.length+'</span></div>'});
+ recordProgress();var sc=score(),h='<div class="frame"><small>Результат</small><div class="big">'+ofN(fmt(sc),run.res.length)+'</div><small>'+L('byBlocks')+'</small>';
+ Object.keys(DATA.blocks).forEach(function(k){var r=run.res.filter(function(x){return x.t.block==k});if(r.length)h+='<div class="row"><span>'+k+' '+esc(loc(DATA.blocks[k].name))+'</span><span>'+ofN(fmt(r.reduce(function(a,x){return a+x.s},0)),r.length)+'</span></div>'});
  h+='</div>';
  var bad=run.res.filter(function(r){return r.s<1});
- if(bad.length){h+='<p><small>Аналіз помилок ('+bad.length+')</small></p>';bad.forEach(function(r){h+='<div class="err"><div class="mut">'+TYPE[r.t.type]+' · блок '+r.t.block+' · '+fmt(r.s)+(r.s==0?' балів':' бала')+'</div>'+esc(r.t.prompt)+' '+esc(r.t.text)+'<br>Ваша відповідь: '+esc(r.v)+'<br>Еталон: '+esc(r.t.answers[0])+'<div class="mut" style="margin-top:4px">'+esc(r.t.hint)+'</div></div>'})}
- else h+='<div class="frame"><p style="margin:0">Помилок немає.</p></div>';
- var hasW=weak().length||errTasks().length;h+=(hasW?'<button class="pri" id="wk2">Робота над помилками</button>':'')+'<button class="'+(hasW?'sec':'pri')+'" id="again">Пройти ще раз</button><button class="sec" id="home">На головну</button>';
+ if(bad.length){h+='<p><small>'+L('errReview',bad.length)+'</small></p>';bad.forEach(function(r){h+='<div class="err"><div class="mut">'+TYPE[LANG][r.t.type]+' · блок '+r.t.block+' · '+fmt(r.s)+(r.s==0?L('ptsFull'):L('ptsHalf'))+'</div>'+esc(loc(r.t.prompt))+' '+esc(loc(r.t.text))+'<br>'+L('yourAnswer')+esc(r.v)+'<br>'+L('refAnswer')+esc(r.t.answers[0])+'<div class="mut" style="margin-top:4px">'+esc(loc(r.t.hint))+'</div></div>'})}
+ else h+='<div class="frame"><p style="margin:0">'+L('noErrors')+'</p></div>';
+ var hasW=weak().length||errTasks().length;h+=(hasW?'<button class="pri" id="wk2">'+L('mistakes')+'</button>':'')+'<button class="'+(hasW?'sec':'pri')+'" id="again">'+L('again')+'</button><button class="sec" id="home">'+L('toHome')+'</button>';
  render(h);run.done=true;var keep=run;run=null;saved=null;save();run=keep;
  document.getElementById('again').onclick=start;var w2=document.getElementById('wk2');if(w2)w2.onclick=startWeak;document.getElementById('home').onclick=function(){run=null;home()};
 }
 document.body.className='home';render(loaderHtml());
-csGet(['dg_uml','dg_theme','dg_level'],function(res){
+csGet(['dg_uml','dg_theme','dg_level','dg_lang'],function(res){
  UM=res.dg_uml=='1';
  setTheme(['lavender','liquid'].indexOf(res.dg_theme)>=0?res.dg_theme:'classic');
+ setLang(res.dg_lang=='ru'||res.dg_lang=='uk'?res.dg_lang:detectLang());
  loadLevel(res.dg_level=='a1a2'?'a1a2':'a2b2',init);
 });
 </script></body></html>
