@@ -155,7 +155,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v22';
+var APP_VERSION='v23';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -167,8 +167,9 @@ uk:{
  infoAria:'Як це працює',
  settingsAria:'Налаштування',
  resume:function(i,n){return 'Продовжити тест (запитання '+ofN(i,n)+')'},
- mistakes:'Робота над помилками',
- noMistakesYet:'Поки помилок немає: завдання з помилками з’являться тут після перших тестів.',
+ statsTitle:'Статистика',
+ statsAria:'Статистика',
+ noStatsYet:'Поки даних немає: статистика зʼявиться після перших тестів.',
  allBlocks:function(n){return 'Усі блоки ('+n+')'},
  someBlocks:function(n,list){return 'Блоків: '+n+' ('+list+')'},
  perBlockTasks:function(n){return ' на блок · '+n+' завдань'},
@@ -208,9 +209,9 @@ uk:{
  infoGrade1:'Правильно — 1 бал, майже правильно — 0,5, неправильно — 0. Регістр і розділові знаки не враховуються, крім блоку K «Правопис».',
  infoGrade2:'Вибір відповіді, вставка слова і складання речення перевіряються за зразком одразу. Переклад, виправлення і перетворення: при точному збігу — одразу; інакше ви порівнюєте свою відповідь із зразком самі й обираєте «Правильно», «Майже» або «Неправильно».',
  infoGrade3:'«Показати результат наприкінці» приховує оцінку після кожної відповіді; підсумок і аналіз помилок завжди показуються в кінці тесту.',
- infoErrH:'Помилки і прогрес',
- infoErr1:'На головному екрані — журнал останніх 10 пройдених тестів (дата, блоки, бали), спершу 3 останні, решта — по кнопці «Показати ще». Блок із середнім балом нижче 70% за останні 3 проходження вважається слабким (у журналі це не показується).',
- infoErr2:'«Робота над помилками» збирає тест із завдань, де ви помилилися, спочатку в слабких блоках, і добирає завдання з цих же блоків. Завдання йде зі списку помилок, коли ви відповісте на нього правильно.',
+ infoErrH:'Прогрес',
+ infoErr1:'На головному екрані — журнал останніх 10 пройдених тестів (дата, блоки, бали), спершу 3 останні, решта — по кнопці «Показати ще».',
+ infoErr2:'«Статистика» (іконка на головній) показує середній відсоток балів по кожному блоку за всю історію проходжень — блок нижче 70% підсвічується червоним.',
  infoOtherH:'Інше',
  infoOther1:'Кнопки ä ö ü ß під полем введення включаються в налаштуваннях. Налаштування і прогрес зберігаються автоматично в хмарі Telegram (Cloud Storage), на цьому ж акаунті вони доступні з будь-якого пристрою.',
  infoOther2:'Мова інтерфейсу визначається мовою Telegram; змінити її вручну можна в налаштуваннях (Українська/Русский).',
@@ -256,8 +257,9 @@ ru:{
  infoAria:'Как это работает',
  settingsAria:'Настройки',
  resume:function(i,n){return 'Продолжить тест (вопрос '+ofN(i,n)+')'},
- mistakes:'Работа над ошибками',
- noMistakesYet:'Пока ошибок нет: задания с ошибками появятся здесь после первых тестов.',
+ statsTitle:'Статистика',
+ statsAria:'Статистика',
+ noStatsYet:'Пока данных нет: статистика появится после первых тестов.',
  allBlocks:function(n){return 'Все блоки ('+n+')'},
  someBlocks:function(n,list){return 'Блоков: '+n+' ('+list+')'},
  perBlockTasks:function(n){return ' на блок · '+n+' заданий'},
@@ -297,9 +299,9 @@ ru:{
  infoGrade1:'Верно — 1 балл, почти верно — 0,5, неверно — 0. Регистр и знаки препинания не учитываются, кроме блока K «Правописание».',
  infoGrade2:'Выбор ответа, вставка слова и составление предложения проверяются по эталону сразу. Перевод, исправление и преобразование: при точном совпадении — сразу; иначе вы сравниваете свой ответ с эталоном сами и выбираете «Верно», «Почти» или «Неверно».',
  infoGrade3:'«Показать результат в конце» скрывает оценку после каждого ответа; итог и разбор ошибок всегда показываются в конце теста.',
- infoErrH:'Ошибки и прогресс',
- infoErr1:'На главном экране — журнал последних 10 пройденных тестов (дата, блоки, баллы), сначала 3 последних, остальные — по кнопке «Показать ещё». Блок со средним баллом ниже 70% за последние 3 прохождения считается слабым (в журнале это не отображается).',
- infoErr2:'«Работа над ошибками» собирает тест из заданий, где вы ошиблись, сначала в слабых блоках, и добирает задания из этих же блоков. Задание уходит из списка ошибок, когда вы ответите на него верно.',
+ infoErrH:'Прогресс',
+ infoErr1:'На главном экране — журнал последних 10 пройденных тестов (дата, блоки, баллы), сначала 3 последних, остальные — по кнопке «Показать ещё».',
+ infoErr2:'«Статистика» (иконка на главной) показывает средний процент баллов по каждому блоку за всю историю прохождений — блок ниже 70% подсвечивается красным.',
  infoOtherH:'Прочее',
  infoOther1:'Кнопки ä ö ü ß под полем ввода включаются в настройках. Настройки и прогресс сохраняются автоматически в облаке Telegram (Cloud Storage), на этом же аккаунте они доступны с любого устройства.',
  infoOther2:'Язык интерфейса определяется языком Telegram; изменить его вручную можно в настройках (Українська/Русский).',
@@ -390,27 +392,24 @@ function save(){var p=run?{S:S,ids:run.q.map(function(t){return t.id}),i:run.i,r
 function restore(p){S=p.S;run={q:p.ids.map(function(i){return byId[i]}),i:p.i,res:p.res.map(function(r){return{t:byId[r.id],v:r.v,s:r.s}})};}
 function parseSaved(x){try{var p=typeof x=='string'?JSON.parse(x):x;if(p&&p.ids&&p.i<p.ids.length&&p.ids.every(function(i){return byId[i]}))return p}catch(e){}return null}
 function saveP(){var keys=Object.keys(DATA.blocks);
- keys.forEach(function(k){csSet(LEVELS[LEVEL].progPre+k,JSON.stringify(P[k]||{last:[],errs:[]}));
+ keys.forEach(function(k){csSet(LEVELS[LEVEL].progPre+k,JSON.stringify(P[k]||{s:0,n:0}));
   var sn={};Object.keys(P.seen||{}).forEach(function(id){if(id.charAt(0)==k)sn[id]=P.seen[id]});
   csSet(LEVELS[LEVEL].seenPre+k,JSON.stringify(sn))})}
-function pstat(k){var b=P[k];if(!b||!b.last||!b.last.length)return null;var s=0,n=0;b.last.forEach(function(x){s+=x.s;n+=x.n});return n?s/n:null}
-function weak(){return Object.keys(DATA.blocks).filter(function(k){var p=pstat(k);return p!==null&&p<0.7})}
-function errTasks(keys){var o=[];Object.keys(P).forEach(function(k){if(keys&&keys.indexOf(k)<0)return;(P[k].errs||[]).forEach(function(id){if(byId[id])o.push(byId[id])})});return o}
+function pstat(k){var b=P[k];return b&&b.n?b.s/b.n:null}
 function fmtDate(d){var p2=function(x){return('0'+x).slice(-2)};return p2(d.getDate())+'.'+p2(d.getMonth()+1)+' '+p2(d.getHours())+':'+p2(d.getMinutes())}
 function recordProgress(){var by={};run.res.forEach(function(r){var k=r.t.block;by[k]=by[k]||{s:0,n:0};by[k].s+=r.s;by[k].n++});
- Object.keys(by).forEach(function(k){P[k]=P[k]||{last:[],errs:[]};P[k].last.push(by[k]);P[k].last=P[k].last.slice(-3)});
- P.seen=P.seen||{};run.res.forEach(function(r){P.seen[r.t.id]=(P.seen[r.t.id]||0)+1;var b=P[r.t.block],i=b.errs.indexOf(r.t.id);if(r.s<1){if(i<0)b.errs.push(r.t.id)}else if(i>=0)b.errs.splice(i,1)});saveP()
+ Object.keys(by).forEach(function(k){P[k]=P[k]||{s:0,n:0};P[k].s+=by[k].s;P[k].n+=by[k].n});
+ P.seen=P.seen||{};run.res.forEach(function(r){P.seen[r.t.id]=(P.seen[r.t.id]||0)+1});saveP()
  var s=run.res.reduce(function(a,r){return a+r.s},0);
  H.push({d:fmtDate(new Date()),blocks:Object.keys(by),s:s,n:run.res.length});H=H.slice(-10);
  csSet(LEVELS[LEVEL].histKey,JSON.stringify(H))}
-function startWeak(){var wk=weak(),pool=errTasks(wk.length?wk:null),seen={};pool.forEach(function(t){seen[t.id]=1});pool=shuffle(pool);
- if(wk.length)pool=pool.concat(shuffle(allTasks().filter(function(t){return wk.indexOf(t.block)>=0&&!seen[t.id]})));
- pool=pool.slice(0,S.diff);if(!pool.length)return false;run={q:shuffle(pool),i:0,res:[]};save();show();return true}
 function loadP(cb){var keys=Object.keys(DATA.blocks),want=[];
  keys.forEach(function(k){want.push(LEVELS[LEVEL].progPre+k,LEVELS[LEVEL].seenPre+k)});
  csGet(want,function(res){var p={seen:{}};
   keys.forEach(function(k){
-   try{var pr=JSON.parse(res[LEVELS[LEVEL].progPre+k]||'null');if(pr)p[k]=pr}catch(e){}
+   try{var pr=JSON.parse(res[LEVELS[LEVEL].progPre+k]||'null');
+    if(pr&&pr.last){var ls=0,ln=0;pr.last.forEach(function(x){ls+=x.s;ln+=x.n});p[k]={s:ls,n:ln}}
+    else if(pr)p[k]={s:pr.s||0,n:pr.n||0}}catch(e){}
    try{var sn=JSON.parse(res[LEVELS[LEVEL].seenPre+k]||'null');if(sn)Object.keys(sn).forEach(function(id){p.seen[id]=sn[id]})}catch(e){}
   });
   P=p;cb()})}
@@ -462,10 +461,11 @@ function sumLine(){var n=S.blocks.length;return LEVELS[LEVEL].label+' · '+(n==O
 function home(){setView('home');tgBack(null);
  var icInf='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
  var icSet='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>';
- var h='<div class="hd"><div style="display:flex;align-items:center;gap:10px">'+robotHtml('greet','rbot-md')+'<div><small>Deutsch</small><h1 style="margin-bottom:0">'+L('appName')+'</h1></div></div><div class="ic"><button id="inf" aria-label="'+L('infoAria')+'">'+icInf+'</button><button id="set" aria-label="'+L('settingsAria')+'">'+icSet+'</button></div></div><div style="height:18px"></div>';
+ var icStat='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>';
+ var h='<div class="hd"><div style="display:flex;align-items:center;gap:10px">'+robotHtml('greet','rbot-md')+'<div><small>Deutsch</small><h1 style="margin-bottom:0">'+L('appName')+'</h1></div></div><div class="ic"><button id="stat" aria-label="'+L('statsAria')+'">'+icStat+'</button><button id="inf" aria-label="'+L('infoAria')+'">'+icInf+'</button><button id="set" aria-label="'+L('settingsAria')+'">'+icSet+'</button></div></div><div style="height:18px"></div>';
  if(saved)h+='<button class="sec" id="resume" style="margin:0 0 4px">'+L('resume',saved.i+1,saved.ids.length)+'</button>';
  h+='<button class="pri big2" id="go">Старт</button><button class="lnk sum" id="sum">'+esc(sumLine())+'</button>';
- h+='<button class="sec" id="weak">'+L('mistakes')+'</button><p class="mut" id="wmsg" style="margin:6px 0 0"></p>';
+ h+='<p class="mut" id="wmsg" style="margin:6px 0 0"></p>';
  var hh=H.slice().reverse();
  if(hh.length){h+='<p style="margin:18px 0 4px"><small>'+L('historyTitle')+'</small></p>';
   hh.slice(0,3).forEach(function(e){h+=histRow(e)});
@@ -473,9 +473,16 @@ function home(){setView('home');tgBack(null);
  h+='<p class="mut" style="text-align:center;margin:20px 0 0">'+APP_VERSION+(DATA.updated?' · '+L('bankUpdated',DATA.updated):'')+'</p>';
  render('<div class="frame">'+h+'</div>');
  var r=document.getElementById('resume');if(r)r.onclick=function(){restore(saved);show()};
- document.getElementById('set').onclick=settings;document.getElementById('sum').onclick=settings;document.getElementById('inf').onclick=info;
- document.getElementById('weak').onclick=function(){if(!startWeak())document.getElementById('wmsg').textContent=L('noMistakesYet')};
+ document.getElementById('set').onclick=settings;document.getElementById('sum').onclick=settings;document.getElementById('inf').onclick=info;document.getElementById('stat').onclick=stats;
  document.getElementById('go').onclick=function(){if(!S.blocks.length){settings();return}start()};
+}
+function stats(){setView('stats');tgBack(home);
+ var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">'+L('statsTitle')+'</h1><div class="frame">';
+ var ks=Object.keys(DATA.blocks).filter(function(k){return pstat(k)!==null});
+ if(ks.length)ks.forEach(function(k){var p=Math.round(pstat(k)*100);h+='<div class="row"><span><span class="bltag">'+k+'</span> '+esc(loc(DATA.blocks[k].name))+'</span><span style="'+(p<70?'color:var(--bad);font-weight:600':'')+'">'+p+'%</span></div>'});
+ else h+='<p class="mut" style="margin:0">'+L('noStatsYet')+'</p>';
+ h+='</div>';
+ render(h);document.getElementById('bk').onclick=home;
 }
 function settings(){setView('set');tgBack(home);
  var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">'+L('settingsTitle')+'</h1>';
@@ -648,9 +655,9 @@ function finish(){setView('result');tgBack(home);
  var bad=run.res.filter(function(r){return r.s<1});
  if(bad.length){h+='<p><small>'+L('errReview',bad.length)+'</small></p>';bad.forEach(function(r){h+='<div class="err"><div class="mut">'+TYPE[LANG][r.t.type]+' · блок '+r.t.block+' · '+fmt(r.s)+(r.s==0?L('ptsFull'):L('ptsHalf'))+'</div>'+esc(loc(r.t.prompt))+' '+esc(loc(r.t.text))+'<br>'+L('yourAnswer')+esc(r.v)+'<br>'+L('refAnswer')+esc(r.t.answers[0])+'<div class="mut" style="margin-top:4px">'+esc(loc(r.t.hint))+'</div></div>'})}
  else h+='<div class="frame"><p style="margin:0">'+L('noErrors')+'</p></div>';
- var hasW=weak().length||errTasks().length;h+=(hasW?'<button class="pri" id="wk2">'+L('mistakes')+'</button>':'')+'<button class="'+(hasW?'sec':'pri')+'" id="again">'+L('again')+'</button><button class="sec" id="home">'+L('toHome')+'</button>';
+ h+='<button class="pri" id="again">'+L('again')+'</button><button class="sec" id="home">'+L('toHome')+'</button>';
  render(h);run.done=true;var keep=run;run=null;saved=null;save();run=keep;
- document.getElementById('again').onclick=start;var w2=document.getElementById('wk2');if(w2)w2.onclick=startWeak;document.getElementById('home').onclick=function(){run=null;home()};
+ document.getElementById('again').onclick=start;document.getElementById('home').onclick=function(){run=null;home()};
 }
 document.body.className='home';render(loaderHtml());
 csGet(['dg_uml','dg_theme','dg_level','dg_lang'],function(res){
