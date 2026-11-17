@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Deutsch: Грамматика</title>
+<html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Deutsch: Граматика</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -132,10 +132,10 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v10';
-var TYPE={choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать"};
+var APP_VERSION='v11';
+var TYPE={choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити"};
 var FREE={fix:1,translate:1,build:1,combine:1};
-var TSH={choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить'};
+var TSH={choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати'};
 var app=document.getElementById('app');
 function render(h){app.innerHTML=h;app.style.animation='none';app.offsetHeight;app.style.animation=''}
 var DATA=null,byId={},S=null,run=null,saved=null,P={},UM=false,THEME='classic',VIEW='home';
@@ -205,7 +205,7 @@ function loadAll(cb){
   try{var _s=JSON.parse(res[LEVELS[LEVEL].setKey]||'null');if(_s){Object.keys(_s).forEach(function(k){S[k]=_s[k]});S.blocks=S.blocks.filter(function(k){return DATA.blocks[k]})}}catch(e){}
   try{if(res[LEVELS[LEVEL].runKey])saved=parseSaved(res[LEVELS[LEVEL].runKey])}catch(e){}
   loadP(cb)})}
-function loaderHtml(){return '<div class="loader"><div class="spin"></div><p class="mut">Загрузка…</p></div>'}
+function loaderHtml(){return '<div class="loader"><div class="spin"></div><p class="mut">Завантаження…</p></div>'}
 function robotHtml(mood,cls){return '<div class="rwrap '+cls+'" id="rbot" data-mood="'+mood+'"><svg class="rsvg" viewBox="0 0 220 260">'+
  '<defs><filter id="rsoft" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000" flood-opacity=".16"/></filter></defs>'+
  '<ellipse class="rshadow" cx="110" cy="236" rx="46" ry="9" fill="#000" opacity=".14"/>'+
@@ -232,54 +232,54 @@ function loadLevel(lvl,cb){LEVEL=lvl;
   DATA=data;byId={};DATA.tasks.forEach(function(t){byId[t.id]=t});
   S={diff:10,defer:false,blocks:Object.keys(DATA.blocks),types:{}};
   setTimeout(function(){loadAll(cb)},Math.max(0,900-(Date.now()-t0)));
- }).catch(function(){render('<p class="mut">Не удалось загрузить задания. Проверьте подключение и обновите страницу.</p>')});
+ }).catch(function(){render('<p class="mut">Не вдалося завантажити завдання. Перевірте з’єднання та оновіть сторінку.</p>')});
 }
 function setLevel(lvl){if(lvl==LEVEL)return;csSet('dg_level',lvl);run=null;saved=null;
- loadLevel(lvl,function(){settings();setTimeout(function(){haptic();toast('Уровень: '+LEVELS[lvl].label)},300)})}
+ loadLevel(lvl,function(){settings();setTimeout(function(){haptic();toast('Рівень: '+LEVELS[lvl].label)},300)})}
 function init(){home()}
-function sumLine(){var n=S.blocks.length;return LEVELS[LEVEL].label+' · '+(n==Object.keys(DATA.blocks).length?'Все блоки ('+n+')':'Блоков: '+n+' ('+S.blocks.join(', ')+')')+' · '+S.diff+' на блок · '+total()+' заданий'}
+function sumLine(){var n=S.blocks.length;return LEVELS[LEVEL].label+' · '+(n==Object.keys(DATA.blocks).length?'Усі блоки ('+n+')':'Блоків: '+n+' ('+S.blocks.join(', ')+')')+' · '+S.diff+' на блок · '+total()+' завдань'}
 function home(){setView('home');tgBack(null);
  var icInf='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
  var icSet='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>';
- var h='<div class="hd"><div style="display:flex;align-items:center;gap:10px">'+robotHtml('greet','rbot-md')+'<div><small>Deutsch</small><h1 style="margin-bottom:0">Грамматика</h1></div></div><div class="ic"><button id="inf" aria-label="Как это работает">'+icInf+'</button><button id="set" aria-label="Настройки">'+icSet+'</button></div></div><div style="height:18px"></div>';
- if(saved)h+='<button class="sec" id="resume" style="margin:0 0 4px">Продолжить тест (вопрос '+(saved.i+1)+' из '+saved.ids.length+')</button>';
+ var h='<div class="hd"><div style="display:flex;align-items:center;gap:10px">'+robotHtml('greet','rbot-md')+'<div><small>Deutsch</small><h1 style="margin-bottom:0">Граматика</h1></div></div><div class="ic"><button id="inf" aria-label="Як це працює">'+icInf+'</button><button id="set" aria-label="Налаштування">'+icSet+'</button></div></div><div style="height:18px"></div>';
+ if(saved)h+='<button class="sec" id="resume" style="margin:0 0 4px">Продовжити тест (запитання '+(saved.i+1)+' з '+saved.ids.length+')</button>';
  h+='<button class="pri big2" id="go">Старт</button><button class="lnk sum" id="sum">'+esc(sumLine())+'</button>';
- h+='<button class="sec" id="weak">Работа над ошибками</button><p class="mut" id="wmsg" style="margin:6px 0 0"></p>';
+ h+='<button class="sec" id="weak">Робота над помилками</button><p class="mut" id="wmsg" style="margin:6px 0 0"></p>';
  var st=Object.keys(DATA.blocks).filter(function(k){return pstat(k)!==null}).sort(function(a,b){return pstat(a)-pstat(b)}).slice(0,10);
- if(st.length){h+='<p style="margin:18px 0 4px"><small>Где больше ошибок (последние 3 прохождения)</small></p>';st.forEach(function(k){var p=Math.round(pstat(k)*100);h+='<div class="row"><span><span class="bltag">'+k+'</span> '+esc(DATA.blocks[k].name)+'</span><span style="'+(p<70?'color:var(--bad);font-weight:600':'')+'">'+p+'%</span></div>'})}
+ if(st.length){h+='<p style="margin:18px 0 4px"><small>Де більше помилок (останні 3 проходження)</small></p>';st.forEach(function(k){var p=Math.round(pstat(k)*100);h+='<div class="row"><span><span class="bltag">'+k+'</span> '+esc(DATA.blocks[k].name)+'</span><span style="'+(p<70?'color:var(--bad);font-weight:600':'')+'">'+p+'%</span></div>'})}
  h+='<p class="mut" style="text-align:center;margin:20px 0 0">'+APP_VERSION+'</p>';
  render('<div class="frame">'+h+'</div>');
  var r=document.getElementById('resume');if(r)r.onclick=function(){restore(saved);show()};
  document.getElementById('set').onclick=settings;document.getElementById('sum').onclick=settings;document.getElementById('inf').onclick=info;
- document.getElementById('weak').onclick=function(){if(!startWeak())document.getElementById('wmsg').textContent='Пока ошибок нет: задания с ошибками появятся здесь после первых тестов.'};
+ document.getElementById('weak').onclick=function(){if(!startWeak())document.getElementById('wmsg').textContent='Поки помилок немає: завдання з помилками з’являться тут після перших тестів.'};
  document.getElementById('go').onclick=function(){if(!S.blocks.length){settings();return}start()};
 }
 function settings(){setView('set');tgBack(home);
- var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">Настройки</h1>';
- h+='<div class="frame"><small>Уровень</small><div class="seg" id="segLevel" style="margin-top:6px"><div class="segThumb"></div>';
+ var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">Налаштування</h1>';
+ h+='<div class="frame"><small>Рівень</small><div class="seg" id="segLevel" style="margin-top:6px"><div class="segThumb"></div>';
  Object.keys(LEVELS).forEach(function(lv){h+='<button data-lv="'+lv+'" class="'+(LEVEL==lv?'on':'')+'">'+LEVELS[lv].label+'</button>'});
- h+='</div><p class="mut" style="margin:6px 0 0">Меняет банк заданий и набор доступных блоков. Прогресс и настройки по уровням раздельные.</p></div>';
- h+='<div class="frame"><small>Количество заданий (на каждый блок)</small><div class="seg" id="seg" style="margin-top:6px"><div class="segThumb"></div>';
+ h+='</div><p class="mut" style="margin:6px 0 0">Змінює банк завдань і набір доступних блоків. Прогрес і налаштування за рівнями окремі.</p></div>';
+ h+='<div class="frame"><small>Кількість завдань (на кожен блок)</small><div class="seg" id="seg" style="margin-top:6px"><div class="segThumb"></div>';
  [5,10,15].forEach(function(n){h+='<button data-n="'+n+'" class="'+(S.diff==n?'on':'')+'">'+n+'</button>'});
  h+='</div><p class="mut" style="margin:6px 0 0" id="cnt"></p></div>';
  h+='<div class="frame"><small>Дизайн</small><div class="seg" id="segTheme" style="margin-top:6px"><div class="segThumb"></div>';
- [['Тёмный','classic'],['Светлый','lavender'],['Glass','liquid']].forEach(function(d){h+='<button data-th="'+d[1]+'" class="'+(THEME==d[1]?'on':'')+'">'+d[0]+'</button>'});
- h+='</div><p class="mut" style="margin:6px 0 0">Меняет только оформление, экраны остаются те же.</p></div>';
- h+='<div class="frame"><label class="swrow"><input type="checkbox" id="defer" class="swin" '+(S.defer?'checked':'')+'><span class="sw"><span class="swth"></span></span><span>Показать результат в конце</span></label>';
- h+='<label class="swrow" style="margin-top:12px"><input type="checkbox" id="uml" class="swin" '+(UM?'checked':'')+'><span class="sw"><span class="swth"></span></span><span>Кнопки ä ö ü ß под полем ввода</span></label></div>';
- h+='<div class="hd" style="margin:20px 0 10px"><small id="sm"></small><span><button class="lnk" id="all">Все</button> · <button class="lnk" id="none">Снять</button></span></div>';
+ [['Темна','classic'],['Світла','lavender'],['Glass','liquid']].forEach(function(d){h+='<button data-th="'+d[1]+'" class="'+(THEME==d[1]?'on':'')+'">'+d[0]+'</button>'});
+ h+='</div><p class="mut" style="margin:6px 0 0">Змінює лише оформлення, екрани залишаються ті самі.</p></div>';
+ h+='<div class="frame"><label class="swrow"><input type="checkbox" id="defer" class="swin" '+(S.defer?'checked':'')+'><span class="sw"><span class="swth"></span></span><span>Показати результат наприкінці</span></label>';
+ h+='<label class="swrow" style="margin-top:12px"><input type="checkbox" id="uml" class="swin" '+(UM?'checked':'')+'><span class="sw"><span class="swth"></span></span><span>Кнопки ä ö ü ß під полем введення</span></label></div>';
+ h+='<div class="hd" style="margin:20px 0 10px"><small id="sm"></small><span><button class="lnk" id="all">Усі</button> · <button class="lnk" id="none">Жодного</button></span></div>';
  Object.keys(DATA.blocks).forEach(function(k){var b=DATA.blocks[k];
   h+='<div class="frame"><label class="cbrow"><input type="checkbox" class="blk cbin" value="'+k+'" '+(S.blocks.indexOf(k)>=0?'checked':'')+'><span class="cbx"></span><span><span class="bltag">'+k+'</span> '+b.name+' <small>'+b.level+'</small>'+(b.example?'<br><small style="font-size:12px">'+esc(b.example)+'</small>':'')+'</span></label>';
-  if(fixedB(k))h+='<div class="tyf">Только выбор ответа, фиксированный список ('+bank(k).length+')</div>';
+  if(fixedB(k))h+='<div class="tyf">Лише вибір відповіді, фіксований список ('+bank(k).length+')</div>';
   else if(Object.keys(b.types).length<=1){var onlyT=Object.keys(b.types)[0],tn=TYPE[onlyT];tn=tn.charAt(0).toLowerCase()+tn.slice(1);
-   h+='<div class="tyf">Только '+tn+' (в банке: '+bank(k).length+')</div>'}
-  else{h+='<details class="ty"><summary id="ts'+k+'"></summary>';Object.keys(b.types).forEach(function(t){h+='<div class="tr"><span>'+TYPE[t]+'</span><span class="mut" id="tv'+k+t+'">'+(plan(k,S.diff)[t]||0)+' из '+S.diff+'</span></div><input type="range" class="sl" id="sl'+k+t+'" min="0" max="20" value="'+tw(k)[t]+'" data-k="'+k+'" data-t="'+t+'">'});
-   h+='<div class="tr"><button class="lnk" data-rk="'+k+'">Сбросить к стандарту</button></div></details>'}
+   h+='<div class="tyf">Лише '+tn+' (у банку: '+bank(k).length+')</div>'}
+  else{h+='<details class="ty"><summary id="ts'+k+'"></summary>';Object.keys(b.types).forEach(function(t){h+='<div class="tr"><span>'+TYPE[t]+'</span><span class="mut" id="tv'+k+t+'">'+(plan(k,S.diff)[t]||0)+' з '+S.diff+'</span></div><input type="range" class="sl" id="sl'+k+t+'" min="0" max="20" value="'+tw(k)[t]+'" data-k="'+k+'" data-t="'+t+'">'});
+   h+='<div class="tr"><button class="lnk" data-rk="'+k+'">Скинути до стандарту</button></div></details>'}
   h+='</div>'});
  h+='<button class="pri" id="bk2">Готово</button>';
  render(h);upd();window.scrollTo(0,0);
  ['segLevel','seg','segTheme'].forEach(function(id){segMove(id,true)});
- function doneSet(){home();setTimeout(function(){haptic();toast('Настройки сохранены')},300)}
+ function doneSet(){home();setTimeout(function(){haptic();toast('Налаштування збережено')},300)}
  document.getElementById('bk').onclick=doneSet;document.getElementById('bk2').onclick=doneSet;
  document.querySelectorAll('#seg button').forEach(function(b){b.onclick=function(){S.diff=+b.dataset.n;saveSet();document.querySelectorAll('#seg button').forEach(function(x){x.className=x===b?'on':''});segMove('seg');upd()}});
  document.querySelectorAll('#segTheme button').forEach(function(b){b.onclick=function(){setTheme(b.dataset.th);csSet('dg_theme',b.dataset.th);document.querySelectorAll('#segTheme button').forEach(function(x){x.className=x===b?'on':''});segMove('segTheme')}});
@@ -297,37 +297,37 @@ function settings(){setView('set');tgBack(home);
 }
 function info(){setView('info');tgBack(home);
  var n=DATA.tasks.length;
- var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">Как это работает</h1>'+
- '<div class="frame inf"><h3 style="margin-top:0">Тест</h3><p>«Старт» запускает тест по блокам, выбранным в настройках. Задания из всех блоков перемешаны. «Количество заданий» задаёт их число на каждый блок: 5, 10 или 15.</p>'+
- '<p>Внутри блока задания делятся по типам в пропорциях из настроек (раскройте «Типы заданий» под блоком). Из банка сначала берутся задания, которые попадались вам реже всего, поэтому повторы начинаются только после того, как пройдены все задания нужного типа.</p>'+
- '<p>Незаконченный тест сохраняется: его можно продолжить с главной. «Отменить тест» сбрасывает его без сохранения результата.</p></div>'+
- '<div class="frame inf"><h3 style="margin-top:0">Откуда задания</h3><p>Все задания — из готового банка: '+n+' заданий'+(LEVEL=='a2b2'?', около 100 на каждый блок, в блоке M — фиксированный список глаголов с предлогами из учебника ('+DATA.tasks.filter(function(t){return t.block=='M'}).length+')':' для уровня A1–A2 (6 упрощённых блоков)')+'.</p></div>'+
- '<div class="frame inf"><h3 style="margin-top:0">Уровень</h3><p>В настройках можно выбрать уровень A2–B2 (все 13 блоков) или A1–A2 (6 упрощённых блоков с более простыми заданиями, без сложных тем вроде Passiv, Konjunktiv II или Relativsätze). Это два разных банка заданий: прогресс, ошибки и выбор блоков хранятся отдельно для каждого уровня.</p></div>'+
- '<div class="frame inf"><h3 style="margin-top:0">Проверка и баллы</h3><p>Верно — 1 балл, почти верно — 0,5, неверно — 0. Регистр и знаки препинания не учитываются, кроме блока K «Правописание».</p>'+
- '<p>Выбор ответа, вставка слова и составление предложения проверяются по эталону сразу. Перевод, исправление и преобразование: при точном совпадении — сразу; иначе вы сравниваете свой ответ с эталоном сами и выбираете «Верно», «Почти» или «Неверно».</p>'+
- '<p>«Показать результат в конце» скрывает оценку после каждого ответа; итог и разбор ошибок всегда показываются в конце теста.</p></div>'+
- '<div class="frame inf"><h3 style="margin-top:0">Ошибки и прогресс</h3><p>«Где больше ошибок» показывает процент баллов по каждому блоку за последние 3 прохождения, худшие блоки сверху (не более 10). Блок ниже 70% считается слабым и подсвечивается красным.</p>'+
- '<p>«Работа над ошибками» собирает тест из заданий, где вы ошиблись, сначала в слабых блоках, и добирает задания из этих же блоков. Задание уходит из списка ошибок, когда вы ответите на него верно.</p></div>'+
- '<div class="frame inf"><h3 style="margin-top:0">Прочее</h3><p>Кнопки ä ö ü ß под полем ввода включаются в настройках. Настройки и прогресс сохраняются автоматически в облаке Telegram (Cloud Storage), на этом же аккаунте они доступны с любого устройства.</p>'+
- '<p>Дизайн в настройках — «Тёмный» или «Светлый»: меняется только оформление (цвета, скругления, тени, размытый фон), логика и экраны те же. «Тёмный» подстраивается под тему телефона (светлая или тёмная), «Светлый» всегда светлый, не зависит от темы телефона.</p>'+
- '<p class="mut">Описание обновлено: 16.11.2026.</p></div><button class="pri" id="bk2">Понятно</button>';
+ var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">Як це працює</h1>'+
+ '<div class="frame inf"><h3 style="margin-top:0">Тест</h3><p>«Старт» запускає тест за блоками, вибраними в налаштуваннях. Завдання з усіх блоків перемішані. «Кількість завдань» задає їх число на кожен блок: 5, 10 або 15.</p>'+
+ '<p>Усередині блоку завдання діляться за типами у пропорціях з налаштувань (розгорніть «Типи завдань» під блоком). З банку спочатку беруться завдання, які траплялися вам рідше за всіх, тому повтори починаються лише після того, як пройдені всі завдання потрібного типу.</p>'+
+ '<p>Незакінчений тест зберігається: його можна продовжити з головної. «Скасувати тест» скидає його без збереження результату.</p></div>'+
+ '<div class="frame inf"><h3 style="margin-top:0">Звідки завдання</h3><p>Усі завдання — з готового банку: '+n+' завдань'+(LEVEL=='a2b2'?', близько 100 на кожен блок, у блоці M — фіксований список дієслів із прийменниками з підручника ('+DATA.tasks.filter(function(t){return t.block=='M'}).length+')':' для рівня A1–A2 (6 спрощених блоків)')+'.</p></div>'+
+ '<div class="frame inf"><h3 style="margin-top:0">Рівень</h3><p>У налаштуваннях можна вибрати рівень A2–B2 (усі 13 блоків) або A1–A2 (6 спрощених блоків із простішими завданнями, без складних тем, як Passiv, Konjunktiv II чи Relativsätze). Це два різні банки завдань: прогрес, помилки і вибір блоків зберігаються окремо для кожного рівня.</p></div>'+
+ '<div class="frame inf"><h3 style="margin-top:0">Перевірка і бали</h3><p>Правильно — 1 бал, майже правильно — 0,5, неправильно — 0. Регістр і розділові знаки не враховуються, крім блоку K «Правопис».</p>'+
+ '<p>Вибір відповіді, вставка слова і складання речення перевіряються за зразком одразу. Переклад, виправлення і перетворення: при точному збігу — одразу; інакше ви порівнюєте свою відповідь із зразком самі й обираєте «Правильно», «Майже» або «Неправильно».</p>'+
+ '<p>«Показати результат наприкінці» приховує оцінку після кожної відповіді; підсумок і аналіз помилок завжди показуються в кінці тесту.</p></div>'+
+ '<div class="frame inf"><h3 style="margin-top:0">Помилки і прогрес</h3><p>«Де більше помилок» показує відсоток балів за кожним блоком за останні 3 проходження, найгірші блоки зверху (не більше 10). Блок нижче 70% вважається слабким і підсвічується червоним.</p>'+
+ '<p>«Робота над помилками» збирає тест із завдань, де ви помилилися, спочатку в слабких блоках, і добирає завдання з цих же блоків. Завдання йде зі списку помилок, коли ви відповісте на нього правильно.</p></div>'+
+ '<div class="frame inf"><h3 style="margin-top:0">Інше</h3><p>Кнопки ä ö ü ß під полем введення включаються в налаштуваннях. Налаштування і прогрес зберігаються автоматично в хмарі Telegram (Cloud Storage), на цьому ж акаунті вони доступні з будь-якого пристрою.</p>'+
+ '<p>Дизайн у налаштуваннях — «Темна» або «Світла»: змінюється лише оформлення (кольори, скруглення, тіні, розмитий фон), логіка і екрани ті самі. «Темна» підлаштовується під тему телефону (світла чи темна), «Світла» завжди світла, не залежить від теми телефону.</p>'+
+ '<p class="mut">Опис оновлено: 17.11.2026.</p></div><button class="pri" id="bk2">Зрозуміло</button>';
  render(h);window.scrollTo(0,0);document.getElementById('bk').onclick=home;document.getElementById('bk2').onclick=home;
 }
 function cntB(k){return Math.min(S.diff,bank(k).length)}
 function total(){var n=0;S.blocks.forEach(function(k){n+=cntB(k)});return n}
-function upd(){var sm=document.getElementById('sm');if(!sm)return;sm.textContent='Грамматические блоки: выбрано '+S.blocks.length+' из '+Object.keys(DATA.blocks).length;
+function upd(){var sm=document.getElementById('sm');if(!sm)return;sm.textContent='Граматичні блоки: вибрано '+S.blocks.length+' з '+Object.keys(DATA.blocks).length;
  Object.keys(DATA.blocks).forEach(function(k){var e=document.getElementById('ts'+k);if(!e)return;var p=plan(k,S.diff),w=tw(k);
-  e.textContent='Типы заданий: '+Object.keys(w).filter(function(t){return w[t]>0}).map(function(t){return TSH[t]+' '+(p[t]||0)}).join(', ')+' · в банке: '+bank(k).length;
-  Object.keys(w).forEach(function(t){var tv=document.getElementById('tv'+k+t);if(tv)tv.textContent=(p[t]||0)+' из '+S.diff})});
- document.getElementById('cnt').textContent='Всего в тесте: '+total()+' заданий.'}
+  e.textContent='Типи завдань: '+Object.keys(w).filter(function(t){return w[t]>0}).map(function(t){return TSH[t]+' '+(p[t]||0)}).join(', ')+' · у банку: '+bank(k).length;
+  Object.keys(w).forEach(function(t){var tv=document.getElementById('tv'+k+t);if(tv)tv.textContent=(p[t]||0)+' з '+S.diff})});
+ document.getElementById('cnt').textContent='Усього в тесті: '+total()+' завдань.'}
 function start(){
  var pool=[],skip={},warn=[];
  S.blocks.forEach(function(k){var n=S.diff,bk=bank(k),p=plan(k,n),got=[];
   Object.keys(p).forEach(function(t){got=got.concat(pick(bk.filter(function(x){return x.type==t}),p[t],skip))});
   got=got.concat(pick(bk,Math.min(n,bk.length)-got.length,skip));
-  if(got.length<Math.min(n,bk.length))warn.push('Блок '+k+': в банке меньше заданий, чем нужно.');
+  if(got.length<Math.min(n,bk.length))warn.push('Блок '+k+': у банку менше завдань, ніж потрібно.');
   pool=pool.concat(got)});
- if(!pool.length){home();document.getElementById('wmsg').textContent=warn.join(' ')||'Для выбранных блоков нет заданий. Выберите блоки в настройках.';return}
+ if(!pool.length){home();document.getElementById('wmsg').textContent=warn.join(' ')||'Для вибраних блоків немає завдань. Виберіть блоки в налаштуваннях.';return}
  run={q:shuffle(pool),i:0,res:[],warn:warn.join(' ')};save();show();
 }
 function score(){return run.res.reduce(function(a,r){return a+r.s},0)}
@@ -335,18 +335,18 @@ function buildInit(t){
  var toks=shuffle(t.text.split(' / ').map(function(w,i){return{w:w.trim(),i:i}})),placed=[];
  function draw(){
   var bl=document.getElementById('bl'),bp=document.getElementById('bp');if(!bl)return;
-  bl.innerHTML=placed.length?'':'<span class="mut">Ваше предложение</span>';
+  bl.innerHTML=placed.length?'':'<span class="mut">Ваше речення</span>';
   placed.forEach(function(k){var b=document.createElement('button');b.className='chip on';b.textContent=k.w;b.onclick=function(){if(bl.dataset.lock)return;placed.splice(placed.indexOf(k),1);draw()};bl.appendChild(b)});
   bp.innerHTML='';
   toks.forEach(function(k){var b=document.createElement('button');b.className='chip';b.textContent=k.w;if(placed.indexOf(k)>=0){b.disabled=true;b.style.opacity='.35'}b.onclick=function(){if(bl.dataset.lock)return;placed.push(k);draw();document.getElementById('be').textContent=''};bp.appendChild(b)})}
  draw();
  document.getElementById('rs').onclick=function(){if(document.getElementById('bl').dataset.lock)return;placed=[];draw()};
- document.getElementById('chk').onclick=function(){if(placed.length<toks.length){document.getElementById('be').textContent='Используйте все слова.';return}
+ document.getElementById('chk').onclick=function(){if(placed.length<toks.length){document.getElementById('be').textContent='Використовуйте всі слова.';return}
   document.getElementById('bl').dataset.lock=1;document.getElementById('rs').disabled=true;answer(placed.map(function(k){return k.w}).join(' '))}}
 function bindCancel(){var w=document.getElementById('cxw');
- function ask(){w.innerHTML='<div class="cx"><span>Отменить тест? Результат не сохранится.</span><button id="cxy">Да</button><button id="cxn">Нет</button></div>';
+ function ask(){w.innerHTML='<div class="cx"><span>Скасувати тест? Результат не збережеться.</span><button id="cxy">Так</button><button id="cxn">Ні</button></div>';
   document.getElementById('cxy').onclick=function(){run=null;saved=null;save();home()};
-  document.getElementById('cxn').onclick=function(){w.innerHTML='<button class="lnk" id="cx">Отменить тест</button>';document.getElementById('cx').onclick=ask}}
+  document.getElementById('cxn').onclick=function(){w.innerHTML='<button class="lnk" id="cx">Скасувати тест</button>';document.getElementById('cx').onclick=ask}}
  document.getElementById('cx').onclick=ask}
 var icCopy='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
 function capFirst(el){if(!el.value)return;var c=el.value.charAt(0),u=c.toUpperCase();if(c===u)return;
@@ -355,16 +355,16 @@ function umRow(){return UM?'<div class="um">'+['ä','ö','ü','ß'].map(function
 function umBind(el){document.querySelectorAll('.um button').forEach(function(b){b.onmousedown=function(e){e.preventDefault()};b.onclick=function(){var c=b.dataset.c,a=el.selectionStart,z=el.selectionEnd;el.value=el.value.slice(0,a)+c+el.value.slice(z);el.focus();el.selectionStart=el.selectionEnd=a+1}})}
 function show(){setView('quiz');
  var t=run.q[run.i];
- var h='<div class="qtop">'+robotHtml('think','rbot-sm')+'<div id="cxw"><button class="lnk" id="cx">Отменить тест</button></div></div><div class="frame"><div class="top"><span>Вопрос '+(run.i+1)+' из '+run.q.length+'</span><span>'+(S.defer?'':'Баллы: '+fmt(score()))+'</span></div><div class="bar"><i style="width:'+(run.i/run.q.length*100)+'%"></i></div>';
+ var h='<div class="qtop">'+robotHtml('think','rbot-sm')+'<div id="cxw"><button class="lnk" id="cx">Скасувати тест</button></div></div><div class="frame"><div class="top"><span>Запитання '+(run.i+1)+' з '+run.q.length+'</span><span>'+(S.defer?'':'Бали: '+fmt(score()))+'</span></div><div class="bar"><i style="width:'+(run.i/run.q.length*100)+'%"></i></div>';
  var typeLbl=TYPE[t.type].charAt(0).toLowerCase()+TYPE[t.type].slice(1);
  h+='<div class="blk">Блок '+t.block+' · '+esc(DATA.blocks[t.block].name)+' · '+typeLbl+'</div>'+(run.warn&&run.i==0?'<div class="note" style="margin:0 0 10px">'+esc(run.warn)+'</div>':'')+'<div class="q">'+esc(t.prompt)+(t.type=='choice'||t.type=='fill'?'\n'+esc(t.text):'')+'</div>';
- if(t.note)h+='<div class="note">Часть речи: '+esc(t.note)+'</div>';
+ if(t.note)h+='<div class="note">Частина мови: '+esc(t.note)+'</div>';
  if(t.type=='choice'){shuffle(t.options).forEach(function(o){h+='<button class="opt" data-v="'+esc(o)+'">'+esc(o)+'</button>'})}
- else if(t.type=='fill'){h+='<input type="text" id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ваш ответ">'+umRow()+'<button class="pri" id="chk">Проверить</button>'}
- else if(t.type=='build'){h+='<div class="note" style="margin-top:-6px">Нажимайте слова по порядку, чтобы собрать предложение. Нажмите на слово в строке, чтобы убрать его.</div><div id="bl" class="bl"></div><div id="bp" class="bp"></div><div class="rw"><button id="rs">Сбросить</button></div><div id="be" class="mut" style="color:var(--bad);min-height:18px"></div><button class="pri" id="chk">Проверить</button>'}
+ else if(t.type=='fill'){h+='<input type="text" id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ваша відповідь">'+umRow()+'<button class="pri" id="chk">Перевірити</button>'}
+ else if(t.type=='build'){h+='<div class="note" style="margin-top:-6px">Натискайте слова по порядку, щоб скласти речення. Натисніть на слово в рядку, щоб прибрати його.</div><div id="bl" class="bl"></div><div id="bp" class="bp"></div><div class="rw"><button id="rs">Скинути</button></div><div id="be" class="mut" style="color:var(--bad);min-height:18px"></div><button class="pri" id="chk">Перевірити</button>'}
  else{
-  if(t.type!='fix')h+='<div class="q" style="font-size:16px;color:var(--tx2)">'+esc(t.text)+(t.type=='combine'?' <button type="button" id="cp" class="cpy" aria-label="Вставить текст в поле ответа" title="Вставить в поле ответа">'+icCopy+'</button>':'')+'</div>';
-  h+='<textarea id="in" rows="3" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ваш ответ">'+(t.type=='fix'?esc(t.text):'')+'</textarea>'+umRow()+'<button class="pri" id="chk">Проверить</button>'}
+  if(t.type!='fix')h+='<div class="q" style="font-size:16px;color:var(--tx2)">'+esc(t.text)+(t.type=='combine'?' <button type="button" id="cp" class="cpy" aria-label="Вставити текст у поле відповіді" title="Вставити в поле відповіді">'+icCopy+'</button>':'')+'</div>';
+  h+='<textarea id="in" rows="3" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ваша відповідь">'+(t.type=='fix'?esc(t.text):'')+'</textarea>'+umRow()+'<button class="pri" id="chk">Перевірити</button>'}
  h+='<div id="fb"></div></div>';render(h);
  bindCancel();
  tgBack(function(){var c=document.getElementById('cx');if(c)c.click()});
@@ -392,31 +392,31 @@ function answer(v,btn){
  else{document.getElementById('chk').style.display='none'}
  var cls=g.s==1?'ok':g.s==0.5?'half':'bad';
  setMood(g.s>0?'happy':'sad');
- var f='<div class="fb '+cls+'"><b>'+(g.s==1?'Верно.':g.s==0.5?'Почти: полбалла.':'Неверно.')+'</b>';
- if(g.s<1)f+=' Эталон: '+esc(t.answers[0]);
+ var f='<div class="fb '+cls+'"><b>'+(g.s==1?'Правильно.':g.s==0.5?'Майже: половина бала.':'Неправильно.')+'</b>';
+ if(g.s<1)f+=' Еталон: '+esc(t.answers[0]);
  f+='<div class="h">'+esc(t.hint)+'</div>';
- f+='</div><button class="pri" id="nx">'+(last?'Результат':'Дальше')+'</button>';
+ f+='</div><button class="pri" id="nx">'+(last?'Результат':'Далі')+'</button>';
  document.getElementById('fb').innerHTML=f;
  document.getElementById('nx').onclick=next;
 }
 function selfAsk(t,v,rec,last){document.getElementById('chk').style.display='none';
- var f='<div class="fb half" id="sfb"><b>Сравните с эталоном.</b><div class="h">Ваш ответ: '+esc(v)+'</div><div class="h">Эталон: '+t.answers.map(esc).join('<br>или: ')+'</div><div class="sa"><button data-s="1">Верно</button><button data-s="0.5">Почти</button><button data-s="0">Неверно</button></div></div>';
+ var f='<div class="fb half" id="sfb"><b>Порівняйте з еталоном.</b><div class="h">Ваша відповідь: '+esc(v)+'</div><div class="h">Еталон: '+t.answers.map(esc).join('<br>або: ')+'</div><div class="sa"><button data-s="1">Правильно</button><button data-s="0.5">Майже</button><button data-s="0">Неправильно</button></div></div>';
  document.getElementById('fb').innerHTML=f;
  document.querySelectorAll('.sa button').forEach(function(b){b.onclick=function(){haptic();rec.s=+b.dataset.s;run.i++;save();run.i--;
   if(S.defer){next();return}
   setMood(rec.s>0?'happy':'sad');
   var x=document.getElementById('sfb');x.className='fb '+(rec.s==1?'ok':rec.s==0.5?'half':'bad');
-  x.innerHTML='<b>'+(rec.s==1?'Засчитано.':rec.s==0.5?'Полбалла.':'Не засчитано.')+'</b> Эталон: '+esc(t.answers[0])+'<div class="h">'+esc(t.hint)+'</div>';
-  var nb=document.createElement('button');nb.className='pri';nb.textContent=last?'Результат':'Дальше';nb.onclick=next;document.getElementById('fb').appendChild(nb)}})}
+  x.innerHTML='<b>'+(rec.s==1?'Зараховано.':rec.s==0.5?'Половина бала.':'Не зараховано.')+'</b> Еталон: '+esc(t.answers[0])+'<div class="h">'+esc(t.hint)+'</div>';
+  var nb=document.createElement('button');nb.className='pri';nb.textContent=last?'Результат':'Далі';nb.onclick=next;document.getElementById('fb').appendChild(nb)}})}
 function next(){run.i++;if(run.i<run.q.length){save();show()}else finish()}
 function finish(){setView('result');tgBack(home);
- recordProgress();var sc=score(),h='<div class="frame"><small>Результат</small><div class="big">'+fmt(sc)+' из '+run.res.length+'</div><small>По блокам</small>';
- Object.keys(DATA.blocks).forEach(function(k){var r=run.res.filter(function(x){return x.t.block==k});if(r.length)h+='<div class="row"><span>'+k+' '+DATA.blocks[k].name+'</span><span>'+fmt(r.reduce(function(a,x){return a+x.s},0))+' из '+r.length+'</span></div>'});
+ recordProgress();var sc=score(),h='<div class="frame"><small>Результат</small><div class="big">'+fmt(sc)+' з '+run.res.length+'</div><small>За блоками</small>';
+ Object.keys(DATA.blocks).forEach(function(k){var r=run.res.filter(function(x){return x.t.block==k});if(r.length)h+='<div class="row"><span>'+k+' '+DATA.blocks[k].name+'</span><span>'+fmt(r.reduce(function(a,x){return a+x.s},0))+' з '+r.length+'</span></div>'});
  h+='</div>';
  var bad=run.res.filter(function(r){return r.s<1});
- if(bad.length){h+='<p><small>Разбор ошибок ('+bad.length+')</small></p>';bad.forEach(function(r){h+='<div class="err"><div class="mut">'+TYPE[r.t.type]+' · блок '+r.t.block+' · '+fmt(r.s)+(r.s==0?' баллов':' балла')+'</div>'+esc(r.t.prompt)+' '+esc(r.t.text)+'<br>Ваш ответ: '+esc(r.v)+'<br>Эталон: '+esc(r.t.answers[0])+'<div class="mut" style="margin-top:4px">'+esc(r.t.hint)+'</div></div>'})}
- else h+='<div class="frame"><p style="margin:0">Ошибок нет.</p></div>';
- var hasW=weak().length||errTasks().length;h+=(hasW?'<button class="pri" id="wk2">Работа над ошибками</button>':'')+'<button class="'+(hasW?'sec':'pri')+'" id="again">Пройти ещё раз</button><button class="sec" id="home">На главную</button>';
+ if(bad.length){h+='<p><small>Аналіз помилок ('+bad.length+')</small></p>';bad.forEach(function(r){h+='<div class="err"><div class="mut">'+TYPE[r.t.type]+' · блок '+r.t.block+' · '+fmt(r.s)+(r.s==0?' балів':' бала')+'</div>'+esc(r.t.prompt)+' '+esc(r.t.text)+'<br>Ваша відповідь: '+esc(r.v)+'<br>Еталон: '+esc(r.t.answers[0])+'<div class="mut" style="margin-top:4px">'+esc(r.t.hint)+'</div></div>'})}
+ else h+='<div class="frame"><p style="margin:0">Помилок немає.</p></div>';
+ var hasW=weak().length||errTasks().length;h+=(hasW?'<button class="pri" id="wk2">Робота над помилками</button>':'')+'<button class="'+(hasW?'sec':'pri')+'" id="again">Пройти ще раз</button><button class="sec" id="home">На головну</button>';
  render(h);run.done=true;var keep=run;run=null;saved=null;save();run=keep;
  document.getElementById('again').onclick=start;var w2=document.getElementById('wk2');if(w2)w2.onclick=startWeak;document.getElementById('home').onclick=function(){run=null;home()};
 }
