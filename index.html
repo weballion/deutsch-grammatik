@@ -85,6 +85,7 @@ button.sec{width:100%;height:46px;margin-top:8px}
 .cbin:checked+.cbx::after{opacity:1;transform:scale(1)}
 .cbin:focus-visible+.cbx{outline:2px solid var(--pri);outline-offset:2px}
 details{border:1px solid var(--bd);border-radius:var(--radius);padding:10px 12px;background:var(--card);margin:14px 0;box-shadow:var(--shadow)}summary{cursor:pointer}
+details.hist{border:none;background:none;box-shadow:none;padding:0;margin:4px 0 0}details.hist summary{color:var(--tx2);font-size:13px;text-decoration:underline}
 label{display:flex;gap:8px;align-items:center}input[type=checkbox]{width:18px;height:18px}
 .top{display:flex;justify-content:space-between;font-size:13px;color:var(--tx2)}
 .bar{height:5px;background:var(--bd);border-radius:3px;margin:8px 0 16px}.bar i{display:block;height:100%;background:var(--pri);border-radius:3px;transition:width .2s}
@@ -154,7 +155,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v21';
+var APP_VERSION='v22';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -171,7 +172,8 @@ uk:{
  allBlocks:function(n){return 'Усі блоки ('+n+')'},
  someBlocks:function(n,list){return 'Блоків: '+n+' ('+list+')'},
  perBlockTasks:function(n){return ' на блок · '+n+' завдань'},
- whereMoreMistakes:'Де більше помилок (останні 3 проходження)',
+ historyTitle:'Історія тестів (останні 10)',
+ showMore:function(n){return 'Показати ще '+n},
  settingsTitle:'Налаштування',
  level:'Рівень',
  levelHint:'Змінює банк завдань і набір доступних блоків. Прогрес і налаштування за рівнями окремі.',
@@ -207,7 +209,7 @@ uk:{
  infoGrade2:'Вибір відповіді, вставка слова і складання речення перевіряються за зразком одразу. Переклад, виправлення і перетворення: при точному збігу — одразу; інакше ви порівнюєте свою відповідь із зразком самі й обираєте «Правильно», «Майже» або «Неправильно».',
  infoGrade3:'«Показати результат наприкінці» приховує оцінку після кожної відповіді; підсумок і аналіз помилок завжди показуються в кінці тесту.',
  infoErrH:'Помилки і прогрес',
- infoErr1:'«Де більше помилок» показує відсоток балів за кожним блоком за останні 3 проходження, найгірші блоки зверху (не більше 10). Блок нижче 70% вважається слабким і підсвічується червоним.',
+ infoErr1:'На головному екрані — журнал останніх 10 пройдених тестів (дата, блоки, бали), спершу 3 останні, решта — по кнопці «Показати ще». Блок із середнім балом нижче 70% за останні 3 проходження вважається слабким (у журналі це не показується).',
  infoErr2:'«Робота над помилками» збирає тест із завдань, де ви помилилися, спочатку в слабких блоках, і добирає завдання з цих же блоків. Завдання йде зі списку помилок, коли ви відповісте на нього правильно.',
  infoOtherH:'Інше',
  infoOther1:'Кнопки ä ö ü ß під полем введення включаються в налаштуваннях. Налаштування і прогрес зберігаються автоматично в хмарі Telegram (Cloud Storage), на цьому ж акаунті вони доступні з будь-якого пристрою.',
@@ -259,7 +261,8 @@ ru:{
  allBlocks:function(n){return 'Все блоки ('+n+')'},
  someBlocks:function(n,list){return 'Блоков: '+n+' ('+list+')'},
  perBlockTasks:function(n){return ' на блок · '+n+' заданий'},
- whereMoreMistakes:'Где больше ошибок (последние 3 прохождения)',
+ historyTitle:'История тестов (последние 10)',
+ showMore:function(n){return 'Показать ещё '+n},
  settingsTitle:'Настройки',
  level:'Уровень',
  levelHint:'Меняет банк заданий и набор доступных блоков. Прогресс и настройки по уровням раздельные.',
@@ -295,7 +298,7 @@ ru:{
  infoGrade2:'Выбор ответа, вставка слова и составление предложения проверяются по эталону сразу. Перевод, исправление и преобразование: при точном совпадении — сразу; иначе вы сравниваете свой ответ с эталоном сами и выбираете «Верно», «Почти» или «Неверно».',
  infoGrade3:'«Показать результат в конце» скрывает оценку после каждого ответа; итог и разбор ошибок всегда показываются в конце теста.',
  infoErrH:'Ошибки и прогресс',
- infoErr1:'«Где больше ошибок» показывает процент баллов по каждому блоку за последние 3 прохождения, худшие блоки сверху (не более 10). Блок ниже 70% считается слабым и подсвечивается красным.',
+ infoErr1:'На главном экране — журнал последних 10 пройденных тестов (дата, блоки, баллы), сначала 3 последних, остальные — по кнопке «Показать ещё». Блок со средним баллом ниже 70% за последние 3 прохождения считается слабым (в журнале это не отображается).',
  infoErr2:'«Работа над ошибками» собирает тест из заданий, где вы ошиблись, сначала в слабых блоках, и добирает задания из этих же блоков. Задание уходит из списка ошибок, когда вы ответите на него верно.',
  infoOtherH:'Прочее',
  infoOther1:'Кнопки ä ö ü ß под полем ввода включаются в настройках. Настройки и прогресс сохраняются автоматически в облаке Telegram (Cloud Storage), на этом же аккаунте они доступны с любого устройства.',
@@ -339,10 +342,12 @@ ru:{
 function L(k){var v=I18N[LANG][k];return typeof v=='function'?v.apply(null,Array.prototype.slice.call(arguments,1)):v}
 function loc(v){return v&&typeof v=='object'?v[LANG]:v}
 function ofN(a,b){return a+(LANG=='ru'?' из ':' з ')+b}
+function histRow(e){var pct=e.n?Math.round(e.s/e.n*100):0;
+ return '<div class="row"><span>'+e.blocks.map(function(k){return '<span class="bltag">'+k+'</span>'}).join('')+' <small class="mut">'+e.d+'</small></span><span'+(pct<70?' style="color:var(--bad);font-weight:600"':'')+'>'+ofN(fmt(e.s),e.n)+' · '+pct+'%</span></div>'}
 var app=document.getElementById('app');
 function render(h){app.innerHTML=h;app.style.animation='none';app.offsetHeight;app.style.animation=''}
-var DATA=null,byId={},S=null,run=null,saved=null,P={},UM=false,THEME='classic',VIEW='home',LANG='uk';
-var LEVELS={a2b2:{file:'data/tasks.json',label:'A2–B2',setKey:'dg_set',runKey:'dg_run',progPre:'dg_prog_',seenPre:'dg_seen_'},a1a2:{file:'data/tasks_a1a2.json',label:'A1–A2',setKey:'dg_set_a1a2',runKey:'dg_run_a1a2',progPre:'dg_prog_a1a2_',seenPre:'dg_seen_a1a2_'}};
+var DATA=null,byId={},S=null,run=null,saved=null,P={},H=[],UM=false,THEME='classic',VIEW='home',LANG='uk';
+var LEVELS={a2b2:{file:'data/tasks.json',label:'A2–B2',setKey:'dg_set',runKey:'dg_run',progPre:'dg_prog_',seenPre:'dg_seen_',histKey:'dg_hist'},a1a2:{file:'data/tasks_a1a2.json',label:'A1–A2',setKey:'dg_set_a1a2',runKey:'dg_run_a1a2',progPre:'dg_prog_a1a2_',seenPre:'dg_seen_a1a2_',histKey:'dg_hist_a1a2'}};
 var LEVEL='a2b2';
 var TG=window.Telegram&&window.Telegram.WebApp;
 if(TG){try{TG.ready();TG.expand()}catch(e){}}
@@ -391,9 +396,13 @@ function saveP(){var keys=Object.keys(DATA.blocks);
 function pstat(k){var b=P[k];if(!b||!b.last||!b.last.length)return null;var s=0,n=0;b.last.forEach(function(x){s+=x.s;n+=x.n});return n?s/n:null}
 function weak(){return Object.keys(DATA.blocks).filter(function(k){var p=pstat(k);return p!==null&&p<0.7})}
 function errTasks(keys){var o=[];Object.keys(P).forEach(function(k){if(keys&&keys.indexOf(k)<0)return;(P[k].errs||[]).forEach(function(id){if(byId[id])o.push(byId[id])})});return o}
+function fmtDate(d){var p2=function(x){return('0'+x).slice(-2)};return p2(d.getDate())+'.'+p2(d.getMonth()+1)+' '+p2(d.getHours())+':'+p2(d.getMinutes())}
 function recordProgress(){var by={};run.res.forEach(function(r){var k=r.t.block;by[k]=by[k]||{s:0,n:0};by[k].s+=r.s;by[k].n++});
  Object.keys(by).forEach(function(k){P[k]=P[k]||{last:[],errs:[]};P[k].last.push(by[k]);P[k].last=P[k].last.slice(-3)});
- P.seen=P.seen||{};run.res.forEach(function(r){P.seen[r.t.id]=(P.seen[r.t.id]||0)+1;var b=P[r.t.block],i=b.errs.indexOf(r.t.id);if(r.s<1){if(i<0)b.errs.push(r.t.id)}else if(i>=0)b.errs.splice(i,1)});saveP()}
+ P.seen=P.seen||{};run.res.forEach(function(r){P.seen[r.t.id]=(P.seen[r.t.id]||0)+1;var b=P[r.t.block],i=b.errs.indexOf(r.t.id);if(r.s<1){if(i<0)b.errs.push(r.t.id)}else if(i>=0)b.errs.splice(i,1)});saveP()
+ var s=run.res.reduce(function(a,r){return a+r.s},0);
+ H.push({d:fmtDate(new Date()),blocks:Object.keys(by),s:s,n:run.res.length});H=H.slice(-10);
+ csSet(LEVELS[LEVEL].histKey,JSON.stringify(H))}
 function startWeak(){var wk=weak(),pool=errTasks(wk.length?wk:null),seen={};pool.forEach(function(t){seen[t.id]=1});pool=shuffle(pool);
  if(wk.length)pool=pool.concat(shuffle(allTasks().filter(function(t){return wk.indexOf(t.block)>=0&&!seen[t.id]})));
  pool=pool.slice(0,S.diff);if(!pool.length)return false;run={q:shuffle(pool),i:0,res:[]};save();show();return true}
@@ -406,9 +415,10 @@ function loadP(cb){var keys=Object.keys(DATA.blocks),want=[];
   });
   P=p;cb()})}
 function loadAll(cb){
- csGet([LEVELS[LEVEL].setKey,LEVELS[LEVEL].runKey],function(res){
+ csGet([LEVELS[LEVEL].setKey,LEVELS[LEVEL].runKey,LEVELS[LEVEL].histKey],function(res){
   try{var _s=JSON.parse(res[LEVELS[LEVEL].setKey]||'null');if(_s){Object.keys(_s).forEach(function(k){S[k]=_s[k]});S.blocks=S.blocks.filter(function(k){return DATA.blocks[k]})}}catch(e){}
   try{if(res[LEVELS[LEVEL].runKey])saved=parseSaved(res[LEVELS[LEVEL].runKey])}catch(e){}
+  try{var _h=JSON.parse(res[LEVELS[LEVEL].histKey]||'null');H=Array.isArray(_h)?_h:[]}catch(e){H=[]}
   loadP(cb)})}
 function splashLogo(){return '<div class="splogo"><svg viewBox="0 0 512 512">'+
  '<g class="spbody"><path fill="var(--tx)" fill-rule="evenodd" d="M221 150H291L392 400H322L301 345H211L190 400H120Z M256 234L280.8 295H231.2Z"/></g>'+
@@ -456,8 +466,10 @@ function home(){setView('home');tgBack(null);
  if(saved)h+='<button class="sec" id="resume" style="margin:0 0 4px">'+L('resume',saved.i+1,saved.ids.length)+'</button>';
  h+='<button class="pri big2" id="go">Старт</button><button class="lnk sum" id="sum">'+esc(sumLine())+'</button>';
  h+='<button class="sec" id="weak">'+L('mistakes')+'</button><p class="mut" id="wmsg" style="margin:6px 0 0"></p>';
- var st=Object.keys(DATA.blocks).filter(function(k){return pstat(k)!==null}).sort(function(a,b){return pstat(a)-pstat(b)}).slice(0,10);
- if(st.length){h+='<p style="margin:18px 0 4px"><small>'+L('whereMoreMistakes')+'</small></p>';st.forEach(function(k){var p=Math.round(pstat(k)*100);h+='<div class="row"><span><span class="bltag">'+k+'</span> '+esc(loc(DATA.blocks[k].name))+'</span><span style="'+(p<70?'color:var(--bad);font-weight:600':'')+'">'+p+'%</span></div>'})}
+ var hh=H.slice().reverse();
+ if(hh.length){h+='<p style="margin:18px 0 4px"><small>'+L('historyTitle')+'</small></p>';
+  hh.slice(0,3).forEach(function(e){h+=histRow(e)});
+  if(hh.length>3){h+='<details class="hist"><summary>'+L('showMore',hh.length-3)+'</summary>';hh.slice(3).forEach(function(e){h+=histRow(e)});h+='</details>'}}
  h+='<p class="mut" style="text-align:center;margin:20px 0 0">'+APP_VERSION+(DATA.updated?' · '+L('bankUpdated',DATA.updated):'')+'</p>';
  render('<div class="frame">'+h+'</div>');
  var r=document.getElementById('resume');if(r)r.onclick=function(){restore(saved);show()};
