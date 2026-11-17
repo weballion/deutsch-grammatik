@@ -151,7 +151,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v15';
+var APP_VERSION='v16';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -626,7 +626,7 @@ function selfAsk(t,v,rec,last){document.getElementById('chk').style.display='non
 function next(){run.i++;if(run.i<run.q.length){save();show()}else finish()}
 function finish(){setView('result');tgBack(home);
  recordProgress();var sc=score(),h='<div class="frame"><small>Результат</small><div class="big">'+ofN(fmt(sc),run.res.length)+'</div><small>'+L('byBlocks')+'</small>';
- Object.keys(DATA.blocks).forEach(function(k){var r=run.res.filter(function(x){return x.t.block==k});if(r.length)h+='<div class="row"><span>'+k+' '+esc(loc(DATA.blocks[k].name))+'</span><span>'+ofN(fmt(r.reduce(function(a,x){return a+x.s},0)),r.length)+'</span></div>'});
+ Object.keys(DATA.blocks).forEach(function(k){var r=run.res.filter(function(x){return x.t.block==k});if(r.length)h+='<div class="row"><span><span class="bltag">'+k+'</span> '+esc(loc(DATA.blocks[k].name))+'</span><span>'+ofN(fmt(r.reduce(function(a,x){return a+x.s},0)),r.length)+'</span></div>'});
  h+='</div>';
  var bad=run.res.filter(function(r){return r.s<1});
  if(bad.length){h+='<p><small>'+L('errReview',bad.length)+'</small></p>';bad.forEach(function(r){h+='<div class="err"><div class="mut">'+TYPE[LANG][r.t.type]+' · блок '+r.t.block+' · '+fmt(r.s)+(r.s==0?L('ptsFull'):L('ptsHalf'))+'</div>'+esc(loc(r.t.prompt))+' '+esc(loc(r.t.text))+'<br>'+L('yourAnswer')+esc(r.v)+'<br>'+L('refAnswer')+esc(r.t.answers[0])+'<div class="mut" style="margin-top:4px">'+esc(loc(r.t.hint))+'</div></div>'})}
