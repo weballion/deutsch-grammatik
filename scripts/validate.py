@@ -16,8 +16,8 @@ for t in d["tasks"]:
     if not t.get("answers"): errs.append(f"{i}: нет answers")
     for f in ("prompt","text","hint"):
         if not txt(t.get(f)): errs.append(f"{i}: пустое поле {f}")
-    if ty in ("choice","fill") and "___" not in tx: errs.append(f"{i}: нет ___")
-    if ty=="choice" and not any(norm(o)==norm(t["answers"][0]) for o in t.get("options",[])): errs.append(f"{i}: верного ответа нет в options")
+    if ty in ("choice","fill","reflexive") and "___" not in tx: errs.append(f"{i}: нет ___")
+    if ty in ("choice","reflexive") and not any(norm(o)==norm(t["answers"][0]) for o in t.get("options",[])): errs.append(f"{i}: верного ответа нет в options")
     if ty=="fix" and any(a.strip()==tx.strip() for a in t["answers"]): errs.append(f"{i}: fix совпадает с ответом")
     if ty=="build":
         w=lambda s: sorted(norm(s).split())

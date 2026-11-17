@@ -132,10 +132,10 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v12';
-var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать"}};
+var APP_VERSION='v13';
+var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
-var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить'}};
+var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
 var I18N={
 uk:{
  loading:'Завантаження…',
@@ -547,9 +547,9 @@ function show(){setView('quiz');
  var t=run.q[run.i];
  var h='<div class="qtop">'+robotHtml('think','rbot-sm')+'<div id="cxw"><button class="lnk" id="cx">'+L('cancelTest')+'</button></div></div><div class="frame"><div class="top"><span>'+L('questionN',run.i+1,run.q.length)+'</span><span>'+(S.defer?'':L('points')+fmt(score()))+'</span></div><div class="bar"><i style="width:'+(run.i/run.q.length*100)+'%"></i></div>';
  var typeLbl=TYPE[LANG][t.type].charAt(0).toLowerCase()+TYPE[LANG][t.type].slice(1);
- h+='<div class="blk">Блок '+t.block+' · '+esc(loc(DATA.blocks[t.block].name))+' · '+typeLbl+'</div>'+(run.warn&&run.i==0?'<div class="note" style="margin:0 0 10px">'+esc(run.warn)+'</div>':'')+'<div class="q">'+esc(loc(t.prompt))+(t.type=='choice'||t.type=='fill'?'\n'+esc(loc(t.text)):'')+'</div>';
+ h+='<div class="blk">Блок '+t.block+' · '+esc(loc(DATA.blocks[t.block].name))+' · '+typeLbl+'</div>'+(run.warn&&run.i==0?'<div class="note" style="margin:0 0 10px">'+esc(run.warn)+'</div>':'')+'<div class="q">'+esc(loc(t.prompt))+(t.type=='choice'||t.type=='fill'||t.type=='reflexive'?'\n'+esc(loc(t.text)):'')+'</div>';
  if(t.note)h+='<div class="note">'+L('partOfSpeech')+esc(loc(t.note))+'</div>';
- if(t.type=='choice'){shuffle(t.options).forEach(function(o){h+='<button class="opt" data-v="'+esc(o)+'">'+esc(o)+'</button>'})}
+ if(t.type=='choice'||t.type=='reflexive'){shuffle(t.options).forEach(function(o){h+='<button class="opt" data-v="'+esc(o)+'">'+esc(o)+'</button>'})}
  else if(t.type=='fill'){h+='<input type="text" id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="'+L('answerPh')+'">'+umRow()+'<button class="pri" id="chk">'+L('check')+'</button>'}
  else if(t.type=='build'){h+='<div class="note" style="margin-top:-6px">'+L('buildHint')+'</div><div id="bl" class="bl"></div><div id="bp" class="bp"></div><div class="rw"><button id="rs">'+L('reset')+'</button></div><div id="be" class="mut" style="color:var(--bad);min-height:18px"></div><button class="pri" id="chk">'+L('check')+'</button>'}
  else{
@@ -558,7 +558,7 @@ function show(){setView('quiz');
  h+='<div id="fb"></div></div>';render(h);
  bindCancel();
  tgBack(function(){var c=document.getElementById('cx');if(c)c.click()});
- if(t.type=='choice')document.querySelectorAll('.opt').forEach(function(b){b.onclick=function(){answer(b.dataset.v,b)}});
+ if(t.type=='choice'||t.type=='reflexive')document.querySelectorAll('.opt').forEach(function(b){b.onclick=function(){answer(b.dataset.v,b)}});
  else if(t.type=='build'){buildInit(t)}
  else{var el=document.getElementById('in');el.focus();umBind(el);document.getElementById('chk').onclick=function(){var v=el.value.trim();if(!v){el.style.borderColor='var(--bad)';return}answer(v)};
   if(t.type=='fill')el.onkeydown=function(e){if(e.key=='Enter')document.getElementById('chk').click()};
@@ -578,7 +578,7 @@ function answer(v,btn){
  var g=grade(t,v);var rec={t:t,v:v,s:g.s};run.res.push(rec);run.i++;var last=run.i>=run.q.length;save();run.i--;
  if(g.self){selfAsk(t,v,rec,last);return}
  if(S.defer){next();return}
- if(t.type=='choice'){document.querySelectorAll('.opt').forEach(function(b){if(norm(b.dataset.v)==norm(t.answers[0]))b.classList.add('ok');else if(b===btn&&g.s==0)b.classList.add('bad')})}
+ if(t.type=='choice'||t.type=='reflexive'){document.querySelectorAll('.opt').forEach(function(b){if(norm(b.dataset.v)==norm(t.answers[0]))b.classList.add('ok');else if(b===btn&&g.s==0)b.classList.add('bad')})}
  else{document.getElementById('chk').style.display='none'}
  var cls=g.s==1?'ok':g.s==0.5?'half':'bad';
  setMood(g.s>0?'happy':'sad');
