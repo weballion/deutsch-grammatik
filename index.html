@@ -90,7 +90,9 @@ label{display:flex;gap:8px;align-items:center}input[type=checkbox]{width:18px;he
 .bar{height:5px;background:var(--bd);border-radius:3px;margin:8px 0 16px}.bar i{display:block;height:100%;background:var(--pri);border-radius:3px;transition:width .2s}
 .q{font-size:18px;margin:6px 0 14px;white-space:pre-wrap}
 .qp{font-size:13px;color:var(--tx2);margin:4px 0 2px}
-.opt{display:block;width:100%;text-align:left;margin-bottom:8px}.opt.ok{background:var(--okbg);border-color:var(--ok)}.opt.bad{background:var(--badbg);border-color:var(--bad)}
+.opt{display:block;width:100%;text-align:left;margin-bottom:8px}.opt.ok{background:var(--okbg);border-color:var(--ok);animation:optPop .45s ease}.opt.bad{background:var(--badbg);border-color:var(--bad)}
+@keyframes optPop{0%{transform:scale(1);box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 0%,transparent)}40%{transform:scale(1.045);box-shadow:0 0 16px 3px color-mix(in srgb,var(--ok) 55%,transparent)}100%{transform:scale(1);box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 0%,transparent)}}
+@media(prefers-reduced-motion:reduce){.opt.ok{animation:none}}
 input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:var(--radius);padding:11px;caret-color:var(--tx)}
 .fb{margin-top:14px;padding:12px;border-radius:var(--radius);font-size:15px;box-shadow:var(--shadow)}.fb.ok{background:var(--okbg);color:var(--ok)}.fb.bad{background:var(--badbg);color:var(--bad)}
 .fb .h{color:var(--tx);font-size:14px;margin-top:6px}.fb a{color:var(--tx);text-decoration:underline;cursor:pointer;font-size:14px;display:inline-block;margin-top:8px}
@@ -152,7 +154,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v20';
+var APP_VERSION='v21';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
