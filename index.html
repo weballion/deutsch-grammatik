@@ -151,7 +151,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v18';
+var APP_VERSION='v19';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -471,7 +471,7 @@ function settings(){setView('set');tgBack(home);
  Object.keys(LEVELS).forEach(function(lv){h+='<button data-lv="'+lv+'" class="'+(LEVEL==lv?'on':'')+'">'+LEVELS[lv].label+'</button>'});
  h+='</div><p class="mut" style="margin:6px 0 0">'+L('levelHint')+'</p></div>';
  h+='<div class="frame"><small>'+L('taskCount')+'</small><div class="seg" id="seg" style="margin-top:6px"><div class="segThumb"></div>';
- [5,10,15].forEach(function(n){h+='<button data-n="'+n+'" class="'+(S.diff==n?'on':'')+'">'+n+'</button>'});
+ [5,10,15,30].forEach(function(n){h+='<button data-n="'+n+'" class="'+(S.diff==n?'on':'')+'">'+n+'</button>'});
  h+='</div><p class="mut" style="margin:6px 0 0" id="cnt"></p></div>';
  h+='<div class="frame"><small>Дизайн</small><div class="seg" id="segTheme" style="margin-top:6px"><div class="segThumb"></div>';
  [['theme_classic','classic'],['theme_lavender','lavender'],['theme_liquid','liquid']].forEach(function(d){h+='<button data-th="'+d[1]+'" class="'+(THEME==d[1]?'on':'')+'">'+L(d[0])+'</button>'});
