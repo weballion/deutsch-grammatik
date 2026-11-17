@@ -151,7 +151,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v17';
+var APP_VERSION='v18';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -211,6 +211,7 @@ uk:{
  infoOther2:'Мова інтерфейсу визначається мовою Telegram; змінити її вручну можна в налаштуваннях (Українська/Русский).',
  infoOther3:'Дизайн у налаштуваннях — «Темна», «Світла» або «Glass»: змінюється лише оформлення (кольори, скруглення, тіні, розмитий фон), логіка і екрани ті самі. «Темна» підлаштовується під тему телефону (світла чи темна), «Світла» і «Glass» завжди зберігають свою палітру, незалежно від теми телефону.',
  infoUpdated:'Опис оновлено: 17.11.2026.',
+ bankUpdated:function(d){return 'Банк оновлено: '+d},
  understood:'Зрозуміло',
  partOfSpeech:'Частина мови: ',
  answerPh:'Ваша відповідь',
@@ -298,6 +299,7 @@ ru:{
  infoOther2:'Язык интерфейса определяется языком Telegram; изменить его вручную можно в настройках (Українська/Русский).',
  infoOther3:'Дизайн в настройках — «Тёмный», «Светлый» или «Glass»: меняется только оформление (цвета, скругления, тени, размытый фон), логика и экраны те же. «Тёмный» подстраивается под тему телефона (светлая или тёмная), «Светлый» и «Glass» всегда сохраняют свою палитру, независимо от темы телефона.',
  infoUpdated:'Описание обновлено: 17.11.2026.',
+ bankUpdated:function(d){return 'Банк обновлён: '+d},
  understood:'Понятно',
  partOfSpeech:'Часть речи: ',
  answerPh:'Ваш ответ',
@@ -453,7 +455,7 @@ function home(){setView('home');tgBack(null);
  h+='<button class="sec" id="weak">'+L('mistakes')+'</button><p class="mut" id="wmsg" style="margin:6px 0 0"></p>';
  var st=Object.keys(DATA.blocks).filter(function(k){return pstat(k)!==null}).sort(function(a,b){return pstat(a)-pstat(b)}).slice(0,10);
  if(st.length){h+='<p style="margin:18px 0 4px"><small>'+L('whereMoreMistakes')+'</small></p>';st.forEach(function(k){var p=Math.round(pstat(k)*100);h+='<div class="row"><span><span class="bltag">'+k+'</span> '+esc(loc(DATA.blocks[k].name))+'</span><span style="'+(p<70?'color:var(--bad);font-weight:600':'')+'">'+p+'%</span></div>'})}
- h+='<p class="mut" style="text-align:center;margin:20px 0 0">'+APP_VERSION+'</p>';
+ h+='<p class="mut" style="text-align:center;margin:20px 0 0">'+APP_VERSION+(DATA.updated?' · '+L('bankUpdated',DATA.updated):'')+'</p>';
  render('<div class="frame">'+h+'</div>');
  var r=document.getElementById('resume');if(r)r.onclick=function(){restore(saved);show()};
  document.getElementById('set').onclick=settings;document.getElementById('sum').onclick=settings;document.getElementById('inf').onclick=info;
@@ -522,7 +524,7 @@ function info(){setView('info');tgBack(home);
  '<div class="frame inf"><h3 style="margin-top:0">'+L('infoOtherH')+'</h3><p>'+L('infoOther1')+'</p>'+
  '<p>'+L('infoOther2')+'</p>'+
  '<p>'+L('infoOther3')+'</p>'+
- '<p class="mut">'+L('infoUpdated')+'</p></div><button class="pri" id="bk2">'+L('understood')+'</button>';
+ '<p class="mut">'+L('infoUpdated')+(DATA.updated?'<br>'+L('bankUpdated',DATA.updated):'')+'</p></div><button class="pri" id="bk2">'+L('understood')+'</button>';
  render(h);window.scrollTo(0,0);document.getElementById('bk').onclick=home;document.getElementById('bk2').onclick=home;
 }
 function cntB(k){return Math.min(S.diff,bank(k).length)}

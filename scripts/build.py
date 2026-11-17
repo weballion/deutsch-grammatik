@@ -2,6 +2,7 @@
 import json
 import subprocess
 import sys
+from datetime import date
 from pathlib import Path
 
 root = Path(__file__).resolve().parent.parent
@@ -24,7 +25,7 @@ for blocks_rel, out_rel in BANKS:
         block_tasks = data.pop("tasks")
         blocks[k] = data
         tasks.extend(block_tasks)
-    out = {"blocks": blocks, "tasks": tasks}
+    out = {"blocks": blocks, "tasks": tasks, "updated": date.today().strftime("%d.%m.%Y")}
     (root / out_rel).write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
     print(f"{out_rel} собран: {len(tasks)} заданий из {len(blocks)} блоков")
     sys.stdout.flush()
