@@ -102,7 +102,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 .fb{margin-top:14px;padding:12px;border-radius:var(--radius);font-size:15px;box-shadow:var(--shadow)}.fb.ok{background:var(--okbg);color:var(--ok)}.fb.bad{background:var(--badbg);color:var(--bad)}
 .fb .h{color:var(--tx);font-size:14px;margin-top:6px}.fb a{color:var(--tx);text-decoration:underline;cursor:pointer;font-size:14px;display:inline-block;margin-top:8px}
 .trin{margin:8px 0 16px;animation:trIn .25s ease}
-.wst{display:flex;text-align:center;margin-bottom:12px}.wst div{flex:1}.wst b{display:block;font-size:26px;line-height:1.2}
+.wst{display:flex;text-align:center;margin-bottom:12px}.wst div{flex:1;cursor:pointer;border-radius:12px;padding:4px 0}.wst div:active{background:var(--bg)}.wst small{text-decoration:underline dotted}.wst b{display:block;font-size:26px;line-height:1.2}
 .frame>.h{margin:8px 0;font-size:15px}
 @keyframes trIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.trin{animation:none}}
@@ -164,7 +164,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v0.30';
+var APP_VERSION='v0.31';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -182,14 +182,14 @@ uk:{
  wordsBtn:'Слова',wordsTitle:'Слова',wNew:'Нові',wLearning:'Вчу',wLearned:'Вивчено',
  wTotal:function(n){return 'Усього слів: '+n+'. «Вивчено» — слово вгадано правильно 4 рази поспіль.'},
  wDirH:'Напрямок',dirTo:'UA → DE',dirFrom:'DE → UA',dirMix:'Мікс',wStart:'Почати',
- wNoBank:'Для цього рівня слів поки немає.',wFinish:'Завершити',
+ wNoBank:'Для цього рівня слів поки немає.',wListEmpty:'Тут поки порожньо.',wFinish:'Завершити',
  wAskTo:'Як це німецькою?',wAskFrom:'Що це означає?',
  wSessionH:'Підсумок',wCorrectPct:function(p){return 'правильно: '+p+'%'},
  wWrongH:function(n){return 'Помилки ('+n+') — ці слова скоро повторяться:'},
  wMore:'Продовжити',wBack:'До слів',
  infoWordsH:'Слова',
  infoWords1:'Кнопка «Слова» на головній — тренування лексики: слово українською, а ви вибираєте німецьке з 4 варіантів, або навпаки, або «Мікс» — напрямок випадковий для кожної картки (перемикач на екрані «Слова»). Неправильні варіанти — слова тієї ж частини мови з банку. Після відповіді видно повну форму слова: артикль, множину, керування. Тест безкінечний, поки не натиснете «Завершити»; у підсумку — відсоток правильних і список слів із помилками.',
- infoWords2:'Кожне слово має сходинку 0–5. Правильна відповідь піднімає слово, і воно повертається все рідше (через ~10, 30, 100… відповідей); помилка скидає на 0 — слово повториться вже за кілька карток. «Вивчено» — сходинка 4–5, тобто 4 правильні відповіді поспіль. Банк слів і прогрес у кожного рівня свої.',
+ infoWords2:'Кожне слово має сходинку 0–5. Правильна відповідь піднімає слово, і воно повертається все рідше (через ~10, 30, 100… відповідей); помилка скидає на 0 — слово повториться вже за кілька карток. Кожна третя картка — нове слово, тож банк проходиться далі, навіть коли є що повторювати. Цифри «Нові / Вчу / Вивчено» натискаються — відкривається список цих слів. «Вивчено» — сходинка 4–5, тобто 4 правильні відповіді поспіль. Банк слів і прогрес у кожного рівня свої.',
  allBlocks:function(n){return 'Усі блоки ('+n+')'},
  someBlocks:function(n,list){return 'Блоків: '+n+' ('+list+')'},
  perBlockTasks:function(n){return ' на блок · '+n+' завдань'},
@@ -286,14 +286,14 @@ ru:{
  wordsBtn:'Слова',wordsTitle:'Слова',wNew:'Новые',wLearning:'Учу',wLearned:'Выучено',
  wTotal:function(n){return 'Всего слов: '+n+'. «Выучено» — слово угадано верно 4 раза подряд.'},
  wDirH:'Направление',dirTo:'RU → DE',dirFrom:'DE → RU',dirMix:'Микс',wStart:'Начать',
- wNoBank:'Для этого уровня слов пока нет.',wFinish:'Закончить',
+ wNoBank:'Для этого уровня слов пока нет.',wListEmpty:'Здесь пока пусто.',wFinish:'Закончить',
  wAskTo:'Как это по-немецки?',wAskFrom:'Что это значит?',
  wSessionH:'Итог',wCorrectPct:function(p){return 'верно: '+p+'%'},
  wWrongH:function(n){return 'Ошибки ('+n+') — эти слова скоро повторятся:'},
  wMore:'Продолжить',wBack:'К словам',
  infoWordsH:'Слова',
  infoWords1:'Кнопка «Слова» на главной — тренировка лексики: слово по-русски, а вы выбираете немецкое из 4 вариантов, или наоборот, или «Микс» — направление случайное для каждой карточки (переключатель на экране «Слова»). Неверные варианты — слова той же части речи из банка. После ответа видна полная форма слова: артикль, множественное число, управление. Тест бесконечный, пока не нажмёте «Закончить»; в итоге — процент верных и список слов с ошибками.',
- infoWords2:'У каждого слова ступень 0–5. Верный ответ поднимает слово, и оно возвращается всё реже (через ~10, 30, 100… ответов); ошибка сбрасывает на 0 — слово повторится уже через несколько карточек. «Выучено» — ступень 4–5, то есть 4 верных ответа подряд. Банк слов и прогресс у каждого уровня свои.',
+ infoWords2:'У каждого слова ступень 0–5. Верный ответ поднимает слово, и оно возвращается всё реже (через ~10, 30, 100… ответов); ошибка сбрасывает на 0 — слово повторится уже через несколько карточек. Каждая третья карточка — новое слово, так что банк проходится дальше, даже когда есть что повторять. Цифры «Новые / Учу / Выучено» нажимаются — открывается список этих слов. «Выучено» — ступень 4–5, то есть 4 верных ответа подряд. Банк слов и прогресс у каждого уровня свои.',
  allBlocks:function(n){return 'Все блоки ('+n+')'},
  someBlocks:function(n,list){return 'Блоков: '+n+' ('+list+')'},
  perBlockTasks:function(n){return ' на блок · '+n+' заданий'},
@@ -717,11 +717,12 @@ function wLoad(cb){if(WC[LEVEL])return cb(WC[LEVEL]);
 function wSave(id){var W=wLvl(),k=wKey(id),o={};
  W.words.forEach(function(w){if(W.p[w.id]&&wKey(w.id)==k)o[w.id]=W.p[w.id]});
  csSet(k,JSON.stringify(o));csSet(LEVELS[LEVEL].wPre+'n',String(W.n))}
-function wStat(W){var s={nw:0,lr:0,ok:0};W.words.forEach(function(w){var p=W.p[w.id];if(!p)s.nw++;else if(p[0]>=4)s.ok++;else s.lr++});return s}
+function wCat(W,w){var p=W.p[w.id];return !p?'nw':p[0]>=4?'ok':'lr'}
+function wStat(W){var s={nw:0,lr:0,ok:0};W.words.forEach(function(w){s[wCat(W,w)]++});return s}
 function wNext(W,last){var due=[],fresh=[],seen=[],byDue=function(a,b){return W.p[a.id][1]-W.p[b.id][1]};
  W.words.forEach(function(w){if(w.id==last)return;var p=W.p[w.id];if(!p)fresh.push(w);else{seen.push(w);if(p[1]<=W.n)due.push(w)}});
+ if(fresh.length&&(!due.length||W.n%3==0))return fresh[Math.floor(Math.random()*fresh.length)];
  if(due.length)return due.sort(byDue)[0];
- if(fresh.length)return fresh[Math.floor(Math.random()*fresh.length)];
  return seen.sort(byDue)[0]}
 function wMeans(w){return w[LANG].toLowerCase().replace(/\([^)]*\)/g,'').split(/[,;]/).map(function(s){return s.trim()}).filter(Boolean)}
 function wOpts(W,w){var m=wMeans(w),same=[],other=[];
@@ -734,15 +735,20 @@ function words(){setView('words');tgBack(home);
  wLoad(function(W){var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">'+L('wordsTitle')+' · '+LEVELS[LEVEL].label+'</h1>';
   if(!W.words.length){render(h+'<div class="frame"><p class="mut" style="margin:0">'+L('wNoBank')+'</p></div>');document.getElementById('bk').onclick=home;return}
   var s=wStat(W),t=W.words.length;
-  h+='<div class="frame"><div class="wst"><div><b>'+s.nw+'</b><small>'+L('wNew')+'</small></div><div><b>'+s.lr+'</b><small>'+L('wLearning')+'</small></div><div><b>'+s.ok+'</b><small>'+L('wLearned')+'</small></div></div>';
+  h+='<div class="frame"><div class="wst"><div data-k="nw"><b>'+s.nw+'</b><small>'+L('wNew')+'</small></div><div data-k="lr"><b>'+s.lr+'</b><small>'+L('wLearning')+'</small></div><div data-k="ok"><b>'+s.ok+'</b><small>'+L('wLearned')+'</small></div></div>';
   h+='<div class="bar"><i style="width:'+(s.ok/t*100)+'%"></i></div><p class="mut" style="margin:6px 0 0">'+L('wTotal',t)+'</p></div>';
   h+='<div class="frame"><small>'+L('wDirH')+'</small><div class="seg" id="segDir" style="margin-top:6px"><div class="segThumb"></div>';
   [['to',L('dirTo')],['from',L('dirFrom')],['mix',L('dirMix')]].forEach(function(d){h+='<button data-d="'+d[0]+'" class="'+(WDIR==d[0]?'on':'')+'">'+d[1]+'</button>'});
   h+='</div></div><button class="pri big2" id="wgo">'+L('wStart')+'</button>';
   render(h);segMove('segDir',true);
   document.getElementById('bk').onclick=home;document.getElementById('wgo').onclick=wStart;
+  document.querySelectorAll('.wst div').forEach(function(d){d.onclick=function(){haptic();wList(d.dataset.k)}});
   document.querySelectorAll('#segDir button').forEach(function(b){b.onclick=function(){WDIR=b.dataset.d;csSet('dg_wdir',WDIR);
    document.querySelectorAll('#segDir button').forEach(function(x){x.className=x===b?'on':''});segMove('segDir')}})})}
+function wList(k){setView('words');tgBack(words);var W=wLvl(),ws=W.words.filter(function(w){return wCat(W,w)==k});
+ var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">'+L({nw:'wNew',lr:'wLearning',ok:'wLearned'}[k])+' · '+ws.length+'</h1><div class="frame">';
+ h+=ws.length?ws.map(wCard).join(''):'<p class="mut" style="margin:0">'+L('wListEmpty')+'</p>';
+ render(h+'</div>');document.getElementById('bk').onclick=words}
 function wStart(){wrun={ok:0,bad:0,wrong:[],last:null};wShow()}
 function wShow(){setView('quiz');var W=wLvl(),w=wNext(W,wrun.last),dir=WDIR=='mix'?(Math.random()<.5?'to':'from'):WDIR;
  wrun.cur=w;wrun.last=w.id;
