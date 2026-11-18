@@ -159,7 +159,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v24';
+var APP_VERSION='v25';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -213,6 +213,7 @@ uk:{
  infoGrade1:'Правильно — 1 бал, майже правильно — 0,5, неправильно — 0. Регістр і розділові знаки не враховуються, крім блоку K «Правопис».',
  infoGrade2:'Вибір відповіді, вставка слова і складання речення перевіряються за зразком одразу. Переклад, виправлення і перетворення: при точному збігу — одразу; інакше ви порівнюєте свою відповідь із зразком самі й обираєте «Правильно», «Майже» або «Неправильно».',
  infoGrade3:'«Показати результат наприкінці» приховує оцінку після кожної відповіді; підсумок і аналіз помилок завжди показуються в кінці тесту.',
+ infoGradeM:'У блоці M (дієслова з прийменниками) у поясненні після відповіді ще й переклад речення, а для частини дієслів — нотатка про інші прийменники; поруч із текстом завдання — кнопка перекладу (копіює текст і відкриває Google Translate).',
  infoErrH:'Прогрес',
  infoErr1:'На головному екрані — журнал останніх 10 пройдених тестів (дата, блоки, бали), спершу 3 останні, решта — по кнопці «Показати ще».',
  infoErr2:'«Статистика» (іконка на головній) показує середній відсоток балів по кожному блоку за всю історію проходжень — блок нижче 70% підсвічується червоним.',
@@ -230,6 +231,9 @@ uk:{
  reset:'Скинути',
  pasteAria:'Вставити текст у поле відповіді',
  pasteTitle:'Вставити в поле відповіді',
+ translateAria:'Перекласти речення',
+ translateTitle:'Скопіювати і відкрити переклад',
+ copiedToast:'Скопійовано, відкриваю переклад…',
  yourSentence:'Ваше речення',
  useAllWords:'Використовуйте всі слова.',
  cancelTest:'Скасувати тест',
@@ -303,6 +307,7 @@ ru:{
  infoGrade1:'Верно — 1 балл, почти верно — 0,5, неверно — 0. Регистр и знаки препинания не учитываются, кроме блока K «Правописание».',
  infoGrade2:'Выбор ответа, вставка слова и составление предложения проверяются по эталону сразу. Перевод, исправление и преобразование: при точном совпадении — сразу; иначе вы сравниваете свой ответ с эталоном сами и выбираете «Верно», «Почти» или «Неверно».',
  infoGrade3:'«Показать результат в конце» скрывает оценку после каждого ответа; итог и разбор ошибок всегда показываются в конце теста.',
+ infoGradeM:'В блоке M (глаголы с предлогами) в объяснении после ответа также перевод предложения, а для части глаголов — заметка про другие предлоги; рядом с текстом задания — кнопка перевода (копирует текст и открывает Google Translate).',
  infoErrH:'Прогресс',
  infoErr1:'На главном экране — журнал последних 10 пройденных тестов (дата, блоки, баллы), сначала 3 последних, остальные — по кнопке «Показать ещё».',
  infoErr2:'«Статистика» (иконка на главной) показывает средний процент баллов по каждому блоку за всю историю прохождений — блок ниже 70% подсвечивается красным.',
@@ -320,6 +325,9 @@ ru:{
  reset:'Сбросить',
  pasteAria:'Вставить текст в поле ответа',
  pasteTitle:'Вставить в поле ответа',
+ translateAria:'Перевести предложение',
+ translateTitle:'Скопировать и открыть перевод',
+ copiedToast:'Скопировано, открываю перевод…',
  yourSentence:'Ваше предложение',
  useAllWords:'Используйте все слова.',
  cancelTest:'Отменить тест',
@@ -544,7 +552,8 @@ function info(){setView('info');tgBack(home);
  '<div class="frame inf"><h3 style="margin-top:0">'+L('infoLevelH')+'</h3><p>'+L('infoLevel')+'</p></div>'+
  '<div class="frame inf"><h3 style="margin-top:0">'+L('infoGradeH')+'</h3><p>'+L('infoGrade1')+'</p>'+
  '<p>'+L('infoGrade2')+'</p>'+
- '<p>'+L('infoGrade3')+'</p></div>'+
+ '<p>'+L('infoGrade3')+'</p>'+
+ '<p>'+L('infoGradeM')+'</p></div>'+
  '<div class="frame inf"><h3 style="margin-top:0">'+L('infoErrH')+'</h3><p>'+L('infoErr1')+'</p>'+
  '<p>'+L('infoErr2')+'</p></div>'+
  '<div class="frame inf"><h3 style="margin-top:0">'+L('infoOtherH')+'</h3><p>'+L('infoOther1')+'</p>'+
@@ -592,6 +601,12 @@ function bindCancel(){var w=document.getElementById('cxw');
   document.getElementById('cxn').onclick=function(){w.innerHTML='<button class="lnk" id="cx">'+L('cancelTest')+'</button>';document.getElementById('cx').onclick=ask}}
  document.getElementById('cx').onclick=ask}
 var icCopy='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+var icTr='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h8M9 5v3c0 4-2 7-5 9M9 8c0 3.5 2.5 6 6 7"/><path d="m13 20 4-9 4 9M14.5 17h5"/></svg>';
+function translateTask(t){var txt=loc(t.text).replace(/_+/g,'…');
+ try{navigator.clipboard.writeText(txt)}catch(e){}
+ var url='https://translate.google.com/?sl=de&tl='+LANG+'&text='+encodeURIComponent(txt)+'&op=translate';
+ haptic();toast(L('copiedToast'));
+ if(TG&&TG.openLink)TG.openLink(url);else window.open(url,'_blank')}
 function capFirst(el){if(!el.value)return;var c=el.value.charAt(0),u=c.toUpperCase();if(c===u)return;
  var a=el.selectionStart,z=el.selectionEnd;el.value=u+el.value.slice(1);try{el.selectionStart=a;el.selectionEnd=z}catch(e){}}
 function umRow(){return UM?'<div class="um">'+['ä','ö','ü','ß'].map(function(c){return '<button type="button" data-c="'+c+'">'+c+'</button>'}).join('')+'</div>':''}
@@ -600,7 +615,7 @@ function show(){setView('quiz');
  var t=run.q[run.i];
  var h='<div class="qtop">'+robotHtml('think','rbot-sm')+'<div id="cxw"><button class="lnk" id="cx">'+L('cancelTest')+'</button></div></div><div class="frame"><div class="top"><span>'+L('questionN',run.i+1,run.q.length)+'</span><span>'+(S.defer?'':L('points')+fmt(score()))+'</span></div><div class="bar"><i style="width:'+(run.i/run.q.length*100)+'%"></i></div>';
  var typeLbl=TYPE[LANG][t.type].charAt(0).toLowerCase()+TYPE[LANG][t.type].slice(1);
- h+='<div class="blk">Блок '+t.block+' · '+esc(loc(DATA.blocks[t.block].name))+' · '+typeLbl+'</div>'+(run.warn&&run.i==0?'<div class="note" style="margin:0 0 10px">'+esc(run.warn)+'</div>':'')+'<div class="qp">'+esc(loc(t.prompt))+'</div>'+(t.type=='choice'||t.type=='fill'||t.type=='reflexive'?'<div class="q">'+esc(loc(t.text))+'</div>':'');
+ h+='<div class="blk">Блок '+t.block+' · '+esc(loc(DATA.blocks[t.block].name))+' · '+typeLbl+'</div>'+(run.warn&&run.i==0?'<div class="note" style="margin:0 0 10px">'+esc(run.warn)+'</div>':'')+'<div class="qp">'+esc(loc(t.prompt))+'</div>'+(t.type=='choice'||t.type=='fill'||t.type=='reflexive'?'<div class="q">'+esc(loc(t.text))+(t.block=='M'?' <button type="button" id="trbtn" class="cpy" aria-label="'+L('translateAria')+'" title="'+L('translateTitle')+'">'+icTr+'</button>':'')+'</div>':'');
  if(t.note)h+='<div class="note">'+L('partOfSpeech')+esc(loc(t.note))+'</div>';
  if(t.type=='choice'||t.type=='reflexive'){shuffle(t.options).forEach(function(o){h+='<button class="opt" data-v="'+esc(o)+'">'+esc(o)+'</button>'})}
  else if(t.type=='fill'){h+='<input type="text" id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="'+L('answerPh')+'">'+umRow()+'<button class="pri" id="chk">'+L('check')+'</button>'}
@@ -611,6 +626,7 @@ function show(){setView('quiz');
  h+='<div id="fb"></div></div>';render(h);
  bindCancel();
  tgBack(function(){var c=document.getElementById('cx');if(c)c.click()});
+ var trbtn=document.getElementById('trbtn');if(trbtn)trbtn.onclick=function(){translateTask(t)};
  if(t.type=='choice'||t.type=='reflexive')document.querySelectorAll('.opt').forEach(function(b){b.onclick=function(){answer(b.dataset.v,b)}});
  else if(t.type=='build'){buildInit(t)}
  else{var el=document.getElementById('in');el.focus();umBind(el);document.getElementById('chk').onclick=function(){var v=el.value.trim();if(!v){el.style.borderColor='var(--bad)';return}answer(v)};
@@ -624,6 +640,7 @@ function grade(t,v){
  if(!FREE[t.type])return{s:0};
  return{s:0,self:1};
 }
+function trAlt(t){return(t.tr?'<div class="h">'+esc(loc(t.tr))+'</div>':'')+(t.alt?'<div class="h" style="color:var(--tx2)">'+esc(loc(t.alt))+'</div>':'')}
 function answer(v,btn){
  haptic();
  var t=run.q[run.i];
@@ -637,7 +654,7 @@ function answer(v,btn){
  setMood(g.s>0?'happy':'sad');
  var f='<div class="fb '+cls+'"><b>'+(g.s==1?L('correct'):g.s==0.5?L('almostHalf'):L('incorrect'))+'</b>';
  if(g.s<1)f+=L('reference')+esc(t.answers[0]);
- f+='<div class="h">'+esc(loc(t.hint))+'</div>';
+ f+='<div class="h">'+esc(loc(t.hint))+'</div>'+trAlt(t);
  f+='</div><button class="pri" id="nx">'+(last?'Результат':L('next'))+'</button>';
  document.getElementById('fb').innerHTML=f;
  document.getElementById('nx').onclick=next;
@@ -649,7 +666,7 @@ function selfAsk(t,v,rec,last){document.getElementById('chk').style.display='non
   if(S.defer){next();return}
   setMood(rec.s>0?'happy':'sad');
   var x=document.getElementById('sfb');x.className='fb '+(rec.s==1?'ok':rec.s==0.5?'half':'bad');
-  x.innerHTML='<b>'+(rec.s==1?L('counted'):rec.s==0.5?L('halfPoint'):L('notCounted'))+'</b> '+L('refAnswer')+esc(t.answers[0])+'<div class="h">'+esc(loc(t.hint))+'</div>';
+  x.innerHTML='<b>'+(rec.s==1?L('counted'):rec.s==0.5?L('halfPoint'):L('notCounted'))+'</b> '+L('refAnswer')+esc(t.answers[0])+'<div class="h">'+esc(loc(t.hint))+'</div>'+trAlt(t);
   var nb=document.createElement('button');nb.className='pri';nb.textContent=last?'Результат':L('next');nb.onclick=next;document.getElementById('fb').appendChild(nb)}})}
 function next(){run.i++;if(run.i<run.q.length){save();show()}else finish()}
 function finish(){setView('result');tgBack(home);
@@ -657,7 +674,7 @@ function finish(){setView('result');tgBack(home);
  Object.keys(DATA.blocks).forEach(function(k){var r=run.res.filter(function(x){return x.t.block==k});if(r.length)h+='<div class="row"><span><span class="bltag">'+k+'</span> '+esc(loc(DATA.blocks[k].name))+'</span><span>'+ofN(fmt(r.reduce(function(a,x){return a+x.s},0)),r.length)+'</span></div>'});
  h+='</div>';
  var bad=run.res.filter(function(r){return r.s<1});
- if(bad.length){h+='<p><small>'+L('errReview',bad.length)+'</small></p>';bad.forEach(function(r){h+='<div class="err"><div class="mut">'+TYPE[LANG][r.t.type]+' · блок '+r.t.block+' · '+fmt(r.s)+(r.s==0?L('ptsFull'):L('ptsHalf'))+'</div>'+esc(loc(r.t.prompt))+' '+esc(loc(r.t.text))+'<br>'+L('yourAnswer')+esc(r.v)+'<br>'+L('refAnswer')+esc(r.t.answers[0])+'<div class="mut" style="margin-top:4px">'+esc(loc(r.t.hint))+'</div></div>'})}
+ if(bad.length){h+='<p><small>'+L('errReview',bad.length)+'</small></p>';bad.forEach(function(r){h+='<div class="err"><div class="mut">'+TYPE[LANG][r.t.type]+' · блок '+r.t.block+' · '+fmt(r.s)+(r.s==0?L('ptsFull'):L('ptsHalf'))+'</div>'+esc(loc(r.t.prompt))+' '+esc(loc(r.t.text))+'<br>'+L('yourAnswer')+esc(r.v)+'<br>'+L('refAnswer')+esc(r.t.answers[0])+'<div class="mut" style="margin-top:4px">'+esc(loc(r.t.hint))+'</div>'+(r.t.tr?'<div class="mut">'+esc(loc(r.t.tr))+'</div>':'')+(r.t.alt?'<div class="mut">'+esc(loc(r.t.alt))+'</div>':'')+'</div>'})}
  else h+='<div class="frame"><p style="margin:0">'+L('noErrors')+'</p></div>';
  h+='<button class="pri" id="again">'+L('again')+'</button><button class="sec" id="home">'+L('toHome')+'</button>';
  render(h);run.done=true;var keep=run;run=null;saved=null;save();run=keep;
