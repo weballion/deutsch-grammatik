@@ -18,6 +18,9 @@ def check(words):
         for f in ("de", "pos", "ru", "uk", "lesson"):
             if not w.get(f):
                 errs.append(f"{i}: пустое поле {f}")
+        ex = w.get("ex") or {}
+        if not all(ex.get(f) for f in ("de", "ru", "uk")):
+            errs.append(f"{i}: нет примера ex {{de, ru, uk}}")
         if w.get("pos") not in POS:
             errs.append(f"{i}: неизвестная часть речи {w.get('pos')}")
         if w.get("pos") == "noun" and not w.get("de", "").startswith(ARTICLES):
