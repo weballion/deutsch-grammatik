@@ -102,6 +102,8 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 .fb{margin-top:14px;padding:12px;border-radius:var(--radius);font-size:15px;box-shadow:var(--shadow)}.fb.ok{background:var(--okbg);color:var(--ok)}.fb.bad{background:var(--badbg);color:var(--bad)}
 .fb .h{color:var(--tx);font-size:14px;margin-top:6px}.fb a{color:var(--tx);text-decoration:underline;cursor:pointer;font-size:14px;display:inline-block;margin-top:8px}
 .trin{margin:8px 0 16px;animation:trIn .25s ease}
+.wst{display:flex;text-align:center;margin-bottom:12px}.wst div{flex:1}.wst b{display:block;font-size:26px;line-height:1.2}
+.frame>.h{margin:8px 0;font-size:15px}
 @keyframes trIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.trin{animation:none}}
 .big{font-size:36px;font-weight:700;margin:4px 0 12px}.row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bd);font-size:15px}
@@ -162,7 +164,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v0.28';
+var APP_VERSION='v0.29';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -177,6 +179,17 @@ uk:{
  statsTitle:'Статистика',
  statsAria:'Статистика',
  noStatsYet:'Поки даних немає: статистика зʼявиться після перших тестів.',
+ wordsBtn:'Слова',wordsTitle:'Слова',wNew:'Нові',wLearning:'Вчу',wLearned:'Вивчено',
+ wTotal:function(n){return 'Усього слів: '+n+'. «Вивчено» — слово вгадано правильно 4 рази поспіль.'},
+ wDirH:'Напрямок',dirTo:'UA → DE',dirFrom:'DE → UA',dirMix:'Мікс',wStart:'Почати',
+ wNoBank:'Для цього рівня слів поки немає.',wFinish:'Завершити',
+ wAskTo:'Як це німецькою?',wAskFrom:'Що це означає?',
+ wSessionH:'Підсумок',wCorrectPct:function(p){return 'правильно: '+p+'%'},
+ wWrongH:function(n){return 'Помилки ('+n+') — ці слова скоро повторяться:'},
+ wMore:'Продовжити',wBack:'До слів',
+ infoWordsH:'Слова',
+ infoWords1:'Кнопка «Слова» на головній — тренування лексики: слово українською, а ви вибираєте німецьке з 4 варіантів (або навпаки, напрямок — на екрані «Слова»). Тест безкінечний, поки не натиснете «Завершити».',
+ infoWords2:'Кожне слово має сходинку 0–5. Правильна відповідь піднімає слово, і воно повертається все рідше (через ~10, 30, 100… відповідей); помилка скидає на 0 — слово повториться вже за кілька карток. «Вивчено» — сходинка 4–5. Прогрес у кожного рівня свій.',
  allBlocks:function(n){return 'Усі блоки ('+n+')'},
  someBlocks:function(n,list){return 'Блоків: '+n+' ('+list+')'},
  perBlockTasks:function(n){return ' на блок · '+n+' завдань'},
@@ -270,6 +283,17 @@ ru:{
  statsTitle:'Статистика',
  statsAria:'Статистика',
  noStatsYet:'Пока данных нет: статистика появится после первых тестов.',
+ wordsBtn:'Слова',wordsTitle:'Слова',wNew:'Новые',wLearning:'Учу',wLearned:'Выучено',
+ wTotal:function(n){return 'Всего слов: '+n+'. «Выучено» — слово угадано верно 4 раза подряд.'},
+ wDirH:'Направление',dirTo:'RU → DE',dirFrom:'DE → RU',dirMix:'Микс',wStart:'Начать',
+ wNoBank:'Для этого уровня слов пока нет.',wFinish:'Закончить',
+ wAskTo:'Как это по-немецки?',wAskFrom:'Что это значит?',
+ wSessionH:'Итог',wCorrectPct:function(p){return 'верно: '+p+'%'},
+ wWrongH:function(n){return 'Ошибки ('+n+') — эти слова скоро повторятся:'},
+ wMore:'Продолжить',wBack:'К словам',
+ infoWordsH:'Слова',
+ infoWords1:'Кнопка «Слова» на главной — тренировка лексики: слово по-русски, а вы выбираете немецкое из 4 вариантов (или наоборот, направление — на экране «Слова»). Тест бесконечный, пока не нажмёте «Закончить».',
+ infoWords2:'У каждого слова ступень 0–5. Верный ответ поднимает слово, и оно возвращается всё реже (через ~10, 30, 100… ответов); ошибка сбрасывает на 0 — слово повторится уже через несколько карточек. «Выучено» — ступень 4–5. Прогресс у каждого уровня свой.',
  allBlocks:function(n){return 'Все блоки ('+n+')'},
  someBlocks:function(n,list){return 'Блоков: '+n+' ('+list+')'},
  perBlockTasks:function(n){return ' на блок · '+n+' заданий'},
@@ -362,7 +386,7 @@ function histRow(e){var pct=e.n?Math.round(e.s/e.n*100):0;
 var app=document.getElementById('app');
 function render(h){app.innerHTML=h;app.style.animation='none';app.offsetHeight;app.style.animation=''}
 var DATA=null,byId={},S=null,run=null,saved=null,P={},H=[],UM=false,THEME='classic',VIEW='home',LANG='uk';
-var LEVELS={a2b2:{file:'data/tasks.json',label:'A2–B2',setKey:'dg_set',runKey:'dg_run',progPre:'dg_prog_',seenPre:'dg_seen_',histKey:'dg_hist'},a1a2:{file:'data/tasks_a1a2.json',label:'A1–A2',setKey:'dg_set_a1a2',runKey:'dg_run_a1a2',progPre:'dg_prog_a1a2_',seenPre:'dg_seen_a1a2_',histKey:'dg_hist_a1a2'}};
+var LEVELS={a2b2:{file:'data/tasks.json',label:'A2–B2',setKey:'dg_set',runKey:'dg_run',progPre:'dg_prog_',seenPre:'dg_seen_',histKey:'dg_hist',wordsFile:'data/words_a2b2.json',wPre:'dg_wp_'},a1a2:{file:'data/tasks_a1a2.json',label:'A1–A2',setKey:'dg_set_a1a2',runKey:'dg_run_a1a2',progPre:'dg_prog_a1a2_',seenPre:'dg_seen_a1a2_',histKey:'dg_hist_a1a2',wordsFile:'data/words_a1a2.json',wPre:'dg_wp_a1a2_'}};
 var LEVEL='a2b2';
 var TG=window.Telegram&&window.Telegram.WebApp;
 if(TG){try{TG.ready();TG.expand()}catch(e){}}
@@ -478,6 +502,7 @@ function home(){setView('home');tgBack(null);
  var h='<div class="hd"><div style="display:flex;align-items:center;gap:10px">'+robotHtml('greet','rbot-md')+'<div><small>Deutsch</small><h1 style="margin-bottom:0">'+L('appName')+'</h1></div></div><div class="ic"><button id="stat" aria-label="'+L('statsAria')+'">'+icStat+'</button><button id="inf" aria-label="'+L('infoAria')+'">'+icInf+'</button><button id="set" aria-label="'+L('settingsAria')+'">'+icSet+'</button></div></div><div style="height:18px"></div>';
  if(saved)h+='<button class="sec" id="resume" style="margin:0 0 4px">'+L('resume',saved.i+1,saved.ids.length)+'</button>';
  h+='<button class="pri big2" id="go">Старт</button><button class="lnk sum" id="sum">'+esc(sumLine())+'</button>';
+ h+='<button class="sec" id="wbtn" style="margin-top:0">'+L('wordsBtn')+'</button>';
  h+='<p class="mut" id="wmsg" style="margin:6px 0 0"></p>';
  var hh=H.slice().reverse();
  if(hh.length){h+='<p style="margin:18px 0 4px"><small>'+L('historyTitle')+'</small></p>';
@@ -486,7 +511,7 @@ function home(){setView('home');tgBack(null);
  h+='<p class="mut" style="text-align:center;margin:20px 0 0">'+APP_VERSION+(DATA.updated?' · '+L('bankUpdated',DATA.updated):'')+'</p>';
  render('<div class="frame">'+h+'</div>');
  var r=document.getElementById('resume');if(r)r.onclick=function(){restore(saved);show()};
- document.getElementById('set').onclick=settings;document.getElementById('sum').onclick=settings;document.getElementById('inf').onclick=info;document.getElementById('stat').onclick=stats;
+ document.getElementById('set').onclick=settings;document.getElementById('sum').onclick=settings;document.getElementById('inf').onclick=info;document.getElementById('stat').onclick=stats;document.getElementById('wbtn').onclick=words;
  document.getElementById('go').onclick=function(){if(!S.blocks.length){settings();return}start()};
 }
 function stats(){setView('stats');tgBack(home);
@@ -555,6 +580,7 @@ function info(){setView('info');tgBack(home);
  '<p>'+L('infoGrade2')+'</p>'+
  '<p>'+L('infoGrade3')+'</p>'+
  '<p>'+L('infoGradeM')+'</p></div>'+
+ '<div class="frame inf"><h3 style="margin-top:0">'+L('infoWordsH')+'</h3><p>'+L('infoWords1')+'</p><p>'+L('infoWords2')+'</p></div>'+
  '<div class="frame inf"><h3 style="margin-top:0">'+L('infoErrH')+'</h3><p>'+L('infoErr1')+'</p>'+
  '<p>'+L('infoErr2')+'</p></div>'+
  '<div class="frame inf"><h3 style="margin-top:0">'+L('infoOtherH')+'</h3><p>'+L('infoOther1')+'</p>'+
@@ -678,8 +704,71 @@ function finish(){setView('result');tgBack(home);
  render(h);run.done=true;var keep=run;run=null;saved=null;save();run=keep;
  document.getElementById('again').onclick=start;document.getElementById('home').onclick=function(){run=null;home()};
 }
+var WINT=[3,10,30,100,300,1000],WC={},WDIR='mix',wrun=null;
+function wLvl(){return WC[LEVEL]}
+function wKey(id){return LEVELS[LEVEL].wPre+Math.floor(+id.slice(1)/150)}
+function wLoad(cb){if(WC[LEVEL])return cb(WC[LEVEL]);
+ fetch(LEVELS[LEVEL].wordsFile).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){
+  var nKey=LEVELS[LEVEL].wPre+'n',ch={};d.words.forEach(function(w){ch[wKey(w.id)]=1});
+  csGet([nKey].concat(Object.keys(ch)),function(res){var p={};
+   Object.keys(ch).forEach(function(k){try{var o=JSON.parse(res[k]||'null');if(o)Object.keys(o).forEach(function(i){p[i]=o[i]})}catch(e){}});
+   WC[LEVEL]={words:d.words,p:p,n:+res[nKey]||0};cb(WC[LEVEL])})
+ }).catch(function(){cb({words:[],p:{},n:0})})}
+function wSave(id){var W=wLvl(),k=wKey(id),o={};
+ W.words.forEach(function(w){if(W.p[w.id]&&wKey(w.id)==k)o[w.id]=W.p[w.id]});
+ csSet(k,JSON.stringify(o));csSet(LEVELS[LEVEL].wPre+'n',String(W.n))}
+function wStat(W){var s={nw:0,lr:0,ok:0};W.words.forEach(function(w){var p=W.p[w.id];if(!p)s.nw++;else if(p[0]>=4)s.ok++;else s.lr++});return s}
+function wNext(W,last){var due=[],fresh=[],seen=[],byDue=function(a,b){return W.p[a.id][1]-W.p[b.id][1]};
+ W.words.forEach(function(w){if(w.id==last)return;var p=W.p[w.id];if(!p)fresh.push(w);else{seen.push(w);if(p[1]<=W.n)due.push(w)}});
+ if(due.length)return due.sort(byDue)[0];
+ if(fresh.length)return fresh[Math.floor(Math.random()*fresh.length)];
+ return seen.sort(byDue)[0]}
+function wMeans(w){return w[LANG].toLowerCase().replace(/\([^)]*\)/g,'').split(/[,;]/).map(function(s){return s.trim()}).filter(Boolean)}
+function wOpts(W,w){var m=wMeans(w),same=[],other=[];
+ shuffle(W.words).forEach(function(x){if(x.id==w.id||wMeans(x).some(function(t){return m.indexOf(t)>=0}))return;(x.pos==w.pos?same:other).push(x)});
+ return shuffle([w].concat(same.concat(other).slice(0,3)))}
+function wCard(w){return '<div class="h"><b>'+esc(w.de)+'</b>'+(w.pl?', '+esc(w.pl):'')+(w.gov?' ('+esc(w.gov)+')':'')+' — '+esc(w[LANG])+'</div>'}
+function wScore(){return '✓ '+wrun.ok+' · ✗ '+wrun.bad}
+function words(){setView('words');tgBack(home);
+ if(!WC[LEVEL])render(loaderHtml());
+ wLoad(function(W){var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">'+L('wordsTitle')+' · '+LEVELS[LEVEL].label+'</h1>';
+  if(!W.words.length){render(h+'<div class="frame"><p class="mut" style="margin:0">'+L('wNoBank')+'</p></div>');document.getElementById('bk').onclick=home;return}
+  var s=wStat(W),t=W.words.length;
+  h+='<div class="frame"><div class="wst"><div><b>'+s.nw+'</b><small>'+L('wNew')+'</small></div><div><b>'+s.lr+'</b><small>'+L('wLearning')+'</small></div><div><b>'+s.ok+'</b><small>'+L('wLearned')+'</small></div></div>';
+  h+='<div class="bar"><i style="width:'+(s.ok/t*100)+'%"></i></div><p class="mut" style="margin:6px 0 0">'+L('wTotal',t)+'</p></div>';
+  h+='<div class="frame"><small>'+L('wDirH')+'</small><div class="seg" id="segDir" style="margin-top:6px"><div class="segThumb"></div>';
+  [['to',L('dirTo')],['from',L('dirFrom')],['mix',L('dirMix')]].forEach(function(d){h+='<button data-d="'+d[0]+'" class="'+(WDIR==d[0]?'on':'')+'">'+d[1]+'</button>'});
+  h+='</div></div><button class="pri big2" id="wgo">'+L('wStart')+'</button>';
+  render(h);segMove('segDir',true);
+  document.getElementById('bk').onclick=home;document.getElementById('wgo').onclick=wStart;
+  document.querySelectorAll('#segDir button').forEach(function(b){b.onclick=function(){WDIR=b.dataset.d;csSet('dg_wdir',WDIR);
+   document.querySelectorAll('#segDir button').forEach(function(x){x.className=x===b?'on':''});segMove('segDir')}})})}
+function wStart(){wrun={ok:0,bad:0,wrong:[],last:null};wShow()}
+function wShow(){setView('quiz');var W=wLvl(),w=wNext(W,wrun.last),dir=WDIR=='mix'?(Math.random()<.5?'to':'from'):WDIR;
+ wrun.cur=w;wrun.last=w.id;
+ var h='<div class="qtop">'+robotHtml('think','rbot-sm')+'<div id="cxw"><button class="lnk" id="wend">'+L('wFinish')+'</button></div></div><div class="frame"><div class="top"><span id="wsc">'+wScore()+'</span><span>'+L(dir=='to'?'dirTo':'dirFrom')+'</span></div>';
+ h+='<div class="qp">'+L(dir=='to'?'wAskTo':'wAskFrom')+'</div><div class="q">'+esc(dir=='to'?w[LANG]:w.de)+'</div>';
+ wOpts(W,w).forEach(function(o){h+='<button class="opt" data-id="'+o.id+'">'+esc(dir=='to'?o.de:o[LANG])+'</button>'});
+ h+='<div id="fb"></div></div>';render(h);
+ tgBack(wFinish);document.getElementById('wend').onclick=wFinish;
+ document.querySelectorAll('.opt').forEach(function(b){b.onclick=function(){wAnswer(b)}})}
+function wAnswer(btn){haptic();var W=wLvl(),w=wrun.cur,ok=btn.dataset.id==w.id,p=W.p[w.id]||[0,0];
+ document.querySelectorAll('.opt').forEach(function(b){b.disabled=true;if(b.dataset.id==w.id)b.classList.add('ok');else if(b===btn)b.classList.add('bad')});
+ W.n++;
+ if(ok){var b=Math.min(p[0]+1,5);p=[b,W.n+WINT[b]];wrun.ok++}
+ else{p=[0,W.n+3+Math.floor(Math.random()*3)];wrun.bad++;if(wrun.wrong.indexOf(w)<0)wrun.wrong.push(w)}
+ W.p[w.id]=p;wSave(w.id);setMood(ok?'happy':'sad');document.getElementById('wsc').textContent=wScore();
+ document.getElementById('fb').innerHTML='<div class="fb '+(ok?'ok':'bad')+'"><b>'+L(ok?'correct':'incorrect')+'</b>'+wCard(w)+'</div><button class="pri" id="nx">'+L('next')+'</button>';
+ document.getElementById('nx').onclick=wShow}
+function wFinish(){var r=wrun,n=r.ok+r.bad;if(!n){words();return}
+ setView('result');tgBack(words);
+ var h='<div class="frame"><small>'+L('wSessionH')+'</small><div class="big">'+ofN(r.ok,n)+'</div><small>'+L('wCorrectPct',Math.round(r.ok/n*100))+'</small></div>';
+ if(r.wrong.length){h+='<p><small>'+L('wWrongH',r.wrong.length)+'</small></p><div class="frame">';r.wrong.forEach(function(w){h+=wCard(w)});h+='</div>'}
+ h+='<button class="pri" id="wmore">'+L('wMore')+'</button><button class="sec" id="wback">'+L('wBack')+'</button>';
+ render(h);document.getElementById('wmore').onclick=wStart;document.getElementById('wback').onclick=words}
 document.body.className='home';render(loaderHtml());
-csGet(['dg_uml','dg_theme','dg_level','dg_lang'],function(res){
+csGet(['dg_uml','dg_theme','dg_level','dg_lang','dg_wdir'],function(res){
+ WDIR=['to','from','mix'].indexOf(res.dg_wdir)>=0?res.dg_wdir:'mix';
  UM=res.dg_uml=='1';
  setTheme(['lavender','liquid'].indexOf(res.dg_theme)>=0?res.dg_theme:'classic');
  setLang(res.dg_lang=='ru'||res.dg_lang=='uk'?res.dg_lang:detectLang());

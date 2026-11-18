@@ -1,4 +1,4 @@
-"""Собрать банки заданий из data/blocks*/*.json и проверить их: uv run scripts/build.py"""
+"""Собрать банки заданий (data/blocks*/*.json) и слов (data/words/<уровень>/*.json) и проверить их: uv run scripts/build.py"""
 import json
 import subprocess
 import sys
@@ -30,6 +30,23 @@ for blocks_rel, out_rel in BANKS:
     print(f"{out_rel} собран: {len(tasks)} заданий из {len(blocks)} блоков")
     sys.stdout.flush()
     result = subprocess.run(["uv", "run", "scripts/validate.py", out_rel], cwd=root)
+    if result.returncode != 0:
+        ok = False
+
+for level in ("a2b2", "a1a2"):
+    src = root / "data/words" / level
+    if not src.exists():
+        continue
+    words = []
+    for path in sorted(src.glob("*.json")):
+        lesson = json.loads(path.read_text(encoding="utf-8"))
+        words.extend(dict(w, lesson=lesson["lesson"]) for w in lesson["words"])
+    out_rel = f"data/words_{level}.json"
+    out = {"words": words, "updated": date.today().strftime("%d.%m.%Y")}
+    (root / out_rel).write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
+    print(f"{out_rel} собран: {len(words)} слов")
+    sys.stdout.flush()
+    result = subprocess.run(["uv", "run", "scripts/validate_words.py", out_rel], cwd=root)
     if result.returncode != 0:
         ok = False
 
