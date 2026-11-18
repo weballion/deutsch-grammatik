@@ -102,7 +102,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 .fb{margin-top:14px;padding:12px;border-radius:var(--radius);font-size:15px;box-shadow:var(--shadow)}.fb.ok{background:var(--okbg);color:var(--ok)}.fb.bad{background:var(--badbg);color:var(--bad)}
 .fb .h{color:var(--tx);font-size:14px;margin-top:6px}.fb a{color:var(--tx);text-decoration:underline;cursor:pointer;font-size:14px;display:inline-block;margin-top:8px}
 .trin{margin:8px 0 16px;animation:trIn .25s ease}
-.wst{display:flex;text-align:center;margin-bottom:12px}.wst div{flex:1;cursor:pointer;border-radius:12px;padding:4px 0}.wst div:active{background:var(--bg)}.wst small{text-decoration:underline dotted}.wst b{display:block;font-size:26px;line-height:1.2}
+.wst{display:flex;gap:8px;text-align:center}.wst div{flex:1;cursor:pointer;border:1.5px solid var(--bd);border-radius:14px;padding:10px 0 8px;background:var(--bg);transition:transform .1s}.wst div:active{transform:scale(.96)}.wst small::after{content:' ›';font-weight:700}.wst b{display:block;font-size:26px;line-height:1.2}
 .frame>.h{margin:8px 0;font-size:15px}
 @keyframes trIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.trin{animation:none}}
@@ -164,7 +164,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v0.33';
+var APP_VERSION='v0.34';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
