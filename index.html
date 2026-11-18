@@ -29,7 +29,11 @@ html[data-theme="liquid"] body::after{width:340px;height:340px;bottom:-140px;rig
 @media(prefers-reduced-motion:reduce){html[data-theme="liquid"] body::before,html[data-theme="liquid"] body::after{animation:none}}
 html[data-theme="liquid"] button.pri{background:linear-gradient(135deg,rgba(94,231,223,.65) 0%,rgba(59,130,246,.65) 100%);border-color:rgba(94,231,223,.5);color:#eafffd}
 main{max-width:520px;margin:0 auto;padding:20px 16px 40px}
-.frame{background-color:var(--glass);background-image:var(--frame-sheen);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:20px;box-shadow:var(--frame-shadow);padding:26px 22px;margin-bottom:14px}
+.frame{background-color:var(--glass);background-image:var(--frame-sheen);border-radius:20px;box-shadow:var(--frame-shadow);padding:26px 22px;margin-bottom:14px}
+html[data-theme="lavender"] .frame,html[data-theme="liquid"] .frame{backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+html[data-theme="lavender"] .seg,html[data-theme="liquid"] .seg{backdrop-filter:blur(8px) saturate(var(--gsat));-webkit-backdrop-filter:blur(8px) saturate(var(--gsat))}
+html[data-theme="lavender"] .sw,html[data-theme="liquid"] .sw{backdrop-filter:blur(6px) saturate(var(--gsat));-webkit-backdrop-filter:blur(6px) saturate(var(--gsat))}
+html[data-theme="lavender"] .cbx,html[data-theme="liquid"] .cbx{backdrop-filter:blur(6px) saturate(var(--gsat));-webkit-backdrop-filter:blur(6px) saturate(var(--gsat))}
 #app{animation:pgfade .32s cubic-bezier(.2,.7,.2,1)}
 @keyframes pgfade{from{opacity:0;transform:translateY(8px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
 @media(prefers-reduced-motion:reduce){#app{animation:none}}
@@ -62,7 +66,7 @@ button{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(
 button:active{transform:scale(.97)}
 button.pri{background:var(--pri);color:var(--onpri);border-color:var(--pri);font-weight:600;width:100%;height:48px;margin-top:10px;box-shadow:var(--shadow)}
 button.sec{width:100%;height:46px;margin-top:8px}
-.seg{position:relative;display:flex;gap:2px;padding:4px;border-radius:999px;background-color:color-mix(in srgb,var(--gtint) 12%,transparent);backdrop-filter:blur(8px) saturate(var(--gsat));-webkit-backdrop-filter:blur(8px) saturate(var(--gsat));box-shadow:inset 0 0 0 1px color-mix(in srgb,#fff calc(var(--ghi)*10%),transparent),inset -2px 2px 1px -1px color-mix(in srgb,#fff calc(var(--ghi)*70%),transparent),inset 0 -3px 2px -2px color-mix(in srgb,#000 calc(var(--glo)*15%),transparent),0 4px 14px color-mix(in srgb,#000 calc(var(--glo)*8%),transparent)}
+.seg{position:relative;display:flex;gap:2px;padding:4px;border-radius:999px;background-color:color-mix(in srgb,var(--gtint) 12%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,#fff calc(var(--ghi)*10%),transparent),inset -2px 2px 1px -1px color-mix(in srgb,#fff calc(var(--ghi)*70%),transparent),inset 0 -3px 2px -2px color-mix(in srgb,#000 calc(var(--glo)*15%),transparent),0 4px 14px color-mix(in srgb,#000 calc(var(--glo)*8%),transparent)}
 .seg button{position:relative;z-index:1;flex:1;background:none;border:none;box-shadow:none;color:var(--tx2);font-weight:500}
 .seg button.on{color:var(--tx);font-weight:600}
 .segThumb{position:absolute;top:4px;bottom:4px;left:0;width:0;border-radius:999px;background-color:color-mix(in srgb,var(--gtint) 34%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,#fff calc(var(--ghi)*10%),transparent),inset -1px 1px 1px -1px color-mix(in srgb,#fff calc(var(--ghi)*70%),transparent),0 2px 6px color-mix(in srgb,#000 calc(var(--glo)*10%),transparent);transition:translate .4s cubic-bezier(1,0,.4,1),width .4s cubic-bezier(1,0,.4,1);pointer-events:none}
@@ -71,7 +75,7 @@ button.sec{width:100%;height:46px;margin-top:8px}
 @media(prefers-reduced-motion:reduce){.segThumb{transition:none}.segThumb.sq{animation:none}}
 .swrow{cursor:pointer}
 .swin{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(100%)}
-.sw{position:relative;flex:none;width:46px;height:28px;border-radius:999px;background-color:color-mix(in srgb,var(--gtint) 20%,transparent);backdrop-filter:blur(6px) saturate(var(--gsat));-webkit-backdrop-filter:blur(6px) saturate(var(--gsat));box-shadow:inset 0 0 0 1px color-mix(in srgb,#fff calc(var(--ghi)*10%),transparent),inset 0 2px 3px -1px color-mix(in srgb,#000 calc(var(--glo)*25%),transparent);transition:box-shadow .25s}
+.sw{position:relative;flex:none;width:46px;height:28px;border-radius:999px;background-color:color-mix(in srgb,var(--gtint) 20%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,#fff calc(var(--ghi)*10%),transparent),inset 0 2px 3px -1px color-mix(in srgb,#000 calc(var(--glo)*25%),transparent);transition:box-shadow .25s}
 .swth{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 4px color-mix(in srgb,#000 calc(var(--glo)*25%),transparent);transition:translate .25s cubic-bezier(.4,0,.2,1),box-shadow .25s}
 .swin:checked+.sw{box-shadow:inset 0 0 0 1px color-mix(in srgb,#fff calc(var(--ghi)*10%),transparent),inset 0 2px 3px -1px color-mix(in srgb,#000 calc(var(--glo)*25%),transparent),0 0 0 1.5px var(--pri),0 0 10px color-mix(in srgb,var(--pri) 55%,transparent)}
 .swin:checked+.sw .swth{translate:18px 0;box-shadow:0 0 6px color-mix(in srgb,var(--pri) 70%,transparent),0 2px 4px color-mix(in srgb,#000 calc(var(--glo)*25%),transparent)}
@@ -79,7 +83,7 @@ button.sec{width:100%;height:46px;margin-top:8px}
 @media(prefers-reduced-motion:reduce){.swth{transition:none}}
 .cbrow{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
 .cbin{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(100%)}
-.cbx{position:relative;flex:none;width:22px;height:22px;margin-top:2px;border-radius:7px;background-color:color-mix(in srgb,var(--gtint) 14%,transparent);backdrop-filter:blur(6px) saturate(var(--gsat));-webkit-backdrop-filter:blur(6px) saturate(var(--gsat));box-shadow:inset 0 0 0 1px color-mix(in srgb,#fff calc(var(--ghi)*10%),transparent),inset 0 2px 3px -1px color-mix(in srgb,#000 calc(var(--glo)*20%),transparent);transition:box-shadow .2s}
+.cbx{position:relative;flex:none;width:22px;height:22px;margin-top:2px;border-radius:7px;background-color:color-mix(in srgb,var(--gtint) 14%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,#fff calc(var(--ghi)*10%),transparent),inset 0 2px 3px -1px color-mix(in srgb,#000 calc(var(--glo)*20%),transparent);transition:box-shadow .2s}
 .cbx::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--pri);opacity:0;transform:scale(.5);transition:opacity .15s,transform .15s cubic-bezier(.34,1.56,.64,1)}
 .cbin:checked+.cbx{box-shadow:inset 0 0 0 1px color-mix(in srgb,#fff calc(var(--ghi)*10%),transparent),inset 0 2px 3px -1px color-mix(in srgb,#000 calc(var(--glo)*20%),transparent),0 0 0 1.5px var(--pri),0 0 8px color-mix(in srgb,var(--pri) 45%,transparent)}
 .cbin:checked+.cbx::after{opacity:1;transform:scale(1)}
@@ -155,7 +159,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v23';
+var APP_VERSION='v24';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
