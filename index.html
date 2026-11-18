@@ -164,7 +164,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v0.31';
+var APP_VERSION='v0.32';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -179,17 +179,19 @@ uk:{
  statsTitle:'Статистика',
  statsAria:'Статистика',
  noStatsYet:'Поки даних немає: статистика зʼявиться після перших тестів.',
- wordsBtn:'Слова',wordsTitle:'Слова',wNew:'Нові',wLearning:'Вчу',wLearned:'Вивчено',
- wTotal:function(n){return 'Усього слів: '+n+'. «Вивчено» — слово вгадано правильно 4 рази поспіль.'},
- wDirH:'Напрямок',dirTo:'UA → DE',dirFrom:'DE → UA',dirMix:'Мікс',wStart:'Почати',
- wNoBank:'Для цього рівня слів поки немає.',wListEmpty:'Тут поки порожньо.',wFinish:'Завершити',
+ wordsBtn:'Слова',wordsTitle:'Слова',wAll:'Усі',wNew:'Нові',wErr:'Помилки',
+ wDirH:'Напрямок',dirTo:'UA → DE',dirFrom:'DE → UA',dirMix:'Мікс',wStart:'Старт',
+ wNoBank:'Для цього рівня слів поки немає.',wListEmpty:'Тут поки порожньо.',wPause:'Пауза',wFinish:'Завершити',
+ wResume:'Продовжити',wDone:function(x,y){return 'Пройдено '+x+' з '+y},
+ wRestartAsk:'Незакінчений тест буде скинуто. Почати заново?',
+ wTestBtn:'Пройти тест',wStreak:function(c){return 'вгадано поспіль: '+c+' з 4'},
  wAskTo:'Як це німецькою?',wAskFrom:'Що це означає?',
  wSessionH:'Підсумок',wCorrectPct:function(p){return 'правильно: '+p+'%'},
- wWrongH:function(n){return 'Помилки ('+n+') — ці слова скоро повторяться:'},
- wMore:'Продовжити',wBack:'До слів',
+ wWrongH:function(n){return 'Помилки ('+n+') — ці слова потрапили до «Помилок»:'},
+ wMore:'Ще раз',wBack:'До слів',
  infoWordsH:'Слова',
- infoWords1:'Кнопка «Слова» на головній — тренування лексики: слово українською, а ви вибираєте німецьке з 4 варіантів, або навпаки, або «Мікс» — напрямок випадковий для кожної картки (перемикач на екрані «Слова»). Неправильні варіанти — слова тієї ж частини мови з банку. Після відповіді видно повну форму слова: артикль, множину, керування. Тест безкінечний, поки не натиснете «Завершити»; у підсумку — відсоток правильних і список слів із помилками.',
- infoWords2:'Кожне слово має сходинку 0–5. Правильна відповідь піднімає слово, і воно повертається все рідше (через ~10, 30, 100… відповідей); помилка скидає на 0 — слово повториться вже за кілька карток. Кожна третя картка — нове слово, тож банк проходиться далі, навіть коли є що повторювати. Цифри «Нові / Вчу / Вивчено» натискаються — відкривається список цих слів. «Вивчено» — сходинка 4–5, тобто 4 правильні відповіді поспіль. Банк слів і прогрес у кожного рівня свої.',
+ infoWords1:'Кнопка «Слова» на головній — тренування лексики: слово українською, а ви вибираєте німецьке з 4 варіантів, або навпаки, або «Мікс» — напрямок випадковий для кожної картки. Неправильні варіанти — слова тієї ж частини мови з банку. Після відповіді видно повну форму слова: артикль, множину, керування. «Старт» перемішує весь банк і показує кожне слово один раз; «Пауза» зберігає тест — на екрані «Слова» зʼявляється «Продовжити». Новий «Старт» скидає незакінчений тест (з підтвердженням).',
+ infoWords2:'Цифри зверху натискаються: «Усі» — весь банк, «Нові» — слова з останнього поповнення банку, «Помилки» — слова, в яких ви помилялися; слово йде з «Помилок» після 4 правильних відповідей поспіль у будь-яких тестах. За «Новими» і «Помилками» можна пройти короткий тест — він не зберігається і не чіпає основний. Банк слів і прогрес у кожного рівня свої.',
  allBlocks:function(n){return 'Усі блоки ('+n+')'},
  someBlocks:function(n,list){return 'Блоків: '+n+' ('+list+')'},
  perBlockTasks:function(n){return ' на блок · '+n+' завдань'},
@@ -283,17 +285,19 @@ ru:{
  statsTitle:'Статистика',
  statsAria:'Статистика',
  noStatsYet:'Пока данных нет: статистика появится после первых тестов.',
- wordsBtn:'Слова',wordsTitle:'Слова',wNew:'Новые',wLearning:'Учу',wLearned:'Выучено',
- wTotal:function(n){return 'Всего слов: '+n+'. «Выучено» — слово угадано верно 4 раза подряд.'},
- wDirH:'Направление',dirTo:'RU → DE',dirFrom:'DE → RU',dirMix:'Микс',wStart:'Начать',
- wNoBank:'Для этого уровня слов пока нет.',wListEmpty:'Здесь пока пусто.',wFinish:'Закончить',
+ wordsBtn:'Слова',wordsTitle:'Слова',wAll:'Все',wNew:'Новые',wErr:'Ошибки',
+ wDirH:'Направление',dirTo:'RU → DE',dirFrom:'DE → RU',dirMix:'Микс',wStart:'Старт',
+ wNoBank:'Для этого уровня слов пока нет.',wListEmpty:'Здесь пока пусто.',wPause:'Пауза',wFinish:'Закончить',
+ wResume:'Продолжить',wDone:function(x,y){return 'Пройдено '+x+' из '+y},
+ wRestartAsk:'Незаконченный тест будет сброшен. Начать заново?',
+ wTestBtn:'Пройти тест',wStreak:function(c){return 'угадано подряд: '+c+' из 4'},
  wAskTo:'Как это по-немецки?',wAskFrom:'Что это значит?',
  wSessionH:'Итог',wCorrectPct:function(p){return 'верно: '+p+'%'},
- wWrongH:function(n){return 'Ошибки ('+n+') — эти слова скоро повторятся:'},
- wMore:'Продолжить',wBack:'К словам',
+ wWrongH:function(n){return 'Ошибки ('+n+') — эти слова попали в «Ошибки»:'},
+ wMore:'Ещё раз',wBack:'К словам',
  infoWordsH:'Слова',
- infoWords1:'Кнопка «Слова» на главной — тренировка лексики: слово по-русски, а вы выбираете немецкое из 4 вариантов, или наоборот, или «Микс» — направление случайное для каждой карточки (переключатель на экране «Слова»). Неверные варианты — слова той же части речи из банка. После ответа видна полная форма слова: артикль, множественное число, управление. Тест бесконечный, пока не нажмёте «Закончить»; в итоге — процент верных и список слов с ошибками.',
- infoWords2:'У каждого слова ступень 0–5. Верный ответ поднимает слово, и оно возвращается всё реже (через ~10, 30, 100… ответов); ошибка сбрасывает на 0 — слово повторится уже через несколько карточек. Каждая третья карточка — новое слово, так что банк проходится дальше, даже когда есть что повторять. Цифры «Новые / Учу / Выучено» нажимаются — открывается список этих слов. «Выучено» — ступень 4–5, то есть 4 верных ответа подряд. Банк слов и прогресс у каждого уровня свои.',
+ infoWords1:'Кнопка «Слова» на главной — тренировка лексики: слово по-русски, а вы выбираете немецкое из 4 вариантов, или наоборот, или «Микс» — направление случайное для каждой карточки. Неверные варианты — слова той же части речи из банка. После ответа видна полная форма слова: артикль, множественное число, управление. «Старт» перемешивает весь банк и показывает каждое слово один раз; «Пауза» сохраняет тест — на экране «Слова» появляется «Продолжить». Новый «Старт» сбрасывает незаконченный тест (с подтверждением).',
+ infoWords2:'Цифры сверху нажимаются: «Все» — весь банк, «Новые» — слова из последнего пополнения банка, «Ошибки» — слова, в которых вы ошибались; слово уходит из «Ошибок» после 4 верных ответов подряд в любых тестах. По «Новым» и «Ошибкам» можно пройти короткий тест — он не сохраняется и не трогает основной. Банк слов и прогресс у каждого уровня свои.',
  allBlocks:function(n){return 'Все блоки ('+n+')'},
  someBlocks:function(n,list){return 'Блоков: '+n+' ('+list+')'},
  perBlockTasks:function(n){return ' на блок · '+n+' заданий'},
@@ -386,7 +390,7 @@ function histRow(e){var pct=e.n?Math.round(e.s/e.n*100):0;
 var app=document.getElementById('app');
 function render(h){app.innerHTML=h;app.style.animation='none';app.offsetHeight;app.style.animation=''}
 var DATA=null,byId={},S=null,run=null,saved=null,P={},H=[],UM=false,THEME='classic',VIEW='home',LANG='uk';
-var LEVELS={a2b2:{file:'data/tasks.json',label:'A2–B2',setKey:'dg_set',runKey:'dg_run',progPre:'dg_prog_',seenPre:'dg_seen_',histKey:'dg_hist',wordsFile:'data/words_a2b2.json',wPre:'dg_wp_'},a1a2:{file:'data/tasks_a1a2.json',label:'A1–A2',setKey:'dg_set_a1a2',runKey:'dg_run_a1a2',progPre:'dg_prog_a1a2_',seenPre:'dg_seen_a1a2_',histKey:'dg_hist_a1a2',wordsFile:'data/words_a1a2.json',wPre:'dg_wp_a1a2_'}};
+var LEVELS={a2b2:{file:'data/tasks.json',label:'A2–B2',setKey:'dg_set',runKey:'dg_run',progPre:'dg_prog_',seenPre:'dg_seen_',histKey:'dg_hist',wordsFile:'data/words_a2b2.json',wPre:'dg_ws_'},a1a2:{file:'data/tasks_a1a2.json',label:'A1–A2',setKey:'dg_set_a1a2',runKey:'dg_run_a1a2',progPre:'dg_prog_a1a2_',seenPre:'dg_seen_a1a2_',histKey:'dg_hist_a1a2',wordsFile:'data/words_a1a2.json',wPre:'dg_ws_a1a2_'}};
 var LEVEL='a2b2';
 var TG=window.Telegram&&window.Telegram.WebApp;
 if(TG){try{TG.ready();TG.expand()}catch(e){}}
@@ -704,74 +708,101 @@ function finish(){setView('result');tgBack(home);
  render(h);run.done=true;var keep=run;run=null;saved=null;save();run=keep;
  document.getElementById('again').onclick=start;document.getElementById('home').onclick=function(){run=null;home()};
 }
-var WINT=[3,10,30,100,300,1000],WC={},WDIR='mix',wrun=null;
+var WC={},WDIR='mix',wcur=null;
 function wLvl(){return WC[LEVEL]}
-function wKey(id){return LEVELS[LEVEL].wPre+Math.floor(+id.slice(1)/150)}
+function wPre(){return LEVELS[LEVEL].wPre}
+function wNum(id){return +String(id).slice(1)}
+function wKey(id){return wPre()+Math.floor(wNum(id)/150)}
+function wMax(W){return W.words.reduce(function(m,w){return Math.max(m,wNum(w.id))},0)}
 function wLoad(cb){if(WC[LEVEL])return cb(WC[LEVEL]);
  fetch(LEVELS[LEVEL].wordsFile).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){
-  var nKey=LEVELS[LEVEL].wPre+'n',ch={};d.words.forEach(function(w){ch[wKey(w.id)]=1});
-  csGet([nKey].concat(Object.keys(ch)),function(res){var p={};
-   Object.keys(ch).forEach(function(k){try{var o=JSON.parse(res[k]||'null');if(o)Object.keys(o).forEach(function(i){p[i]=o[i]})}catch(e){}});
-   WC[LEVEL]={words:d.words,p:p,n:+res[nKey]||0};cb(WC[LEVEL])})
- }).catch(function(){cb({words:[],p:{},n:0})})}
+  var ch={};d.words.forEach(function(w){ch[wKey(w.id)]=1});
+  csGet([wPre()+'new',wPre()+'run'].concat(Object.keys(ch)),function(res){var W={words:d.words,byId:{},p:{},run:null,tmp:null};
+   d.words.forEach(function(w){W.byId[w.id]=w});
+   Object.keys(ch).forEach(function(k){try{var o=JSON.parse(res[k]||'null');if(o)Object.keys(o).forEach(function(i){W.p[i]=o[i]})}catch(e){}});
+   try{W.run=JSON.parse(res[wPre()+'run']||'null')}catch(e){}
+   var mx=wMax(W),nb=(res[wPre()+'new']||'').split(',').map(Number);
+   if(!nb[1]||mx>nb[1]){nb=[(nb[1]||mx)+1,mx];csSet(wPre()+'new',nb.join(','))}
+   W.from=nb[0];
+   if(W.run&&mx>W.run.mx){var add=shuffle(W.words.filter(function(w){return wNum(w.id)>W.run.mx})).map(function(w){return wNum(w.id)});
+    W.run.q=W.run.q.concat(add);W.run.t+=add.length;W.run.mx=mx;wSaveRun(W)}
+   WC[LEVEL]=W;cb(W)})
+ }).catch(function(){cb({words:[],byId:{},p:{},run:null,tmp:null})})}
 function wSave(id){var W=wLvl(),k=wKey(id),o={};
  W.words.forEach(function(w){if(W.p[w.id]&&wKey(w.id)==k)o[w.id]=W.p[w.id]});
- csSet(k,JSON.stringify(o));csSet(LEVELS[LEVEL].wPre+'n',String(W.n))}
-function wCat(W,w){var p=W.p[w.id];return !p?'nw':p[0]>=4?'ok':'lr'}
-function wStat(W){var s={nw:0,lr:0,ok:0};W.words.forEach(function(w){s[wCat(W,w)]++});return s}
-function wNext(W,last){var due=[],fresh=[],seen=[],byDue=function(a,b){return W.p[a.id][1]-W.p[b.id][1]};
- W.words.forEach(function(w){if(w.id==last)return;var p=W.p[w.id];if(!p)fresh.push(w);else{seen.push(w);if(p[1]<=W.n)due.push(w)}});
- if(fresh.length&&(!due.length||W.n%3==0))return fresh[Math.floor(Math.random()*fresh.length)];
- if(due.length)return due.sort(byDue)[0];
- return seen.sort(byDue)[0]}
+ csSet(k,JSON.stringify(o))}
+function wSaveRun(W){csSet(wPre()+'run',W.run?JSON.stringify(W.run):'')}
+function wR(W){return W.tmp||W.run}
+function wList(W,k){return W.words.filter(function(w){var p=W.p[w.id];return k=='all'||(k=='new'?wNum(w.id)>=W.from:!!p&&!!p[1])})}
 function wMeans(w){return w[LANG].toLowerCase().replace(/\([^)]*\)/g,'').split(/[,;]/).map(function(s){return s.trim()}).filter(Boolean)}
 function wOpts(W,w){var m=wMeans(w),same=[],other=[];
  shuffle(W.words).forEach(function(x){if(x.id==w.id||wMeans(x).some(function(t){return m.indexOf(t)>=0}))return;(x.pos==w.pos?same:other).push(x)});
  return shuffle([w].concat(same.concat(other).slice(0,3)))}
 function wCard(w){return '<div class="h"><b>'+esc(w.de)+'</b>'+(w.pl?', '+esc(w.pl):'')+(w.gov?' ('+esc(w.gov)+')':'')+' — '+esc(w[LANG])+'</div>'}
-function wScore(){return '✓ '+wrun.ok+' · ✗ '+wrun.bad}
+function wScore(r){return '✓ '+r.ok+' · ✗ '+r.bad}
+function wGo(k,box){var W=wLvl();
+ function go(){var q=shuffle(wList(W,k)).map(function(w){return wNum(w.id)});if(!q.length)return words();
+  var r={k:k,q:q,t:q.length,ok:0,bad:0,w:[],mx:wMax(W)};
+  if(k=='all'){W.run=r;W.tmp=null;wSaveRun(W)}else W.tmp=r;
+  wShow()}
+ if(k!='all'||!W.run)return go();
+ var keep=box.innerHTML;
+ box.innerHTML='<div class="frame"><p style="margin:0 0 10px">'+L('wRestartAsk')+'</p><button class="pri" id="wy">'+L('yes')+'</button><button class="sec" id="wn">'+L('no')+'</button></div>';
+ document.getElementById('wy').onclick=go;
+ document.getElementById('wn').onclick=function(){box.innerHTML=keep;bindGo(k,box)}}
+function bindGo(k,box){box.querySelector('button').onclick=function(){haptic();wGo(k,box)}}
 function words(){setView('words');tgBack(home);
  if(!WC[LEVEL])render(loaderHtml());
  wLoad(function(W){var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">'+L('wordsTitle')+' · '+LEVELS[LEVEL].label+'</h1>';
   if(!W.words.length){render(h+'<div class="frame"><p class="mut" style="margin:0">'+L('wNoBank')+'</p></div>');document.getElementById('bk').onclick=home;return}
-  var s=wStat(W),t=W.words.length;
-  h+='<div class="frame"><div class="wst"><div data-k="nw"><b>'+s.nw+'</b><small>'+L('wNew')+'</small></div><div data-k="lr"><b>'+s.lr+'</b><small>'+L('wLearning')+'</small></div><div data-k="ok"><b>'+s.ok+'</b><small>'+L('wLearned')+'</small></div></div>';
-  h+='<div class="bar"><i style="width:'+(s.ok/t*100)+'%"></i></div><p class="mut" style="margin:6px 0 0">'+L('wTotal',t)+'</p></div>';
+  W.tmp=null;
+  h+='<div class="frame"><div class="wst">';
+  [['all','wAll'],['new','wNew'],['err','wErr']].forEach(function(c){h+='<div data-k="'+c[0]+'"><b>'+wList(W,c[0]).length+'</b><small>'+L(c[1])+'</small></div>'});
+  h+='</div></div>';
+  if(W.run){var x=W.run.t-W.run.q.length;h+='<button class="sec" id="wres" style="margin:0 0 4px">'+L('wResume')+'</button><div class="bar"><i style="width:'+(x/W.run.t*100)+'%"></i></div><p class="mut" style="margin:6px 0 12px;text-align:center">'+L('wDone',x,W.run.t)+'</p>'}
   h+='<div class="frame"><small>'+L('wDirH')+'</small><div class="seg" id="segDir" style="margin-top:6px"><div class="segThumb"></div>';
   [['to',L('dirTo')],['from',L('dirFrom')],['mix',L('dirMix')]].forEach(function(d){h+='<button data-d="'+d[0]+'" class="'+(WDIR==d[0]?'on':'')+'">'+d[1]+'</button>'});
-  h+='</div></div><button class="pri big2" id="wgo">'+L('wStart')+'</button>';
+  h+='</div></div><div id="wgow"><button class="pri big2">'+L('wStart')+'</button></div>';
   render(h);segMove('segDir',true);
-  document.getElementById('bk').onclick=home;document.getElementById('wgo').onclick=wStart;
-  document.querySelectorAll('.wst div').forEach(function(d){d.onclick=function(){haptic();wList(d.dataset.k)}});
+  document.getElementById('bk').onclick=home;bindGo('all',document.getElementById('wgow'));
+  var rs=document.getElementById('wres');if(rs)rs.onclick=function(){haptic();wShow()};
+  document.querySelectorAll('.wst div').forEach(function(d){d.onclick=function(){haptic();wListScr(d.dataset.k)}});
   document.querySelectorAll('#segDir button').forEach(function(b){b.onclick=function(){WDIR=b.dataset.d;csSet('dg_wdir',WDIR);
    document.querySelectorAll('#segDir button').forEach(function(x){x.className=x===b?'on':''});segMove('segDir')}})})}
-function wList(k){setView('words');tgBack(words);var W=wLvl(),ws=W.words.filter(function(w){return wCat(W,w)==k});
- var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">'+L({nw:'wNew',lr:'wLearning',ok:'wLearned'}[k])+' · '+ws.length+'</h1><div class="frame">';
- h+=ws.length?ws.map(wCard).join(''):'<p class="mut" style="margin:0">'+L('wListEmpty')+'</p>';
- render(h+'</div>');document.getElementById('bk').onclick=words}
-function wStart(){wrun={ok:0,bad:0,wrong:[],last:null};wShow()}
-function wShow(){setView('quiz');var W=wLvl(),w=wNext(W,wrun.last),dir=WDIR=='mix'?(Math.random()<.5?'to':'from'):WDIR;
- wrun.cur=w;wrun.last=w.id;
- var h='<div class="qtop">'+robotHtml('think','rbot-sm')+'<div id="cxw"><button class="lnk" id="wend">'+L('wFinish')+'</button></div></div><div class="frame"><div class="top"><span id="wsc">'+wScore()+'</span><span>'+L(dir=='to'?'dirTo':'dirFrom')+'</span></div>';
+function wListScr(k){setView('words');tgBack(words);var W=wLvl(),ws=wList(W,k);
+ var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">'+L({all:'wAll',new:'wNew',err:'wErr'}[k])+' · '+ws.length+'</h1>';
+ if(k!='all'&&ws.length)h+='<div id="wgow"><button class="pri">'+L('wTestBtn')+'</button></div>';
+ h+='<div class="frame">'+(ws.length?ws.map(function(w){return wCard(w)+(k=='err'?'<p class="mut" style="margin:-4px 0 8px">'+L('wStreak',W.p[w.id][0])+'</p>':'')}).join(''):'<p class="mut" style="margin:0">'+L('wListEmpty')+'</p>')+'</div>';
+ render(h);document.getElementById('bk').onclick=words;
+ var b=document.getElementById('wgow');if(b)bindGo(k,b)}
+function wShow(){var W=wLvl(),r=wR(W),back=W.tmp?wFinish:words;
+ while(r.q.length&&!W.byId['W'+r.q[0]]){r.q.shift();r.t--}
+ if(!r.q.length)return wFinish();
+ setView('quiz');var w=W.byId['W'+r.q[0]],dir=WDIR=='mix'?(Math.random()<.5?'to':'from'):WDIR;wcur=w;
+ var h='<div class="qtop">'+robotHtml('think','rbot-sm')+'<div id="cxw"><button class="lnk" id="wend">'+L(W.tmp?'wFinish':'wPause')+'</button></div></div><div class="frame"><div class="top"><span id="wsc">'+wScore(r)+'</span><span>'+ofN(r.t-r.q.length+1,r.t)+'</span></div>';
  h+='<div class="qp">'+L(dir=='to'?'wAskTo':'wAskFrom')+'</div><div class="q">'+esc(dir=='to'?w[LANG]:w.de)+'</div>';
  wOpts(W,w).forEach(function(o){h+='<button class="opt" data-id="'+o.id+'">'+esc(dir=='to'?o.de:o[LANG])+'</button>'});
  h+='<div id="fb"></div></div>';render(h);
- tgBack(wFinish);document.getElementById('wend').onclick=wFinish;
+ tgBack(back);document.getElementById('wend').onclick=back;
  document.querySelectorAll('.opt').forEach(function(b){b.onclick=function(){wAnswer(b)}})}
-function wAnswer(btn){haptic();var W=wLvl(),w=wrun.cur,ok=btn.dataset.id==w.id,p=W.p[w.id]||[0,0];
+function wAnswer(btn){haptic();var W=wLvl(),r=wR(W),w=wcur,n=wNum(w.id),ok=btn.dataset.id==w.id,p=W.p[w.id]||[0,0];
  document.querySelectorAll('.opt').forEach(function(b){b.disabled=true;if(b.dataset.id==w.id)b.classList.add('ok');else if(b===btn)b.classList.add('bad')});
- W.n++;
- if(ok){var b=Math.min(p[0]+1,5);p=[b,W.n+WINT[b]];wrun.ok++}
- else{p=[0,W.n+3+Math.floor(Math.random()*3)];wrun.bad++;if(wrun.wrong.indexOf(w)<0)wrun.wrong.push(w)}
- W.p[w.id]=p;wSave(w.id);setMood(ok?'happy':'sad');document.getElementById('wsc').textContent=wScore();
+ r.q.shift();
+ if(ok){var c=Math.min(p[0]+1,9);p=[c,p[1]&&c<4?1:0];r.ok++}
+ else{p=[0,1];r.bad++;if(r.w.indexOf(n)<0)r.w.push(n)}
+ W.p[w.id]=p;wSave(w.id);if(!W.tmp)wSaveRun(W);setMood(ok?'happy':'sad');document.getElementById('wsc').textContent=wScore(r);
  document.getElementById('fb').innerHTML='<div class="fb '+(ok?'ok':'bad')+'"><b>'+L(ok?'correct':'incorrect')+'</b>'+wCard(w)+'</div><button class="pri" id="nx">'+L('next')+'</button>';
+ tgBack(r.q.length&&!W.tmp?words:wFinish);
  document.getElementById('nx').onclick=wShow}
-function wFinish(){var r=wrun,n=r.ok+r.bad;if(!n){words();return}
+function wFinish(){var W=wLvl(),r=wR(W),n=r.ok+r.bad;
+ if(W.tmp)W.tmp=null;else{W.run=null;wSaveRun(W)}
+ if(!n){words();return}
  setView('result');tgBack(words);
  var h='<div class="frame"><small>'+L('wSessionH')+'</small><div class="big">'+ofN(r.ok,n)+'</div><small>'+L('wCorrectPct',Math.round(r.ok/n*100))+'</small></div>';
- if(r.wrong.length){h+='<p><small>'+L('wWrongH',r.wrong.length)+'</small></p><div class="frame">';r.wrong.forEach(function(w){h+=wCard(w)});h+='</div>'}
- h+='<button class="pri" id="wmore">'+L('wMore')+'</button><button class="sec" id="wback">'+L('wBack')+'</button>';
- render(h);document.getElementById('wmore').onclick=wStart;document.getElementById('wback').onclick=words}
+ var wr=r.w.map(function(i){return W.byId['W'+i]}).filter(Boolean);
+ if(wr.length){h+='<p><small>'+L('wWrongH',wr.length)+'</small></p><div class="frame">';wr.forEach(function(w){h+=wCard(w)});h+='</div>'}
+ h+='<div id="wgow"><button class="pri">'+L('wMore')+'</button></div><button class="sec" id="wback">'+L('wBack')+'</button>';
+ render(h);bindGo(r.k,document.getElementById('wgow'));document.getElementById('wback').onclick=words}
 document.body.className='home';render(loaderHtml());
 csGet(['dg_uml','dg_theme','dg_level','dg_lang','dg_wdir'],function(res){
  WDIR=['to','from','mix'].indexOf(res.dg_wdir)>=0?res.dg_wdir:'mix';
