@@ -89,7 +89,7 @@ button.sec{width:100%;height:46px;margin-top:8px}
 .cbin:checked+.cbx::after{opacity:1;transform:scale(1)}
 .cbin:focus-visible+.cbx{outline:2px solid var(--pri);outline-offset:2px}
 details{border:1px solid var(--bd);border-radius:var(--radius);padding:10px 12px;background:var(--card);margin:14px 0;box-shadow:var(--shadow)}summary{cursor:pointer}
-details.hist{border:none;background:none;box-shadow:none;padding:0;margin:4px 0 0}details.hist summary{color:var(--tx2);font-size:13px;text-decoration:underline}
+button.hist{display:block;margin:6px 0 0;padding:0;color:var(--tx2);font-size:13px;text-decoration:underline}
 label{display:flex;gap:8px;align-items:center}input[type=checkbox]{width:18px;height:18px}
 .top{display:flex;justify-content:space-between;font-size:13px;color:var(--tx2)}
 .bar{height:5px;background:var(--bd);border-radius:3px;margin:8px 0 16px}.bar i{display:block;height:100%;background:var(--pri);border-radius:3px;transition:width .2s}
@@ -164,7 +164,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v0.34';
+var APP_VERSION='v0.35';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -195,8 +195,9 @@ uk:{
  allBlocks:function(n){return 'Усі блоки ('+n+')'},
  someBlocks:function(n,list){return 'Блоків: '+n+' ('+list+')'},
  perBlockTasks:function(n){return ' на блок · '+n+' завдань'},
- historyTitle:'Історія тестів (останні 10)',
+ historyTitle:'Історія тестів (останні 30)',
  showMore:function(n){return 'Показати ще '+n},
+ showLess:'Згорнути список',
  settingsTitle:'Налаштування',
  level:'Рівень',
  levelHint:'Змінює банк завдань і набір доступних блоків. Прогрес і налаштування за рівнями окремі.',
@@ -233,13 +234,13 @@ uk:{
  infoGrade3:'«Показати результат наприкінці» приховує оцінку після кожної відповіді; підсумок і аналіз помилок завжди показуються в кінці тесту.',
  infoGradeM:'У блоці M (дієслова з прийменниками) у поясненні після відповіді ще й переклад речення, а для частини дієслів — нотатка про інші прийменники; поруч із текстом завдання — кнопка, яка показує той самий переклад ще до відповіді.',
  infoErrH:'Прогрес',
- infoErr1:'На головному екрані — журнал останніх 10 пройдених тестів (дата, блоки, бали), спершу 3 останні, решта — по кнопці «Показати ще».',
+ infoErr1:'На головному екрані — журнал останніх 30 пройдених тестів (дата, блоки, бали), спершу 3 останні, решта — по кнопці «Показати ще» під списком (вона ж «Згорнути список»).',
  infoErr2:'«Статистика» (іконка на головній) показує середній відсоток балів по кожному блоку за всю історію проходжень — блок нижче 70% підсвічується червоним.',
  infoOtherH:'Інше',
  infoOther1:'Кнопки ä ö ü ß під полем введення включаються в налаштуваннях. Налаштування і прогрес зберігаються автоматично в хмарі Telegram (Cloud Storage), на цьому ж акаунті вони доступні з будь-якого пристрою.',
  infoOther2:'Мова інтерфейсу визначається мовою Telegram; змінити її вручну можна в налаштуваннях (Українська/Русский).',
  infoOther3:'Дизайн у налаштуваннях — «Темна», «Світла» або «Glass»: змінюється лише оформлення (кольори, скруглення, тіні, розмитий фон), логіка і екрани ті самі. «Темна» підлаштовується під тему телефону (світла чи темна), «Світла» і «Glass» завжди зберігають свою палітру, незалежно від теми телефону.',
- infoUpdated:'Опис оновлено: 18.11.2026.',
+ infoUpdated:'Опис оновлено: 21.11.2026.',
  bankUpdated:function(d){return 'Банк оновлено: '+d},
  understood:'Зрозуміло',
  partOfSpeech:'Частина мови: ',
@@ -301,8 +302,9 @@ ru:{
  allBlocks:function(n){return 'Все блоки ('+n+')'},
  someBlocks:function(n,list){return 'Блоков: '+n+' ('+list+')'},
  perBlockTasks:function(n){return ' на блок · '+n+' заданий'},
- historyTitle:'История тестов (последние 10)',
+ historyTitle:'История тестов (последние 30)',
  showMore:function(n){return 'Показать ещё '+n},
+ showLess:'Свернуть список',
  settingsTitle:'Настройки',
  level:'Уровень',
  levelHint:'Меняет банк заданий и набор доступных блоков. Прогресс и настройки по уровням раздельные.',
@@ -339,13 +341,13 @@ ru:{
  infoGrade3:'«Показать результат в конце» скрывает оценку после каждого ответа; итог и разбор ошибок всегда показываются в конце теста.',
  infoGradeM:'В блоке M (глаголы с предлогами) в объяснении после ответа также перевод предложения, а для части глаголов — заметка про другие предлоги; рядом с текстом задания — кнопка, которая показывает тот же перевод ещё до ответа.',
  infoErrH:'Прогресс',
- infoErr1:'На главном экране — журнал последних 10 пройденных тестов (дата, блоки, баллы), сначала 3 последних, остальные — по кнопке «Показать ещё».',
+ infoErr1:'На главном экране — журнал последних 30 пройденных тестов (дата, блоки, баллы), сначала 3 последних, остальные — по кнопке «Показать ещё» под списком (она же «Свернуть список»).',
  infoErr2:'«Статистика» (иконка на главной) показывает средний процент баллов по каждому блоку за всю историю прохождений — блок ниже 70% подсвечивается красным.',
  infoOtherH:'Прочее',
  infoOther1:'Кнопки ä ö ü ß под полем ввода включаются в настройках. Настройки и прогресс сохраняются автоматически в облаке Telegram (Cloud Storage), на этом же аккаунте они доступны с любого устройства.',
  infoOther2:'Язык интерфейса определяется языком Telegram; изменить его вручную можно в настройках (Українська/Русский).',
  infoOther3:'Дизайн в настройках — «Тёмный», «Светлый» или «Glass»: меняется только оформление (цвета, скругления, тени, размытый фон), логика и экраны те же. «Тёмный» подстраивается под тему телефона (светлая или тёмная), «Светлый» и «Glass» всегда сохраняют свою палитру, независимо от темы телефона.',
- infoUpdated:'Описание обновлено: 18.11.2026.',
+ infoUpdated:'Описание обновлено: 21.11.2026.',
  bankUpdated:function(d){return 'Банк обновлён: '+d},
  understood:'Понятно',
  partOfSpeech:'Часть речи: ',
@@ -442,7 +444,7 @@ function recordProgress(){var by={};run.res.forEach(function(r){var k=r.t.block;
  Object.keys(by).forEach(function(k){P[k]=P[k]||{s:0,n:0};P[k].s+=by[k].s;P[k].n+=by[k].n});
  P.seen=P.seen||{};run.res.forEach(function(r){P.seen[r.t.id]=(P.seen[r.t.id]||0)+1});saveP()
  var s=run.res.reduce(function(a,r){return a+r.s},0);
- H.push({d:fmtDate(new Date()),blocks:Object.keys(by),s:s,n:run.res.length});H=H.slice(-10);
+ H.push({d:fmtDate(new Date()),blocks:Object.keys(by),s:s,n:run.res.length});H=H.slice(-30);
  csSet(LEVELS[LEVEL].histKey,JSON.stringify(H))}
 function loadP(cb){var keys=Object.keys(DATA.blocks),want=[];
  keys.forEach(function(k){want.push(LEVELS[LEVEL].progPre+k,LEVELS[LEVEL].seenPre+k)});
@@ -511,11 +513,12 @@ function home(){setView('home');tgBack(null);
  var hh=H.slice().reverse();
  if(hh.length){h+='<p style="margin:18px 0 4px"><small>'+L('historyTitle')+'</small></p>';
   hh.slice(0,3).forEach(function(e){h+=histRow(e)});
-  if(hh.length>3){h+='<details class="hist"><summary>'+L('showMore',hh.length-3)+'</summary>';hh.slice(3).forEach(function(e){h+=histRow(e)});h+='</details>'}}
+  if(hh.length>3){h+='<div id="hmore" hidden>';hh.slice(3).forEach(function(e){h+=histRow(e)});h+='</div><button class="lnk hist" id="htog">'+L('showMore',hh.length-3)+'</button>'}}
  h+='<p class="mut" style="text-align:center;margin:20px 0 0">'+APP_VERSION+(DATA.updated?' · '+L('bankUpdated',DATA.updated):'')+'</p>';
  render('<div class="frame">'+h+'</div>');
  var r=document.getElementById('resume');if(r)r.onclick=function(){restore(saved);show()};
  document.getElementById('set').onclick=settings;document.getElementById('sum').onclick=settings;document.getElementById('inf').onclick=info;document.getElementById('stat').onclick=stats;document.getElementById('wbtn').onclick=words;
+ var ht=document.getElementById('htog');if(ht)ht.onclick=function(){var m=document.getElementById('hmore');m.hidden=!m.hidden;ht.textContent=m.hidden?L('showMore',hh.length-3):L('showLess')};
  document.getElementById('go').onclick=function(){if(!S.blocks.length){settings();return}start()};
 }
 function stats(){setView('stats');tgBack(home);
