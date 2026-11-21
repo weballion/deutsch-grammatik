@@ -94,7 +94,7 @@ label{display:flex;gap:8px;align-items:center}input[type=checkbox]{width:18px;he
 .top{display:flex;justify-content:space-between;font-size:13px;color:var(--tx2)}
 .bar{height:5px;background:var(--bd);border-radius:3px;margin:8px 0 16px}.bar i{display:block;height:100%;background:var(--pri);border-radius:3px;transition:width .2s}
 .q{font-size:18px;margin:6px 0 14px;white-space:pre-wrap}
-.qp{font-size:13px;color:var(--tx2);margin:4px 0 2px}
+.qp{font-size:13px;color:var(--tx2);margin:4px 0 2px}.qp+textarea{margin-top:10px}
 .opt{display:block;width:100%;text-align:left;margin-bottom:8px}.opt.ok{background:var(--okbg);border-color:var(--ok);animation:optPop .45s ease}.opt.bad{background:var(--badbg);border-color:var(--bad)}
 @keyframes optPop{0%{transform:scale(1);box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 0%,transparent)}40%{transform:scale(1.045);box-shadow:0 0 16px 3px color-mix(in srgb,var(--ok) 55%,transparent)}100%{transform:scale(1);box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 0%,transparent)}}
 @media(prefers-reduced-motion:reduce){.opt.ok{animation:none}}
@@ -107,7 +107,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 @keyframes trIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.trin{animation:none}}
 .big{font-size:36px;font-weight:700;margin:4px 0 12px}.row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bd);font-size:15px}
-.blk{font-size:12px;color:var(--tx2);margin:0 0 4px}.bltag{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 5px;border:1.5px solid var(--bd);border-radius:7px;font-weight:700;font-size:13px;margin-right:6px;vertical-align:middle}.note{font-size:13px;color:var(--tx2);margin:-8px 0 12px}.fb.half{background:var(--halfbg);color:var(--half)}.bl{min-height:56px;border:1.5px dashed var(--bd);border-radius:var(--radius);padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:12px}.bp{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}.chip{padding:8px 12px}.chip.on{background:var(--pri);color:var(--onpri);border-color:var(--pri)}.rw{text-align:right;margin-bottom:4px}.rw button{padding:6px 10px;font-size:13px}.lnk{background:none;border:none;color:var(--tx2);font-size:13px;text-decoration:underline;padding:4px 0}.cx{display:flex;gap:8px;align-items:center;justify-content:flex-end;font-size:13px}.cx button{padding:6px 10px;font-size:13px}.qtop{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}#cxw{text-align:right}#cxw>*{display:inline-flex;align-items:center;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:8px 14px}#cxw .lnk{color:var(--tx);text-decoration:none;font-weight:600}.ty{margin:6px 0 0 26px;padding:6px 10px;font-size:13px}.ty summary{color:var(--tx2)}.tyf{margin:4px 0 0 26px;font-size:12px;color:var(--tx2)}.tr{display:flex;justify-content:space-between;align-items:center;padding:4px 0}input[type=range]{width:100%;accent-color:var(--pri);margin:0 0 10px;height:28px}.ld{width:30%!important;animation:ld 1.2s ease-in-out infinite alternate}@keyframes ld{from{margin-left:0}to{margin-left:70%}}.hd{display:flex;justify-content:space-between;align-items:flex-end}.ic{display:flex;gap:8px}.ic button{width:42px;height:42px;padding:0;border-radius:50%;display:flex;align-items:center;justify-content:center}.big2{height:60px;font-size:20px}.sum{display:block;width:100%;text-align:center;margin:6px 0 10px}.inf h3{font-size:16px;margin:18px 0 4px}.inf p,.inf li{font-size:15px;margin:4px 0}.inf ul{padding-left:20px;margin:4px 0}.sa{display:flex;gap:8px;margin-top:10px}.sa button{flex:1}.um{display:flex;gap:6px;margin:8px 0 0}.um button{flex:1;padding:8px 0;font-size:17px}.err{border:1px solid var(--bd);background:var(--card);border-radius:var(--radius);padding:10px 12px;margin-bottom:8px;font-size:14px;box-shadow:var(--shadow)}
+.blk{font-size:12px;color:var(--tx2);margin:0 0 4px}.blkb{background:none;border:none;box-shadow:none;padding:0;margin:0;font:inherit;color:var(--tx);text-decoration:underline dotted;text-underline-offset:3px;cursor:pointer;width:auto;min-height:0}.pop{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px}.popc{background:var(--card);color:var(--tx);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;max-width:480px;width:100%;max-height:80vh;overflow-y:auto}.poph{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}.popb{white-space:pre-line;font-size:15px;line-height:1.5}[data-theme="liquid"] .popc{background:rgba(20,25,45,.94);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.bltag{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 5px;border:1.5px solid var(--bd);border-radius:7px;font-weight:700;font-size:13px;margin-right:6px;vertical-align:middle}.note{font-size:13px;color:var(--tx2);margin:-8px 0 12px}.fb.half{background:var(--halfbg);color:var(--half)}.bl{min-height:56px;border:1.5px dashed var(--bd);border-radius:var(--radius);padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:12px}.bp{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}.chip{padding:8px 12px}.chip.on{background:var(--pri);color:var(--onpri);border-color:var(--pri)}.rw{text-align:right;margin-bottom:4px}.rw button{padding:6px 10px;font-size:13px}.lnk{background:none;border:none;color:var(--tx2);font-size:13px;text-decoration:underline;padding:4px 0}.cx{display:flex;gap:8px;align-items:center;justify-content:flex-end;font-size:13px}.cx button{padding:6px 10px;font-size:13px}.qtop{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}#cxw{text-align:right}#cxw>*{display:inline-flex;align-items:center;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:8px 14px}#cxw .lnk{color:var(--tx);text-decoration:none;font-weight:600}.ty{margin:6px 0 0 26px;padding:6px 10px;font-size:13px}.ty summary{color:var(--tx2)}.tyf{margin:4px 0 0 26px;font-size:12px;color:var(--tx2)}.tr{display:flex;justify-content:space-between;align-items:center;padding:4px 0}input[type=range]{width:100%;accent-color:var(--pri);margin:0 0 10px;height:28px}.ld{width:30%!important;animation:ld 1.2s ease-in-out infinite alternate}@keyframes ld{from{margin-left:0}to{margin-left:70%}}.hd{display:flex;justify-content:space-between;align-items:flex-end}.ic{display:flex;gap:8px}.ic button{width:42px;height:42px;padding:0;border-radius:50%;display:flex;align-items:center;justify-content:center}.big2{height:60px;font-size:20px}.sum{display:block;width:100%;text-align:center;margin:6px 0 10px}.inf h3{font-size:16px;margin:18px 0 4px}.inf p,.inf li{font-size:15px;margin:4px 0}.inf ul{padding-left:20px;margin:4px 0}.sa{display:flex;gap:8px;margin-top:10px}.sa button{flex:1}.um{display:flex;gap:6px;margin:8px 0 0}.um button{flex:1;padding:8px 0;font-size:17px}.err{border:1px solid var(--bd);background:var(--card);border-radius:var(--radius);padding:10px 12px;margin-bottom:8px;font-size:14px;box-shadow:var(--shadow)}
 .cpy{padding:4px;margin-left:6px;border-radius:8px;display:inline-flex;vertical-align:middle}
 /* robot mascot: greet/think/happy/sad, body+paws+eyes all react */
 .rwrap{display:inline-block;flex:none;animation:rpop .55s cubic-bezier(.34,1.56,.64,1) both;--mc:var(--pri)}
@@ -164,7 +164,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v0.35';
+var APP_VERSION='v0.39';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -232,7 +232,7 @@ uk:{
  infoGrade1:'Правильно — 1 бал, майже правильно — 0,5, неправильно — 0. Регістр і розділові знаки не враховуються, крім блоку K «Правопис».',
  infoGrade2:'Вибір відповіді, вставка слова і складання речення перевіряються за зразком одразу. Переклад, виправлення і перетворення: при точному збігу — одразу; інакше ви порівнюєте свою відповідь із зразком самі й обираєте «Правильно», «Майже» або «Неправильно».',
  infoGrade3:'«Показати результат наприкінці» приховує оцінку після кожної відповіді; підсумок і аналіз помилок завжди показуються в кінці тесту.',
- infoGradeM:'У блоці M (дієслова з прийменниками) у поясненні після відповіді ще й переклад речення, а для частини дієслів — нотатка про інші прийменники; поруч із текстом завдання — кнопка, яка показує той самий переклад ще до відповіді.',
+ infoGradeM:'У всіх завданнях з німецьким реченням (крім перекладу) поруч із текстом завдання є кнопка перекладу: вона показує переклад речення ще до відповіді, а після відповіді він з’являється в поясненні. У блоці M для частини дієслів є ще й нотатка про інші прийменники. Після відповіді в завданнях із пропуском показується все речення з правильною відповіддю. Назва блоку над завданням натискається — відкривається коротка шпаргалка з граматики цього блоку.',
  infoErrH:'Прогрес',
  infoErr1:'На головному екрані — журнал останніх 30 пройдених тестів (дата, блоки, бали), спершу 3 останні, решта — по кнопці «Показати ще» під списком (вона ж «Згорнути список»).',
  infoErr2:'«Статистика» (іконка на головній) показує середній відсоток балів по кожному блоку за всю історію проходжень — блок нижче 70% підсвічується червоним.',
@@ -256,7 +256,7 @@ uk:{
  useAllWords:'Використовуйте всі слова.',
  cancelTest:'Скасувати тест',
  cancelConfirm:'Скасувати тест? Результат не збережеться.',
- yes:'Так',no:'Ні',
+ yes:'Так',no:'Ні',close:'Закрити',
  points:'Бали: ',
  correct:'Правильно.',almostHalf:'Майже: половина бала.',incorrect:'Неправильно.',
  reference:' Еталон: ',
@@ -339,7 +339,7 @@ ru:{
  infoGrade1:'Верно — 1 балл, почти верно — 0,5, неверно — 0. Регистр и знаки препинания не учитываются, кроме блока K «Правописание».',
  infoGrade2:'Выбор ответа, вставка слова и составление предложения проверяются по эталону сразу. Перевод, исправление и преобразование: при точном совпадении — сразу; иначе вы сравниваете свой ответ с эталоном сами и выбираете «Верно», «Почти» или «Неверно».',
  infoGrade3:'«Показать результат в конце» скрывает оценку после каждого ответа; итог и разбор ошибок всегда показываются в конце теста.',
- infoGradeM:'В блоке M (глаголы с предлогами) в объяснении после ответа также перевод предложения, а для части глаголов — заметка про другие предлоги; рядом с текстом задания — кнопка, которая показывает тот же перевод ещё до ответа.',
+ infoGradeM:'Во всех заданиях с немецким предложением (кроме перевода) рядом с текстом задания есть кнопка перевода: она показывает перевод предложения ещё до ответа, а после ответа он появляется в объяснении. В блоке M для части глаголов есть ещё и заметка про другие предлоги. После ответа в заданиях с пропуском показывается всё предложение с правильным ответом. Название блока над заданием нажимается — открывается короткая шпаргалка по грамматике этого блока.',
  infoErrH:'Прогресс',
  infoErr1:'На главном экране — журнал последних 30 пройденных тестов (дата, блоки, баллы), сначала 3 последних, остальные — по кнопке «Показать ещё» под списком (она же «Свернуть список»).',
  infoErr2:'«Статистика» (иконка на главной) показывает средний процент баллов по каждому блоку за всю историю прохождений — блок ниже 70% подсвечивается красным.',
@@ -363,7 +363,7 @@ ru:{
  useAllWords:'Используйте все слова.',
  cancelTest:'Отменить тест',
  cancelConfirm:'Отменить тест? Результат не сохранится.',
- yes:'Да',no:'Нет',
+ yes:'Да',no:'Нет',close:'Закрыть',
  points:'Баллы: ',
  correct:'Верно.',almostHalf:'Почти: полбалла.',incorrect:'Неверно.',
  reference:' Эталон: ',
@@ -636,6 +636,12 @@ function bindCancel(){var w=document.getElementById('cxw');
  document.getElementById('cx').onclick=ask}
 var icCopy='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
 var icTr='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h8M9 5v3c0 4-2 7-5 9M9 8c0 3.5 2.5 6 6 7"/><path d="m13 20 4-9 4 9M14.5 17h5"/></svg>';
+function trBtn(t){return t.tr?' <button type="button" id="trbtn" class="cpy" aria-label="'+L('translateAria')+'" title="'+L('translateTitle')+'">'+icTr+'</button>':''}
+function trBox(t){return t.tr?'<div id="trq" class="mut trin" hidden></div>':''}
+function showAbout(k,back){haptic();var b=DATA.blocks[k],el=document.createElement('div');el.className='pop';
+ el.innerHTML='<div class="popc trin"><div class="poph"><b>Блок '+k+' · '+esc(loc(b.name))+'</b><button type="button" class="cpy" id="popx" aria-label="'+L('close')+'">✕</button></div><div class="popb">'+esc(loc(b.about)||'')+'</div></div>';
+ function close(){el.remove();tgBack(back)}
+ el.onclick=function(e){if(e.target===el)close()};document.body.appendChild(el);document.getElementById('popx').onclick=close;tgBack(close)}
 function toggleTr(t){haptic();var el=document.getElementById('trq');if(!el)return;
  if(el.hidden){el.textContent=loc(t.tr);el.hidden=false;el.classList.remove('trin');void el.offsetWidth;el.classList.add('trin')}else el.hidden=true}
 function capFirst(el){if(!el.value)return;var c=el.value.charAt(0),u=c.toUpperCase();if(c===u)return;
@@ -646,18 +652,19 @@ function show(){setView('quiz');
  var t=run.q[run.i];
  var h='<div class="qtop">'+robotHtml('think','rbot-sm')+'<div id="cxw"><button class="lnk" id="cx">'+L('cancelTest')+'</button></div></div><div class="frame"><div class="top"><span>'+L('questionN',run.i+1,run.q.length)+'</span><span>'+(S.defer?'':L('points')+fmt(score()))+'</span></div><div class="bar"><i style="width:'+(run.i/run.q.length*100)+'%"></i></div>';
  var typeLbl=TYPE[LANG][t.type].charAt(0).toLowerCase()+TYPE[LANG][t.type].slice(1);
- h+='<div class="blk">Блок '+t.block+' · '+esc(loc(DATA.blocks[t.block].name))+' · '+typeLbl+'</div>'+(run.warn&&run.i==0?'<div class="note" style="margin:0 0 10px">'+esc(run.warn)+'</div>':'')+'<div class="qp">'+esc(loc(t.prompt))+'</div>'+(t.type=='choice'||t.type=='fill'||t.type=='reflexive'?'<div class="q">'+esc(loc(t.text))+(t.block=='M'?' <button type="button" id="trbtn" class="cpy" aria-label="'+L('translateAria')+'" title="'+L('translateTitle')+'">'+icTr+'</button>':'')+'</div>'+(t.block=='M'?'<div id="trq" class="mut trin" hidden></div>':''):'');
+ h+='<div class="blk"><button type="button" class="blkb" id="blkb">Блок '+t.block+' · '+esc(loc(DATA.blocks[t.block].name))+'</button> · '+typeLbl+'</div>'+(run.warn&&run.i==0?'<div class="note" style="margin:0 0 10px">'+esc(run.warn)+'</div>':'')+'<div class="qp">'+esc(loc(t.prompt))+(t.type=='fix'||t.type=='build'?trBtn(t):'')+'</div>'+(t.type=='fix'||t.type=='build'?trBox(t):'')+(t.type=='choice'||t.type=='fill'||t.type=='reflexive'?'<div class="q">'+esc(loc(t.text))+trBtn(t)+'</div>'+trBox(t):'');
  if(t.note)h+='<div class="note">'+L('partOfSpeech')+esc(loc(t.note))+'</div>';
  if(t.type=='choice'||t.type=='reflexive'){shuffle(t.options).forEach(function(o){h+='<button class="opt" data-v="'+esc(o)+'">'+esc(o)+'</button>'})}
  else if(t.type=='fill'){h+='<input type="text" id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="'+L('answerPh')+'">'+umRow()+'<button class="pri" id="chk">'+L('check')+'</button>'}
  else if(t.type=='build'){h+='<div class="note" style="margin-top:-6px">'+L('buildHint')+'</div><div id="bl" class="bl"></div><div id="bp" class="bp"></div><div class="rw"><button id="rs">'+L('reset')+'</button></div><div id="be" class="mut" style="color:var(--bad);min-height:18px"></div><button class="pri" id="chk">'+L('check')+'</button>'}
  else{
-  if(t.type!='fix')h+='<div class="q">'+esc(loc(t.text))+(t.type=='combine'?' <button type="button" id="cp" class="cpy" aria-label="'+L('pasteAria')+'" title="'+L('pasteTitle')+'">'+icCopy+'</button>':'')+'</div>';
+  if(t.type!='fix')h+='<div class="q">'+esc(loc(t.text))+(t.type=='combine'?' <button type="button" id="cp" class="cpy" aria-label="'+L('pasteAria')+'" title="'+L('pasteTitle')+'">'+icCopy+'</button>':'')+trBtn(t)+'</div>'+trBox(t);
   h+='<textarea id="in" rows="3" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="'+L('answerPh')+'">'+(t.type=='fix'?esc(loc(t.text)):'')+'</textarea>'+umRow()+'<button class="pri" id="chk">'+L('check')+'</button>'}
  h+='<div id="fb"></div></div>';render(h);
  bindCancel();
  tgBack(function(){var c=document.getElementById('cx');if(c)c.click()});
  var trbtn=document.getElementById('trbtn');if(trbtn)trbtn.onclick=function(){toggleTr(t)};
+ document.getElementById('blkb').onclick=function(){showAbout(t.block,tgBack._fn)};
  if(t.type=='choice'||t.type=='reflexive')document.querySelectorAll('.opt').forEach(function(b){b.onclick=function(){answer(b.dataset.v,b)}});
  else if(t.type=='build'){buildInit(t)}
  else{var el=document.getElementById('in');el.focus();umBind(el);document.getElementById('chk').onclick=function(){var v=el.value.trim();if(!v){el.style.borderColor='var(--bad)';return}answer(v)};
@@ -671,6 +678,10 @@ function grade(t,v){
  if(!FREE[t.type])return{s:0};
  return{s:0,self:1};
 }
+function fullSent(t){if(t.type!='fill'&&t.type!='choice'&&t.type!='reflexive')return '';
+ var x=loc(t.text),a=t.answers[0],adj=x.indexOf('___ ___')>=0,parts=adj?[a.replace(', ',' ')]:x.split('___').length>2?a.split(', '):[a];
+ x=x.replace('___ ___','___');parts.forEach(function(p){x=x.replace('___',p=='-'?'':p)});x=x.replace(/ {2,}/g,' ');
+ return '<div class="h"><b>'+esc(x.replace(/\s*\([^)]*\)/g,'').trim())+'</b></div>'}
 function trAlt(t){return(t.tr?'<div class="h">'+esc(loc(t.tr))+'</div>':'')+(t.alt?'<div class="h" style="color:var(--tx2)">'+esc(loc(t.alt))+'</div>':'')}
 function answer(v,btn){
  haptic();
@@ -685,7 +696,7 @@ function answer(v,btn){
  setMood(g.s>0?'happy':'sad');
  var f='<div class="fb '+cls+'"><b>'+(g.s==1?L('correct'):g.s==0.5?L('almostHalf'):L('incorrect'))+'</b>';
  if(g.s<1)f+=L('reference')+esc(t.answers[0]);
- f+='<div class="h">'+esc(loc(t.hint))+'</div>'+trAlt(t);
+ f+=fullSent(t)+'<div class="h">'+esc(loc(t.hint))+'</div>'+trAlt(t);
  f+='</div><button class="pri" id="nx">'+(last?'Результат':L('next'))+'</button>';
  document.getElementById('fb').innerHTML=f;
  document.getElementById('nx').onclick=next;

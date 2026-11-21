@@ -7,6 +7,10 @@ def txt(v):
     return v or ""
 path=sys.argv[1] if len(sys.argv)>1 else "data/tasks.json"
 d=json.load(open(path,encoding="utf-8"));B=d["blocks"];errs=[];seen={};ids=set()
+for k,b in B.items():
+    if not all((b.get("about") or {}).get(l) for l in ("ru","uk")): errs.append(f"блок {k}: нет about {{ru, uk}}")
+for t in d["tasks"]:
+    if t.get("type")!="translate" and not all((t.get("tr") or {}).get(l) for l in ("ru","uk")): errs.append(f"{t.get('id')}: нет tr {{ru, uk}}")
 for t in d["tasks"]:
     i=t.get("id");k=t.get("block");ty=t.get("type");tx=txt(t.get("text"))
     if i in ids: errs.append(f"{i}: повтор id")
