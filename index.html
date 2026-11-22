@@ -81,7 +81,7 @@ button.sec{width:100%;height:46px;margin-top:8px}
 .swin:checked+.sw .swth{translate:18px 0;box-shadow:0 0 6px color-mix(in srgb,var(--pri) 70%,transparent),0 2px 4px color-mix(in srgb,#000 calc(var(--glo)*25%),transparent)}
 .swin:focus-visible+.sw{outline:2px solid var(--pri);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){.swth{transition:none}}
-.cbrow{display:flex;gap:10px;align-items:flex-start;cursor:pointer}.mtr{margin-left:auto;flex:none;display:flex;align-items:center;gap:6px;padding-top:3px;font-size:12px;color:var(--tx2)}.mtr i{display:inline-block;width:8px;height:12px;border:1.5px solid var(--bd);border-radius:2px;margin-left:2px}.mtr.ok i.on{background:var(--ok);border-color:var(--ok)}.mtr.half i.on{background:var(--half);border-color:var(--half)}.mtr.bad i.on{background:var(--bad);border-color:var(--bad)}.mtr.few i.on{opacity:.45}.mtr b{font-weight:500;min-width:30px;text-align:right}
+.cbrow{display:flex;gap:10px;align-items:flex-start;cursor:pointer}.mtr{margin-left:auto;flex:none;display:flex;align-items:center;gap:6px;padding-top:3px;font-size:12px;color:var(--tx2)}.mtr i{display:inline-block;width:8px;height:12px;border:1.5px solid var(--bd);border-radius:2px;margin-left:2px}.mtr.ok i.on{background:var(--ok);border-color:var(--ok)}.mtr.half i.on{background:var(--half);border-color:var(--half)}.mtr.bad i.on{background:var(--bad);border-color:var(--bad)}.mtr.few i.on{opacity:.45}.mtr b{font-weight:500;min-width:30px;text-align:right}.row .mtr{padding-top:0}.row .mtr.bad b,.row .mtr.half b{color:var(--bad);font-weight:600}
 .cbin{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(100%)}
 .cbx{position:relative;flex:none;width:22px;height:22px;margin-top:2px;border-radius:7px;background-color:color-mix(in srgb,var(--gtint) 14%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,#fff calc(var(--ghi)*10%),transparent),inset 0 2px 3px -1px color-mix(in srgb,#000 calc(var(--glo)*20%),transparent);transition:box-shadow .2s}
 .cbx::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--pri);opacity:0;transform:scale(.5);transition:opacity .15s,transform .15s cubic-bezier(.34,1.56,.64,1)}
@@ -164,7 +164,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v0.43';
+var APP_VERSION='v0.44';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -240,7 +240,7 @@ uk:{
  infoGradeM:'У всіх завданнях з німецьким реченням (крім перекладу) поруч із текстом завдання є кнопка перекладу: вона показує переклад речення ще до відповіді, а після відповіді він з’являється в поясненні. У блоці M для частини дієслів є ще й нотатка про інші прийменники. Після відповіді в завданнях із пропуском показується все речення з правильною відповіддю. Назва блоку над завданням натискається — відкривається шпаргалка з граматики цього блоку: правила, приклади і таблиці.',
  infoErrH:'Прогрес',
  infoErr1:'На головному екрані — журнал останніх 30 пройдених тестів (дата, блоки, бали), спершу 3 останні, решта — по кнопці «Показати ще» під списком (вона ж «Згорнути список»).',
- infoErr2:'«Статистика» (іконка на головній) показує середній відсоток балів по кожному блоку за всю історію проходжень — блок нижче 70% підсвічується червоним. Унизу налаштувань — «Скинути всю статистику» (з підтвердженням): обнуляє відсотки по блоках, історію тестів і лічильники показів поточного рівня, налаштування, незакінчений тест і «Слова» не чіпає. Той самий відсоток показано в налаштуваннях біля кожного блоку: шкала з 4 поділок (червона — менше 50%, жовта — 50–69%, зелена — від 70%), сірі порожні поділки — даних ще немає, бліді — пройдено менше 10 завдань.',
+ infoErr2:'«Статистика» (іконка на головній) показує середній відсоток балів по кожному блоку за всю історію проходжень — поруч зі шкалою з 4 поділок, блок нижче 70% підсвічується червоним. Унизу налаштувань — «Скинути всю статистику» (з підтвердженням): обнуляє відсотки по блоках, історію тестів і лічильники показів поточного рівня, налаштування, незакінчений тест і «Слова» не чіпає. Та сама шкала — і в налаштуваннях біля кожного блоку: шкала з 4 поділок (червона — менше 50%, жовта — 50–69%, зелена — від 70%), сірі порожні поділки — даних ще немає, бліді — пройдено менше 10 завдань.',
  infoOtherH:'Інше',
  infoOther1:'Кнопки ä ö ü ß під полем введення включаються в налаштуваннях. Налаштування і прогрес зберігаються автоматично в хмарі Telegram (Cloud Storage), на цьому ж акаунті вони доступні з будь-якого пристрою.',
  infoOther2:'Мова інтерфейсу визначається мовою Telegram; змінити її вручну можна в налаштуваннях (Українська/Русский).',
@@ -352,7 +352,7 @@ ru:{
  infoGradeM:'Во всех заданиях с немецким предложением (кроме перевода) рядом с текстом задания есть кнопка перевода: она показывает перевод предложения ещё до ответа, а после ответа он появляется в объяснении. В блоке M для части глаголов есть ещё и заметка про другие предлоги. После ответа в заданиях с пропуском показывается всё предложение с правильным ответом. Название блока над заданием нажимается — открывается шпаргалка по грамматике этого блока: правила, примеры и таблицы.',
  infoErrH:'Прогресс',
  infoErr1:'На главном экране — журнал последних 30 пройденных тестов (дата, блоки, баллы), сначала 3 последних, остальные — по кнопке «Показать ещё» под списком (она же «Свернуть список»).',
- infoErr2:'«Статистика» (иконка на главной) показывает средний процент баллов по каждому блоку за всю историю прохождений — блок ниже 70% подсвечивается красным. Внизу настроек — «Сбросить всю статистику» (с подтверждением): обнуляет проценты по блокам, историю тестов и счётчики показов текущего уровня, настройки, незаконченный тест и «Слова» не трогает. Тот же процент показан в настройках у каждого блока: шкала из 4 делений (красная — меньше 50%, жёлтая — 50–69%, зелёная — от 70%), серые пустые деления — данных ещё нет, бледные — пройдено меньше 10 заданий.',
+ infoErr2:'«Статистика» (иконка на главной) показывает средний процент баллов по каждому блоку за всю историю прохождений — рядом со шкалой из 4 делений, блок ниже 70% подсвечивается красным. Внизу настроек — «Сбросить всю статистику» (с подтверждением): обнуляет проценты по блокам, историю тестов и счётчики показов текущего уровня, настройки, незаконченный тест и «Слова» не трогает. Та же шкала — и в настройках у каждого блока: шкала из 4 делений (красная — меньше 50%, жёлтая — 50–69%, зелёная — от 70%), серые пустые деления — данных ещё нет, бледные — пройдено меньше 10 заданий.',
  infoOtherH:'Прочее',
  infoOther1:'Кнопки ä ö ü ß под полем ввода включаются в настройках. Настройки и прогресс сохраняются автоматически в облаке Telegram (Cloud Storage), на этом же аккаунте они доступны с любого устройства.',
  infoOther2:'Язык интерфейса определяется языком Telegram; изменить его вручную можно в настройках (Українська/Русский).',
@@ -540,7 +540,7 @@ function home(){setView('home');tgBack(null);
 function stats(){setView('stats');tgBack(home);
  var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">'+L('statsTitle')+'</h1><div class="frame">';
  var ks=Object.keys(DATA.blocks).filter(function(k){return pstat(k)!==null});
- if(ks.length)ks.forEach(function(k){var p=Math.round(pstat(k)*100);h+='<div class="row"><span><span class="bltag">'+k+'</span> '+esc(loc(DATA.blocks[k].name))+'</span><span style="'+(p<70?'color:var(--bad);font-weight:600':'')+'">'+p+'%</span></div>'});
+ if(ks.length)ks.forEach(function(k){h+='<div class="row"><span><span class="bltag">'+k+'</span> '+esc(loc(DATA.blocks[k].name))+'</span>'+meter(k)+'</div>'});
  else h+='<p class="mut" style="margin:0">'+L('noStatsYet')+'</p>';
  h+='</div>';
  render(h);document.getElementById('bk').onclick=home;
