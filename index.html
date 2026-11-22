@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Deutsch: Граматика</title>
+<title>Deutsch: Übungen</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -61,7 +61,7 @@ html[data-theme="lavender"] .cbx,html[data-theme="liquid"] .cbx{backdrop-filter:
 @media(prefers-reduced-motion:reduce){.splogo,.spbody,.spdotL,.spdotR,.spbar1,.spbar2,.spbar3,.spword,.spdim{animation:none!important;opacity:1!important;transform:none!important}}
 .toast{position:fixed;left:50%;top:max(16px,env(safe-area-inset-top));transform:translate(-50%,-10px);background:var(--pri);color:var(--onpri);padding:10px 18px;border-radius:999px;font-size:14px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.25);opacity:0;transition:opacity .2s,transform .2s;z-index:50;pointer-events:none;max-width:calc(100% - 32px);text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}
-h1{font-size:24px;margin:2px 0 18px;font-weight:600}small,.mut{color:var(--tx2);font-size:13px}
+h1{font-size:24px;margin:2px 0 18px;font-weight:600}.ttl{min-width:0}.ttl h1{font-size:min(24px,6.5vw);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.hd .ic{flex:none}small,.mut{color:var(--tx2);font-size:13px}
 button{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:var(--radius);padding:11px 14px;cursor:pointer;transition:transform .08s}
 button:active{transform:scale(.97)}
 button.pri{background:var(--pri);color:var(--onpri);border-color:var(--pri);font-weight:600;width:100%;height:48px;margin-top:10px;box-shadow:var(--shadow)}
@@ -164,7 +164,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v0.41';
+var APP_VERSION='v0.42';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -172,7 +172,7 @@ var I18N={
 uk:{
  loadError:'Не вдалося завантажити завдання. Перевірте з’єднання та оновіть сторінку.',
  levelToast:function(l){return 'Рівень: '+l},
- appName:'Граматика',
+ appName:'Übungen',
  infoAria:'Як це працює',
  settingsAria:'Налаштування',
  resume:function(i,n){return 'Продовжити тест (запитання '+ofN(i,n)+')'},
@@ -279,7 +279,7 @@ uk:{
 ru:{
  loadError:'Не удалось загрузить задания. Проверьте подключение и обновите страницу.',
  levelToast:function(l){return 'Уровень: '+l},
- appName:'Грамматика',
+ appName:'Übungen',
  infoAria:'Как это работает',
  settingsAria:'Настройки',
  resume:function(i,n){return 'Продолжить тест (вопрос '+ofN(i,n)+')'},
@@ -511,7 +511,7 @@ function home(){setView('home');tgBack(null);
  var icInf='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
  var icSet='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>';
  var icStat='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>';
- var h='<div class="hd"><div style="display:flex;align-items:center;gap:10px">'+robotHtml('greet','rbot-md')+'<div><small>Deutsch</small><h1 style="margin-bottom:0">'+L('appName')+'</h1></div></div><div class="ic"><button id="stat" aria-label="'+L('statsAria')+'">'+icStat+'</button><button id="inf" aria-label="'+L('infoAria')+'">'+icInf+'</button><button id="set" aria-label="'+L('settingsAria')+'">'+icSet+'</button></div></div><div style="height:18px"></div>';
+ var h='<div class="hd"><div style="display:flex;align-items:center;gap:10px;min-width:0">'+robotHtml('greet','rbot-md')+'<div class="ttl"><small>Deutsch</small><h1 style="margin-bottom:0">'+L('appName')+'</h1></div></div><div class="ic"><button id="stat" aria-label="'+L('statsAria')+'">'+icStat+'</button><button id="inf" aria-label="'+L('infoAria')+'">'+icInf+'</button><button id="set" aria-label="'+L('settingsAria')+'">'+icSet+'</button></div></div><div style="height:18px"></div>';
  if(saved)h+='<button class="sec" id="resume" style="margin:0 0 4px">'+L('resume',saved.i+1,saved.ids.length)+'</button>';
  h+='<button class="pri big2" id="go">Старт</button><button class="lnk sum" id="sum">'+esc(sumLine())+'</button>';
  h+='<button class="sec" id="wbtn" style="margin-top:0">'+L('wordsBtn')+'</button>';

@@ -1,6 +1,6 @@
 {
-  "name": "Deutsch: Грамматика",
-  "short_name": "Grammatik",
+  "name": "Deutsch: Übungen",
+  "short_name": "Übungen",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
