@@ -164,7 +164,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v0.44';
+var APP_VERSION='v0.45';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -184,14 +184,14 @@ uk:{
  wNoBank:'Для цього рівня слів поки немає.',wListEmpty:'Тут поки порожньо.',wPause:'Пауза',wFinish:'Завершити',
  wResume:'Продовжити',wDone:function(x,y){return 'Пройдено '+x+' з '+y},
  wRestartAsk:'Незакінчений тест буде скинуто. Почати заново?',
- wTestBtn:'Пройти тест',wStreak:function(c){return 'вгадано поспіль: '+c+' з 4'},
+ wTestBtn:'Пройти тест',wStreak:function(c){return 'вгадано поспіль: '+c+' з 4'},wHid:'Приховані',wHide:'Не показувати в тестах',wUnhide:'Показувати знову',wHidHint:'Ці слова не потрапляють у тести. Скопіюйте список і надішліть його, щоб їх замінили або виправили.',wCopy:'Скопіювати список',wCopied:'Скопійовано',wHidden:'Слово приховано',
  wAskTo:'Як це німецькою?',wAskFrom:'Що це означає?',
  wSessionH:'Підсумок',wCorrectPct:function(p){return 'правильно: '+p+'%'},
  wWrongH:function(n){return 'Помилки ('+n+') — ці слова потрапили до «Помилок»:'},
  wMore:'Ще раз',wBack:'До слів',
  infoWordsH:'Слова',
  infoWords1:'Кнопка «Слова» на головній — тренування лексики: слово українською, а ви вибираєте німецьке з 4 варіантів, або навпаки, або «Мікс» — напрямок випадковий для кожної картки. Неправильні варіанти — слова тієї ж частини мови з банку. Після відповіді видно повну форму слова (артикль, множину, керування) і приклад речення з перекладом. «Старт» перемішує весь банк і показує кожне слово один раз; «Пауза» зберігає тест — на екрані «Слова» зʼявляється «Продовжити». Новий «Старт» скидає незакінчений тест (з підтвердженням).',
- infoWords2:'Цифри зверху натискаються: «Усі» — весь банк, «Нові» — слова з останнього поповнення банку, «Помилки» — слова, в яких ви помилялися; слово йде з «Помилок» після 4 правильних відповідей поспіль у будь-яких тестах. За «Новими» і «Помилками» можна пройти короткий тест — він не зберігається і не чіпає основний. Банк слів і прогрес у кожного рівня свої.',
+ infoWords2:'Цифри зверху натискаються: «Усі» — весь банк, «Нові» — слова з останнього поповнення банку, «Помилки» — слова, в яких ви помилялися; слово йде з «Помилок» після 4 правильних відповідей поспіль у будь-яких тестах. За «Новими» і «Помилками» можна пройти короткий тест — він не зберігається і не чіпає основний. Банк слів і прогрес у кожного рівня свої. Під карткою після відповіді — «Не показувати в тестах»: слово переходить у «Приховані» і більше не трапляється ні в тестах, ні серед варіантів; там його можна повернути, а весь список — скопіювати, щоб надіслати на заміну.',
  allBlocks:function(n){return 'Усі блоки ('+n+')'},
  someBlocks:function(n,list){return 'Блоків: '+n+' ('+list+')'},
  perBlockTasks:function(n){return ' на блок · '+n+' завдань'},
@@ -296,14 +296,14 @@ ru:{
  wNoBank:'Для этого уровня слов пока нет.',wListEmpty:'Здесь пока пусто.',wPause:'Пауза',wFinish:'Закончить',
  wResume:'Продолжить',wDone:function(x,y){return 'Пройдено '+x+' из '+y},
  wRestartAsk:'Незаконченный тест будет сброшен. Начать заново?',
- wTestBtn:'Пройти тест',wStreak:function(c){return 'угадано подряд: '+c+' из 4'},
+ wTestBtn:'Пройти тест',wStreak:function(c){return 'угадано подряд: '+c+' из 4'},wHid:'Скрытые',wHide:'Не показывать в тестах',wUnhide:'Показывать снова',wHidHint:'Эти слова не попадают в тесты. Скопируйте список и отправьте его, чтобы их заменили или исправили.',wCopy:'Скопировать список',wCopied:'Скопировано',wHidden:'Слово скрыто',
  wAskTo:'Как это по-немецки?',wAskFrom:'Что это значит?',
  wSessionH:'Итог',wCorrectPct:function(p){return 'верно: '+p+'%'},
  wWrongH:function(n){return 'Ошибки ('+n+') — эти слова попали в «Ошибки»:'},
  wMore:'Ещё раз',wBack:'К словам',
  infoWordsH:'Слова',
  infoWords1:'Кнопка «Слова» на главной — тренировка лексики: слово по-русски, а вы выбираете немецкое из 4 вариантов, или наоборот, или «Микс» — направление случайное для каждой карточки. Неверные варианты — слова той же части речи из банка. После ответа видна полная форма слова (артикль, множественное число, управление) и пример предложения с переводом. «Старт» перемешивает весь банк и показывает каждое слово один раз; «Пауза» сохраняет тест — на экране «Слова» появляется «Продолжить». Новый «Старт» сбрасывает незаконченный тест (с подтверждением).',
- infoWords2:'Цифры сверху нажимаются: «Все» — весь банк, «Новые» — слова из последнего пополнения банка, «Ошибки» — слова, в которых вы ошибались; слово уходит из «Ошибок» после 4 верных ответов подряд в любых тестах. По «Новым» и «Ошибкам» можно пройти короткий тест — он не сохраняется и не трогает основной. Банк слов и прогресс у каждого уровня свои.',
+ infoWords2:'Цифры сверху нажимаются: «Все» — весь банк, «Новые» — слова из последнего пополнения банка, «Ошибки» — слова, в которых вы ошибались; слово уходит из «Ошибок» после 4 верных ответов подряд в любых тестах. По «Новым» и «Ошибкам» можно пройти короткий тест — он не сохраняется и не трогает основной. Банк слов и прогресс у каждого уровня свои. Под карточкой после ответа — «Не показывать в тестах»: слово уходит в «Скрытые» и больше не попадается ни в тестах, ни среди вариантов; там его можно вернуть, а весь список — скопировать, чтобы отправить на замену.',
  allBlocks:function(n){return 'Все блоки ('+n+')'},
  someBlocks:function(n,list){return 'Блоков: '+n+' ('+list+')'},
  perBlockTasks:function(n){return ' на блок · '+n+' заданий'},
@@ -760,7 +760,8 @@ function wMax(W){return W.words.reduce(function(m,w){return Math.max(m,wNum(w.id
 function wLoad(cb){if(WC[LEVEL])return cb(WC[LEVEL]);
  fetch(LEVELS[LEVEL].wordsFile).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){
   var ch={};d.words.forEach(function(w){ch[wKey(w.id)]=1});
-  csGet([wPre()+'new',wPre()+'run'].concat(Object.keys(ch)),function(res){var W={words:d.words,byId:{},p:{},run:null,tmp:null};
+  csGet([wPre()+'new',wPre()+'run',wPre()+'hide'].concat(Object.keys(ch)),function(res){var W={words:d.words,byId:{},p:{},run:null,tmp:null,hid:{}};
+   (res[wPre()+'hide']||'').split(',').filter(Boolean).forEach(function(n){W.hid['W'+n]=1});
    d.words.forEach(function(w){W.byId[w.id]=w});
    Object.keys(ch).forEach(function(k){try{var o=JSON.parse(res[k]||'null');if(o)Object.keys(o).forEach(function(i){W.p[i]=o[i]})}catch(e){}});
    try{W.run=JSON.parse(res[wPre()+'run']||'null')}catch(e){}
@@ -770,16 +771,17 @@ function wLoad(cb){if(WC[LEVEL])return cb(WC[LEVEL]);
    if(W.run&&mx>W.run.mx){var add=shuffle(W.words.filter(function(w){return wNum(w.id)>W.run.mx})).map(function(w){return wNum(w.id)});
     W.run.q=W.run.q.concat(add);W.run.t+=add.length;W.run.mx=mx;wSaveRun(W)}
    WC[LEVEL]=W;cb(W)})
- }).catch(function(){cb({words:[],byId:{},p:{},run:null,tmp:null})})}
+ }).catch(function(){cb({words:[],byId:{},p:{},run:null,tmp:null,hid:{}})})}
 function wSave(id){var W=wLvl(),k=wKey(id),o={};
  W.words.forEach(function(w){if(W.p[w.id]&&wKey(w.id)==k)o[w.id]=W.p[w.id]});
  csSet(k,JSON.stringify(o))}
 function wSaveRun(W){csSet(wPre()+'run',W.run?JSON.stringify(W.run):'')}
 function wR(W){return W.tmp||W.run}
-function wList(W,k){return W.words.filter(function(w){var p=W.p[w.id];return k=='all'||(k=='new'?wNum(w.id)>=W.from:!!p&&!!p[1])})}
+function wHideToggle(W,id){if(W.hid[id])delete W.hid[id];else W.hid[id]=1;csSet(wPre()+'hide',Object.keys(W.hid).map(wNum).join(','))}
+function wList(W,k){return W.words.filter(function(w){var p=W.p[w.id];if(k=='hid'||W.hid[w.id])return k=='hid'&&!!W.hid[w.id];return k=='all'||(k=='new'?wNum(w.id)>=W.from:!!p&&!!p[1])})}
 function wMeans(w){return w[LANG].toLowerCase().replace(/\([^)]*\)/g,'').split(/[,;]/).map(function(s){return s.trim()}).filter(Boolean)}
 function wOpts(W,w){var m=wMeans(w),same=[],other=[];
- shuffle(W.words).forEach(function(x){if(x.id==w.id||wMeans(x).some(function(t){return m.indexOf(t)>=0}))return;(x.pos==w.pos?same:other).push(x)});
+ shuffle(W.words).forEach(function(x){if(x.id==w.id||W.hid[x.id]||wMeans(x).some(function(t){return m.indexOf(t)>=0}))return;(x.pos==w.pos?same:other).push(x)});
  return shuffle([w].concat(same.concat(other).slice(0,3)))}
 function wCard(w){return '<div class="h"><b>'+esc(w.de)+'</b>'+(w.pl?', '+esc(w.pl):'')+(w.gov?' ('+esc(w.gov)+')':'')+' — '+esc(w[LANG])+'</div>'}
 function wEx(w){return w.ex?'<div class="h" style="margin-top:8px"><i>'+esc(w.ex.de)+'</i><br><span style="color:var(--tx2)">'+esc(w.ex[LANG])+'</span></div>':''}
@@ -801,7 +803,7 @@ function words(){setView('words');tgBack(home);
   if(!W.words.length){render(h+'<div class="frame"><p class="mut" style="margin:0">'+L('wNoBank')+'</p></div>');document.getElementById('bk').onclick=home;return}
   W.tmp=null;
   h+='<div class="frame"><div class="wst">';
-  [['all','wAll'],['new','wNew'],['err','wErr']].forEach(function(c){h+='<div data-k="'+c[0]+'"><b>'+wList(W,c[0]).length+'</b><small>'+L(c[1])+'</small></div>'});
+  [['all','wAll'],['new','wNew'],['err','wErr'],['hid','wHid']].forEach(function(c){h+='<div data-k="'+c[0]+'"><b>'+wList(W,c[0]).length+'</b><small>'+L(c[1])+'</small></div>'});
   h+='</div></div>';
   if(W.run){var x=W.run.t-W.run.q.length;h+='<button class="sec" id="wres" style="margin:0 0 4px">'+L('wResume')+'</button><div class="bar"><i style="width:'+(x/W.run.t*100)+'%"></i></div><p class="mut" style="margin:6px 0 12px;text-align:center">'+L('wDone',x,W.run.t)+'</p>'}
   h+='<div class="frame"><small>'+L('wDirH')+'</small><div class="seg" id="segDir" style="margin-top:6px"><div class="segThumb"></div>';
@@ -814,13 +816,18 @@ function words(){setView('words');tgBack(home);
   document.querySelectorAll('#segDir button').forEach(function(b){b.onclick=function(){WDIR=b.dataset.d;csSet('dg_wdir',WDIR);
    document.querySelectorAll('#segDir button').forEach(function(x){x.className=x===b?'on':''});segMove('segDir')}})})}
 function wListScr(k){setView('words');tgBack(words);var W=wLvl(),ws=wList(W,k);
- var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">'+L({all:'wAll',new:'wNew',err:'wErr'}[k])+' · '+ws.length+'</h1>';
- if(k!='all'&&ws.length)h+='<div id="wgow"><button class="pri">'+L('wTestBtn')+'</button></div>';
- h+='<div class="frame">'+(ws.length?ws.map(function(w){return wCard(w)+(k=='err'?'<p class="mut" style="margin:-4px 0 8px">'+L('wStreak',W.p[w.id][0])+'</p>':'')}).join(''):'<p class="mut" style="margin:0">'+L('wListEmpty')+'</p>')+'</div>';
+ var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">'+L({all:'wAll',new:'wNew',err:'wErr',hid:'wHid'}[k])+' · '+ws.length+'</h1>';
+ if(k!='all'&&k!='hid'&&ws.length)h+='<div id="wgow"><button class="pri">'+L('wTestBtn')+'</button></div>';
+ if(k=='hid'&&ws.length)h+='<p class="mut">'+L('wHidHint')+'</p><button class="pri" id="wcopy">'+L('wCopy')+'</button>';
+ h+='<div class="frame">'+(ws.length?ws.map(function(w){return wCard(w)+(k=='err'?'<p class="mut" style="margin:-4px 0 8px">'+L('wStreak',W.p[w.id][0])+'</p>':'')+(k=='hid'?'<button class="lnk wun" data-id="'+w.id+'" style="margin:-4px 0 8px">'+L('wUnhide')+'</button>':'')}).join(''):'<p class="mut" style="margin:0">'+L('wListEmpty')+'</p>')+'</div>';
  render(h);document.getElementById('bk').onclick=words;
- var b=document.getElementById('wgow');if(b)bindGo(k,b)}
+ var b=document.getElementById('wgow');if(b)bindGo(k,b);
+ document.querySelectorAll('.wun').forEach(function(x){x.onclick=function(){haptic();wHideToggle(W,x.dataset.id);wListScr(k)}});
+ var c=document.getElementById('wcopy');if(c)c.onclick=function(){haptic();wCopy(LEVELS[LEVEL].label+'\n'+ws.map(function(w){return w.id+' '+w.de+' — '+w[LANG]}).join('\n'))}}
+function wCopy(t){function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove();toast(L('wCopied'))}
+ if(navigator.clipboard)navigator.clipboard.writeText(t).then(function(){toast(L('wCopied'))},fb);else fb()}
 function wShow(){var W=wLvl(),r=wR(W),back=W.tmp?wFinish:words;
- while(r.q.length&&!W.byId['W'+r.q[0]]){r.q.shift();r.t--}
+ while(r.q.length&&(!W.byId['W'+r.q[0]]||W.hid['W'+r.q[0]])){r.q.shift();r.t--}
  if(!r.q.length)return wFinish();
  setView('quiz');var w=W.byId['W'+r.q[0]],dir=WDIR=='mix'?(Math.random()<.5?'to':'from'):WDIR;wcur=w;
  var h='<div class="qtop">'+robotHtml('think','rbot-sm')+'<div id="cxw"><button class="lnk" id="wend">'+L(W.tmp?'wFinish':'wPause')+'</button></div></div><div class="frame"><div class="top"><span id="wsc">'+wScore(r)+'</span><span>'+ofN(r.t-r.q.length+1,r.t)+'</span></div>';
@@ -835,9 +842,10 @@ function wAnswer(btn){haptic();var W=wLvl(),r=wR(W),w=wcur,n=wNum(w.id),ok=btn.d
  if(ok){var c=Math.min(p[0]+1,9);p=[c,p[1]&&c<4?1:0];r.ok++}
  else{p=[0,1];r.bad++;if(r.w.indexOf(n)<0)r.w.push(n)}
  W.p[w.id]=p;wSave(w.id);if(!W.tmp)wSaveRun(W);setMood(ok?'happy':'sad');document.getElementById('wsc').textContent=wScore(r);
- document.getElementById('fb').innerHTML='<div class="fb '+(ok?'ok':'bad')+'"><b>'+L(ok?'correct':'incorrect')+'</b>'+wCard(w)+wEx(w)+'</div><button class="pri" id="nx">'+L('next')+'</button>';
+ document.getElementById('fb').innerHTML='<div class="fb '+(ok?'ok':'bad')+'"><b>'+L(ok?'correct':'incorrect')+'</b>'+wCard(w)+wEx(w)+'</div><button class="pri" id="nx">'+L('next')+'</button><button class="lnk" id="whide" style="display:block;margin:10px auto 0">'+L('wHide')+'</button>';
  tgBack(r.q.length&&!W.tmp?words:wFinish);
- document.getElementById('nx').onclick=wShow}
+ document.getElementById('nx').onclick=wShow;
+ document.getElementById('whide').onclick=function(){haptic();wHideToggle(W,w.id);if(!W.tmp)wSaveRun(W);toast(L('wHidden'));wShow()}}
 function wFinish(){var W=wLvl(),r=wR(W),n=r.ok+r.bad;
  if(W.tmp)W.tmp=null;else{W.run=null;wSaveRun(W)}
  if(!n){words();return}
