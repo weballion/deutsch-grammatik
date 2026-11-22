@@ -87,6 +87,7 @@ button.sec{width:100%;height:46px;margin-top:8px}
 .cbx::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--pri);opacity:0;transform:scale(.5);transition:opacity .15s,transform .15s cubic-bezier(.34,1.56,.64,1)}
 .cbin:checked+.cbx{box-shadow:inset 0 0 0 1px color-mix(in srgb,#fff calc(var(--ghi)*10%),transparent),inset 0 2px 3px -1px color-mix(in srgb,#000 calc(var(--glo)*20%),transparent),0 0 0 1.5px var(--pri),0 0 8px color-mix(in srgb,var(--pri) 45%,transparent)}
 .cbin:checked+.cbx::after{opacity:1;transform:scale(1)}
+.frame:has(>.cbrow .blk:checked){box-shadow:var(--frame-shadow),0 0 0 1.5px color-mix(in srgb,var(--pri) 75%,transparent),0 0 18px color-mix(in srgb,var(--pri) 30%,transparent)}
 .cbin:focus-visible+.cbx{outline:2px solid var(--pri);outline-offset:2px}
 details{border:1px solid var(--bd);border-radius:var(--radius);padding:10px 12px;background:var(--card);margin:14px 0;box-shadow:var(--shadow)}summary{cursor:pointer}
 button.hist{display:block;margin:6px 0 0;padding:0;color:var(--tx2);font-size:13px;text-decoration:underline}
@@ -164,7 +165,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v0.46';
+var APP_VERSION='v0.47';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
