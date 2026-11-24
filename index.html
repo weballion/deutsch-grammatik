@@ -65,7 +65,7 @@ h1{font-size:24px;margin:2px 0 18px;font-weight:600}.ttl{min-width:0}.ttl h1{fon
 button{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:var(--radius);padding:11px 14px;cursor:pointer;transition:transform .08s}
 button:active{transform:scale(.97)}
 button.pri{background:var(--pri);color:var(--onpri);border-color:var(--pri);font-weight:600;width:100%;height:48px;margin-top:10px;box-shadow:var(--shadow)}
-button.sec{width:100%;height:46px;margin-top:8px}
+button.sec{width:100%;height:46px;margin-top:8px}button.sec:disabled{opacity:.45;cursor:default}
 .seg{position:relative;display:flex;gap:2px;padding:4px;border-radius:999px;background-color:color-mix(in srgb,var(--gtint) 12%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,#fff calc(var(--ghi)*10%),transparent),inset -2px 2px 1px -1px color-mix(in srgb,#fff calc(var(--ghi)*70%),transparent),inset 0 -3px 2px -2px color-mix(in srgb,#000 calc(var(--glo)*15%),transparent),0 4px 14px color-mix(in srgb,#000 calc(var(--glo)*8%),transparent)}
 .seg button{position:relative;z-index:1;flex:1;background:none;border:none;box-shadow:none;color:var(--tx2);font-weight:500}
 .seg button.on{color:var(--tx);font-weight:600}
@@ -165,7 +165,7 @@ input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var
 </style></head><body><main id="app"></main>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-var APP_VERSION='v0.49';
+var APP_VERSION='v0.50';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -185,7 +185,7 @@ uk:{
  wNoBank:'Для цього рівня слів поки немає.',wListEmpty:'Тут поки порожньо.',wPause:'Пауза',wFinish:'Завершити',
  wResume:'Продовжити',wDone:function(x,y){return 'Пройдено '+x+' з '+y},
  wRestartAsk:'Незакінчений тест буде скинуто. Почати заново?',
- wTestBtn:'Пройти тест',wStreak:function(c){return 'вгадано поспіль: '+c+' з 4'},wHid:'Приховані',wHide:'Не показувати в тестах',wUnhide:'Показувати знову',wHidHint:'Ці слова не потрапляють у тести. Скопіюйте список і надішліть його, щоб їх замінили або виправили.',wCopy:'Скопіювати список',wCopied:'Скопійовано',wHidden:'Слово приховано',noVoice:'На пристрої немає німецького голосу — встановіть його в налаштуваннях синтезу мовлення',
+ wTestBtn:'Пройти тест',wStreak:function(c){return 'вгадано поспіль: '+c+' з 4'},wHid:'Приховані',wHide:'Не показувати в тестах',wUnhide:'Показувати знову',wHidHint:'Ці слова не потрапляють у тести. Скопіюйте список і надішліть його, щоб їх замінили або виправили.',wCopy:'Скопіювати список',wCopied:'Скопійовано',friendsBtn:'Тест для друзів',friendsOne:'Для тесту для друзів виберіть у налаштуваннях один блок',shareOwnH:'Тест для друзів',shareLinkH:'Тест за посиланням',shareN:'Завдань: ',shareHint:'Надішліть посилання друзям — у всіх буде однаковий тест. Почніть одночасно, кожен на своєму телефоні.',shareBtn:'Поділитися',shareStart:'Почати',shareText:'Пройди тест з німецької',shareReplace:'Незакінчений тест буде замінено.',shareBad:'Посилання на тест пошкоджене або застаріле.',byLink:'за посиланням',wHidden:'Слово приховано',noVoice:'На пристрої немає німецького голосу — встановіть його в налаштуваннях синтезу мовлення',
  wAskTo:'Як це німецькою?',wAskFrom:'Що це означає?',
  wSessionH:'Підсумок',wCorrectPct:function(p){return 'правильно: '+p+'%'},
  wWrongH:function(n){return 'Помилки ('+n+') — ці слова потрапили до «Помилок»:'},
@@ -224,7 +224,7 @@ uk:{
  blocksSelected:function(n,total){return 'Граматичні блоки: вибрано '+ofN(n,total)},
  inTestTotal:function(n){return 'Усього в тесті: '+n+' завдань.'},
  questionN:function(i,n){return 'Запитання '+ofN(i,n)},
- infoTestH:'Тест',
+ infoTest4:'«Тест для друзів» (кнопка на головній, коли в налаштуваннях вибрано рівно один блок) збирає тест і дає посилання: у всіх, хто його відкриє, будуть ті самі завдання в тому самому порядку. Надішліть посилання і почніть одночасно, кожен на своєму телефоні. Такий тест іде в статистику й історію (з позначкою «за посиланням»), як звичайний; результатів інших учасників не видно.',infoTestH:'Тест',
  infoTest1:'«Старт» запускає тест за блоками, вибраними в налаштуваннях. Завдання з усіх блоків перемішані. «Кількість завдань» задає їх число на кожен блок: 5, 10, 15 або 30.',
  infoTest2:'Усередині блоку завдання діляться за типами у пропорціях з налаштувань (розгорніть «Типи завдань» під блоком). З банку спочатку беруться завдання, які траплялися вам рідше за всіх, тому повтори починаються лише після того, як пройдені всі завдання потрібного типу.',
  infoTest3:'Незакінчений тест зберігається після кожної відповіді, навіть якщо закрити застосунок: його можна продовжити з головної. «Скасувати тест» скидає його без збереження результату.',
@@ -297,7 +297,7 @@ ru:{
  wNoBank:'Для этого уровня слов пока нет.',wListEmpty:'Здесь пока пусто.',wPause:'Пауза',wFinish:'Закончить',
  wResume:'Продолжить',wDone:function(x,y){return 'Пройдено '+x+' из '+y},
  wRestartAsk:'Незаконченный тест будет сброшен. Начать заново?',
- wTestBtn:'Пройти тест',wStreak:function(c){return 'угадано подряд: '+c+' из 4'},wHid:'Скрытые',wHide:'Не показывать в тестах',wUnhide:'Показывать снова',wHidHint:'Эти слова не попадают в тесты. Скопируйте список и отправьте его, чтобы их заменили или исправили.',wCopy:'Скопировать список',wCopied:'Скопировано',wHidden:'Слово скрыто',noVoice:'На устройстве нет немецкого голоса — установите его в настройках синтеза речи',
+ wTestBtn:'Пройти тест',wStreak:function(c){return 'угадано подряд: '+c+' из 4'},wHid:'Скрытые',wHide:'Не показывать в тестах',wUnhide:'Показывать снова',wHidHint:'Эти слова не попадают в тесты. Скопируйте список и отправьте его, чтобы их заменили или исправили.',wCopy:'Скопировать список',wCopied:'Скопировано',friendsBtn:'Тест для друзей',friendsOne:'Для теста для друзей выберите в настройках один блок',shareOwnH:'Тест для друзей',shareLinkH:'Тест по ссылке',shareN:'Заданий: ',shareHint:'Отправьте ссылку друзьям — у всех будет одинаковый тест. Начните одновременно, каждый на своём телефоне.',shareBtn:'Поделиться',shareStart:'Начать',shareText:'Пройди тест по немецкому',shareReplace:'Незаконченный тест будет заменён.',shareBad:'Ссылка на тест повреждена или устарела.',byLink:'по ссылке',wHidden:'Слово скрыто',noVoice:'На устройстве нет немецкого голоса — установите его в настройках синтеза речи',
  wAskTo:'Как это по-немецки?',wAskFrom:'Что это значит?',
  wSessionH:'Итог',wCorrectPct:function(p){return 'верно: '+p+'%'},
  wWrongH:function(n){return 'Ошибки ('+n+') — эти слова попали в «Ошибки»:'},
@@ -336,7 +336,7 @@ ru:{
  blocksSelected:function(n,total){return 'Грамматические блоки: выбрано '+ofN(n,total)},
  inTestTotal:function(n){return 'Всего в тесте: '+n+' заданий.'},
  questionN:function(i,n){return 'Вопрос '+ofN(i,n)},
- infoTestH:'Тест',
+ infoTest4:'«Тест для друзей» (кнопка на главной, когда в настройках выбран ровно один блок) собирает тест и даёт ссылку: у всех, кто её откроет, будут те же задания в том же порядке. Отправьте ссылку и начните одновременно, каждый на своём телефоне. Такой тест идёт в статистику и историю (с пометкой «по ссылке»), как обычный; результатов других участников не видно.',infoTestH:'Тест',
  infoTest1:'«Старт» запускает тест по блокам, выбранным в настройках. Задания из всех блоков перемешаны. «Количество заданий» задаёт их число на каждый блок: 5, 10, 15 или 30.',
  infoTest2:'Внутри блока задания делятся по типам в пропорциях из настроек (раскройте «Типы заданий» под блоком). Из банка сначала берутся задания, которые попадались вам реже всего, поэтому повторы начинаются только после того, как пройдены все задания нужного типа.',
  infoTest3:'Незаконченный тест сохраняется после каждого ответа, даже если закрыть приложение: его можно продолжить с главной. «Отменить тест» сбрасывает его без сохранения результата.',
@@ -399,7 +399,7 @@ function L(k){var v=I18N[LANG][k];return typeof v=='function'?v.apply(null,Array
 function loc(v){return v&&typeof v=='object'?v[LANG]:v}
 function ofN(a,b){return a+(LANG=='ru'?' из ':' з ')+b}
 function histRow(e){var pct=e.n?Math.round(e.s/e.n*100):0;
- return '<div class="row"><span>'+e.blocks.map(function(k){return '<span class="bltag">'+k+'</span>'}).join('')+' <small class="mut">'+e.d+'</small></span><span'+(pct<70?' style="color:var(--bad);font-weight:600"':'')+'>'+ofN(fmt(e.s),e.n)+' · '+pct+'%</span></div>'}
+ return '<div class="row"><span>'+e.blocks.map(function(k){return '<span class="bltag">'+k+'</span>'}).join('')+' <small class="mut">'+e.d+(e.l?' · '+L('byLink'):'')+'</small></span><span'+(pct<70?' style="color:var(--bad);font-weight:600"':'')+'>'+ofN(fmt(e.s),e.n)+' · '+pct+'%</span></div>'}
 var app=document.getElementById('app');
 function render(h){app.innerHTML=h;app.style.animation='none';app.offsetHeight;app.style.animation=''}
 var DATA=null,byId={},S=null,run=null,saved=null,P={},H=[],UM=false,THEME='classic',VIEW='home',LANG='uk';
@@ -452,9 +452,9 @@ function spk(t){return window.speechSynthesis?'<button class="spk" data-say="'+e
 if(window.speechSynthesis)speechSynthesis.getVoices();
 document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.spk');if(b){e.stopPropagation();haptic();say(b.dataset.say)}},true);
 function fmt(x){return String(x).replace('.',',')}
-function save(){var p=run?{S:S,ids:run.q.map(function(t){return t.id}),i:run.i,res:run.res.map(function(r){return{id:r.t.id,v:r.v,s:r.s}})}:null;
+function save(){var p=run?{S:S,l:run.link?1:0,ids:run.q.map(function(t){return t.id}),i:run.i,res:run.res.map(function(r){return{id:r.t.id,v:r.v,s:r.s}})}:null;
  csSetBig(LEVELS[LEVEL].runKey,p?JSON.stringify(p):'')}
-function restore(p){S=p.S;run={q:p.ids.map(function(i){return byId[i]}),i:p.i,res:p.res.map(function(r){return{t:byId[r.id],v:r.v,s:r.s}})};}
+function restore(p){S=p.S;run={link:p.l,q:p.ids.map(function(i){return byId[i]}),i:p.i,res:p.res.map(function(r){return{t:byId[r.id],v:r.v,s:r.s}})};}
 function parseSaved(x){try{var p=typeof x=='string'?JSON.parse(x):x;if(p&&p.ids&&p.i<p.ids.length&&p.ids.every(function(i){return byId[i]}))return p}catch(e){}return null}
 function saveP(){var keys=Object.keys(DATA.blocks);
  keys.forEach(function(k){csSet(LEVELS[LEVEL].progPre+k,JSON.stringify(P[k]||{s:0,n:0}));
@@ -469,7 +469,7 @@ function recordProgress(){var by={};run.res.forEach(function(r){var k=r.t.block;
  Object.keys(by).forEach(function(k){P[k]=P[k]||{s:0,n:0};P[k].s+=by[k].s;P[k].n+=by[k].n});
  P.seen=P.seen||{};run.res.forEach(function(r){P.seen[r.t.id]=(P.seen[r.t.id]||0)+1});saveP()
  var s=run.res.reduce(function(a,r){return a+r.s},0);
- H.push({d:fmtDate(new Date()),blocks:Object.keys(by),s:s,n:run.res.length});H=H.slice(-30);
+ H.push({d:fmtDate(new Date()),blocks:Object.keys(by),s:s,n:run.res.length,l:run.link?1:undefined});H=H.slice(-30);
  csSet(LEVELS[LEVEL].histKey,JSON.stringify(H))}
 function loadP(cb){var keys=Object.keys(DATA.blocks),want=[];
  keys.forEach(function(k){want.push(LEVELS[LEVEL].progPre+k,LEVELS[LEVEL].seenPre+k)});
@@ -523,7 +523,8 @@ function loadLevel(lvl,cb){LEVEL=lvl;
 }
 function setLevel(lvl){if(lvl==LEVEL)return;csSet('dg_level',lvl);run=null;saved=null;
  loadLevel(lvl,function(){settings();setTimeout(function(){haptic();toast(L('levelToast',LEVELS[lvl].label))},300)})}
-function init(){home()}
+var LINK=null;
+function init(){var l=LINK;LINK=null;if(!l)return home();if(l.bad){home();document.getElementById('wmsg').textContent=L('shareBad');return}shareScr(l.ids,false)}
 function sumLine(){var n=S.blocks.length;return LEVELS[LEVEL].label+' · '+(n==Object.keys(DATA.blocks).length?L('allBlocks',n):L('someBlocks',n,S.blocks.join(', ')))+' · '+S.diff+L('perBlockTasks',total())}
 function home(){setView('home');tgBack(null);
  var icInf='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
@@ -533,6 +534,7 @@ function home(){setView('home');tgBack(null);
  if(saved)h+='<button class="sec" id="resume" style="margin:0 0 4px">'+L('resume',saved.i+1,saved.ids.length)+'</button>';
  h+='<button class="pri big2" id="go">Старт</button><button class="lnk sum" id="sum">'+esc(sumLine())+'</button>';
  h+='<button class="sec" id="wbtn" style="margin-top:0">'+L('wordsBtn')+'</button>';
+ h+='<button class="sec" id="fbtn" style="margin-top:10px"'+(S.blocks.length==1?'':' disabled')+'>'+L('friendsBtn')+'</button>'+(S.blocks.length==1?'':'<p class="mut" style="margin:6px 0 0;text-align:center;font-size:12px">'+L('friendsOne')+'</p>');
  h+='<p class="mut" id="wmsg" style="margin:6px 0 0"></p>';
  var hh=H.slice().reverse();
  if(hh.length){h+='<p style="margin:18px 0 4px"><small>'+L('historyTitle')+'</small></p>';
@@ -544,6 +546,7 @@ function home(){setView('home');tgBack(null);
  document.getElementById('set').onclick=settings;document.getElementById('sum').onclick=settings;document.getElementById('inf').onclick=info;document.getElementById('stat').onclick=stats;document.getElementById('wbtn').onclick=words;
  var ht=document.getElementById('htog');if(ht)ht.onclick=function(){var m=document.getElementById('hmore');m.hidden=!m.hidden;ht.textContent=m.hidden?L('showMore',hh.length-3):L('showLess')};
  document.getElementById('go').onclick=function(){if(!S.blocks.length){settings();return}start()};
+ document.getElementById('fbtn').onclick=function(){if(S.blocks.length!=1)return;haptic();var b=build();if(b)shareScr(b.q.map(function(t){return t.id}),true)};
 }
 function stats(){setView('stats');tgBack(home);
  var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">'+L('statsTitle')+'</h1><div class="frame">';
@@ -613,7 +616,7 @@ function info(){setView('info');tgBack(home);
  var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">'+L('infoAria')+'</h1>'+
  '<div class="frame inf"><h3 style="margin-top:0">'+L('infoTestH')+'</h3><p>'+L('infoTest1')+'</p>'+
  '<p>'+L('infoTest2')+'</p>'+
- '<p>'+L('infoTest3')+'</p></div>'+
+ '<p>'+L('infoTest3')+'</p><p>'+L('infoTest4')+'</p></div>'+
  '<div class="frame inf"><h3 style="margin-top:0">'+L('infoSourceH')+'</h3><p>'+L('infoSource',n,levelBit)+'</p></div>'+
  '<div class="frame inf"><h3 style="margin-top:0">'+L('infoLevelH')+'</h3><p>'+L('infoLevel')+'</p></div>'+
  '<div class="frame inf"><h3 style="margin-top:0">'+L('infoGradeH')+'</h3><p>'+L('infoGrade1')+'</p>'+
@@ -639,16 +642,33 @@ function upd(){var sm=document.getElementById('sm');if(!sm)return;sm.textContent
    var sl=document.getElementById('sl'+k+ty);if(sl){sl.max=sum;sl.value=w[ty]}})});
  document.getElementById('cnt').textContent=L('inTestTotal',total())
 }
-function start(){
+function build(){
  var pool=[],skip={},warn=[];
  S.blocks.forEach(function(k){var n=S.diff,bk=bank(k),p=plan(k,n),got=[];
   Object.keys(p).forEach(function(ty){got=got.concat(pick(bk.filter(function(x){return x.type==ty}),p[ty],skip))});
   got=got.concat(pick(bk,Math.min(n,bk.length)-got.length,skip));
   if(got.length<Math.min(n,bk.length))warn.push(L('blockTasksLeft',k));
   pool=pool.concat(got)});
- if(!pool.length){home();document.getElementById('wmsg').textContent=warn.join(' ')||L('noTasksForBlocks');return}
- run={q:shuffle(pool),i:0,res:[],warn:warn.join(' ')};save();show();
-}
+ if(!pool.length){home();document.getElementById('wmsg').textContent=warn.join(' ')||L('noTasksForBlocks');return null}
+ return{q:shuffle(pool),warn:warn.join(' ')}}
+function start(){var b=build();if(!b)return;run={q:b.q,i:0,res:[],warn:b.warn};save();show()}
+var BOT_LINK='https://t.me/deutsch_grammatik_b2_bot?startapp=';
+function linkCode(ids){var k=ids[0].charAt(0);return LEVEL+'_'+k+'_'+ids.map(function(i){return i.slice(1)}).join('_')}
+function linkParse(c){var m=/^(a2b2|a1a2)_([A-Z])((?:_\d+)+)$/.exec(c||'');if(!m)return null;
+ return{lvl:m[1],ids:m[3].slice(1).split('_').map(function(n){return m[2]+n})}}
+function linkGet(){var p=TG&&TG.initDataUnsafe&&TG.initDataUnsafe.start_param,h=/[#&]t=([\w-]+)/.exec(location.hash);
+ if(!p&&!h)return null;history.replaceState(null,'',location.pathname+location.search);return linkParse(p||h[1])||{bad:1}}
+function shareTest(ids){var url=BOT_LINK+linkCode(ids),t=L('shareText')+': '+loc(DATA.blocks[ids[0].charAt(0)].name);
+ if(TG&&TG.openTelegramLink)TG.openTelegramLink('https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(t));else wCopy(url)}
+function shareScr(ids,own){setView('share');tgBack(home);var qs=ids.map(function(i){return byId[i]}).filter(Boolean);
+ if(!qs.length){home();document.getElementById('wmsg').textContent=L('shareBad');return}
+ var k=qs[0].block,h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">'+L(own?'shareOwnH':'shareLinkH')+'</h1><div class="frame">';
+ h+='<div class="h"><span class="bltag">'+k+'</span> '+esc(loc(DATA.blocks[k].name))+'</div><p class="mut" style="margin:6px 0 0">'+LEVELS[LEVEL].label+' · '+L('shareN')+qs.length+'</p>';
+ h+='<p style="margin:12px 0 0">'+L('shareHint')+'</p>'+(saved?'<p class="mut" style="margin:8px 0 0">'+L('shareReplace')+'</p>':'')+'</div>';
+ h+='<button class="pri big2" id="sgo">'+L('shareStart')+'</button><button class="sec" id="ssh">'+L('shareBtn')+'</button>';
+ render(h);document.getElementById('bk').onclick=home;
+ document.getElementById('ssh').onclick=function(){haptic();shareTest(qs.map(function(t){return t.id}))};
+ document.getElementById('sgo').onclick=function(){haptic();run={q:qs,i:0,res:[],warn:'',link:1};save();show()}}
 function score(){return run.res.reduce(function(a,r){return a+r.s},0)}
 function buildInit(t){
  var toks=shuffle(loc(t.text).split(' / ').map(function(w,i){return{w:w.trim(),i:i}})),placed=[];
@@ -903,6 +923,7 @@ csGet(['dg_uml','dg_theme','dg_level','dg_lang','dg_wdir','dg_wmode'],function(r
  UM=res.dg_uml=='1';
  setTheme(['lavender','liquid'].indexOf(res.dg_theme)>=0?res.dg_theme:'classic');
  setLang(res.dg_lang=='ru'||res.dg_lang=='uk'?res.dg_lang:detectLang());
- loadLevel(res.dg_level=='a1a2'?'a1a2':'a2b2',init);
+ LINK=linkGet();var lv=LINK&&LINK.lvl||(res.dg_level=='a1a2'?'a1a2':'a2b2');if(lv!=(res.dg_level||'a2b2'))csSet('dg_level',lv);
+ loadLevel(lv,init);
 });
 </script></body></html>
