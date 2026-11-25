@@ -168,7 +168,7 @@ input:disabled,textarea:disabled{-webkit-text-fill-color:currentColor;opacity:1}
 <script>window.goatcounter={path:function(){var w=window.Telegram&&Telegram.WebApp;return w&&w.initData?'/tg':'/web'}}</script>
 <script data-goatcounter="https://deutsch-grammatik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script>
-var APP_VERSION='v0.55';
+var APP_VERSION='v0.56';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -414,7 +414,7 @@ var LEVELS={a2b2:{file:'data/tasks.json',label:'A2–B2',setKey:'dg_set',runKey:
 var LEVEL='a2b2';
 var TG=window.Telegram&&window.Telegram.WebApp;
 if(TG){try{TG.ready();TG.expand()}catch(e){}}
-var CS=TG&&TG.CloudStorage;
+var CS=TG&&TG.initData&&TG.isVersionAtLeast&&TG.isVersionAtLeast('6.9')&&TG.CloudStorage;
 function csSet(key,val){if(CS){try{CS.setItem(key,val,function(){})}catch(e){}return}try{localStorage.setItem(key,val)}catch(e){}}
 function csSetBig(key,val){var n=Math.ceil(val.length/4000);if(n<2){csSet(key,val);return}
  for(var i=0;i<n;i++)csSet(key+'_'+i,val.slice(i*4000,(i+1)*4000));csSet(key,'@'+n)}
