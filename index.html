@@ -168,7 +168,7 @@ input:disabled,textarea:disabled{-webkit-text-fill-color:currentColor;opacity:1}
 <script>window.goatcounter={path:function(){var w=window.Telegram&&Telegram.WebApp;return w&&w.initData?'/tg':'/web'}}</script>
 <script data-goatcounter="https://deutsch-grammatik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script>
-var APP_VERSION='v0.54';
+var APP_VERSION='v0.55';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -525,7 +525,7 @@ function segMove(id,noSquish){var c=document.getElementById(id),b=c&&c.querySele
 function loadLevel(lvl,cb){LEVEL=lvl;
  document.body.className='home';render(loaderHtml());
  var t0=Date.now();
- fetch(LEVELS[lvl].file).then(function(r){return r.json()}).then(function(data){
+ fetch(LEVELS[lvl].file,{cache:'no-cache'}).then(function(r){return r.json()}).then(function(data){
   DATA=data;byId={};DATA.tasks.forEach(function(t){byId[t.id]=t});
   S={diff:10,defer:false,blocks:Object.keys(DATA.blocks),types:{}};
   setTimeout(function(){loadAll(cb)},Math.max(0,900-(Date.now()-t0)));
@@ -816,7 +816,7 @@ function wNum(id){return +String(id).slice(1)}
 function wKey(id){return wPre()+Math.floor(wNum(id)/150)}
 function wMax(W){return W.words.reduce(function(m,w){return Math.max(m,wNum(w.id))},0)}
 function wLoad(cb){if(WC[LEVEL])return cb(WC[LEVEL]);
- fetch(LEVELS[LEVEL].wordsFile).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){
+ fetch(LEVELS[LEVEL].wordsFile,{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){
   var ch={};d.words.forEach(function(w){ch[wKey(w.id)]=1});
   csGet([wPre()+'new',wPre()+'run',wPre()+'hide'].concat(Object.keys(ch)),function(res){var W={words:d.words,byId:{},p:{},run:null,tmp:null,hid:{}};
    (res[wPre()+'hide']||'').split(',').filter(Boolean).forEach(function(n){W.hid['W'+n]=1});
