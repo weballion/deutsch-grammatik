@@ -8,6 +8,6 @@
 - `scripts/build.py` — собрать оба банка из `data/blocks*/*.json` и проверить их: `uv run scripts/build.py`.
 - `scripts/validate.py` — проверка уже собранного банка: `uv run scripts/validate.py [путь]` (по умолчанию `data/tasks.json`).
 
-Локальный просмотр: `python3 -m http.server 8000` → http://localhost:8000 (вне Telegram хранение — через `localStorage`).
+Локальный просмотр: `uv run python -m http.server 8000` → http://localhost:8000 (вне Telegram хранение — через `localStorage`).
 
-Хостинг: статический сайт (например, GitHub Pages), ссылка задаётся в @BotFather как Mini App / кнопка меню бота.
+Хостинг: GitHub Pages (https://weballion.github.io/deutsch-grammatik/), ссылка задаётся в @BotFather как Mini App / кнопка меню бота. Работает и как обычный сайт в браузере. Счётчик открытий — GoatCounter.

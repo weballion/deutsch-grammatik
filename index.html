@@ -168,7 +168,7 @@ input:disabled,textarea:disabled{-webkit-text-fill-color:currentColor;opacity:1}
 <script>window.goatcounter={path:function(){var w=window.Telegram&&Telegram.WebApp;return w&&w.initData?'/tg':'/web'}}</script>
 <script data-goatcounter="https://deutsch-grammatik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script>
-var APP_VERSION='v0.52';
+var APP_VERSION='v0.54';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -227,7 +227,9 @@ uk:{
  blocksSelected:function(n,total){return 'Граматичні блоки: вибрано '+ofN(n,total)},
  inTestTotal:function(n){return 'Усього в тесті: '+n+' завдань.'},
  questionN:function(i,n){return 'Запитання '+ofN(i,n)},
- infoTest4:'«Тест для друзів» (кнопка на головній, коли в налаштуваннях вибрано рівно один блок) збирає тест і дає посилання: у всіх, хто його відкриє, будуть ті самі завдання в тому самому порядку. Надішліть посилання і почніть одночасно, кожен на своєму телефоні. Такий тест іде в статистику й історію (з позначкою «за посиланням»), як звичайний; результатів інших учасників не видно.',infoTestH:'Тест',
+ mTop:'Тільки найуживаніші дієслова (59 пар)',
+ infoTestM:'У блоці M «Verben mit Präpositionen» можна залишити тільки найуживаніші дієслова: розгорніть «Типи завдань» під блоком і ввімкніть перемикач (59 пар «дієслово + прийменник», як warten auf, sich freuen über, helfen bei).',
+ infoTest4:'«Тест для друзів» (кнопка на головній, коли в налаштуваннях вибрано рівно один блок) збирає тест і дає посилання: у всіх, хто його відкриє, будуть ті самі завдання в тому самому порядку. Надішліть посилання і почніть одночасно, кожен на своєму телефоні. Такий тест іде в статистику й історію (з позначкою «за посиланням»), як звичайний; результатів інших учасників не видно. У браузері «Поділитися» дає посилання на сайт — воно відкриває той самий тест у браузері.',infoTestH:'Тест',
  infoTest1:'«Старт» запускає тест за блоками, вибраними в налаштуваннях. Завдання з усіх блоків перемішані. «Кількість завдань» задає їх число на кожен блок: 5, 10, 15 або 30.',
  infoTest2:'Усередині блоку завдання діляться за типами у пропорціях з налаштувань (розгорніть «Типи завдань» під блоком). З банку спочатку беруться завдання, які траплялися вам рідше за всіх, тому повтори починаються лише після того, як пройдені всі завдання потрібного типу.',
  infoTest3:'Незакінчений тест зберігається після кожної відповіді, навіть якщо закрити застосунок: його можна продовжити з головної. «Скасувати тест» скидає його без збереження результату.',
@@ -246,7 +248,7 @@ uk:{
  infoErr1:'На головному екрані — журнал останніх 30 пройдених тестів (дата, блоки, бали), спершу 3 останні, решта — по кнопці «Показати ще» під списком (вона ж «Згорнути список»).',
  infoErr2:'«Статистика» (іконка на головній) показує середній відсоток балів по кожному блоку за всю історію проходжень — поруч зі шкалою з 4 поділок, блок нижче 70% підсвічується червоним. Унизу налаштувань — «Скинути всю статистику» (з підтвердженням): обнуляє відсотки по блоках, історію тестів і лічильники показів поточного рівня, налаштування, незакінчений тест і «Слова» не чіпає. Та сама шкала — і в налаштуваннях біля кожного блоку: шкала з 4 поділок (червона — менше 50%, жовта — 50–69%, зелена — від 70%), сірі порожні поділки — даних ще немає, бліді — пройдено менше 10 завдань.',
  infoOtherH:'Інше',
- infoOther1:'Кнопки ä ö ü ß під полем введення включаються в налаштуваннях. Налаштування і прогрес зберігаються автоматично в хмарі Telegram (Cloud Storage), на цьому ж акаунті вони доступні з будь-якого пристрою.',
+ infoOther1:'Кнопки ä ö ü ß під полем введення включаються в налаштуваннях. Налаштування і прогрес зберігаються автоматично в хмарі Telegram (Cloud Storage), на цьому ж акаунті вони доступні з будь-якого пристрою. У браузері (поза Telegram) прогрес зберігається лише в цьому браузері на цьому пристрої.',
  infoOther2:'Мова інтерфейсу визначається мовою Telegram (у браузері — мовою браузера); змінити її вручну можна в налаштуваннях (Українська/Русский). Анонімно рахується лише кількість відкриттів застосунку (GoatCounter, без cookies).',
  infoOther3:'Дизайн у налаштуваннях — «Темна», «Світла» або «Glass»: змінюється лише оформлення (кольори, скруглення, тіні, розмитий фон), логіка і екрани ті самі. «Темна» підлаштовується під тему телефону (світла чи темна), «Світла» і «Glass» завжди зберігають свою палітру, незалежно від теми телефону.',
  infoUpdated:'Опис оновлено: 25.11.2026.',
@@ -339,7 +341,9 @@ ru:{
  blocksSelected:function(n,total){return 'Грамматические блоки: выбрано '+ofN(n,total)},
  inTestTotal:function(n){return 'Всего в тесте: '+n+' заданий.'},
  questionN:function(i,n){return 'Вопрос '+ofN(i,n)},
- infoTest4:'«Тест для друзей» (кнопка на главной, когда в настройках выбран ровно один блок) собирает тест и даёт ссылку: у всех, кто её откроет, будут те же задания в том же порядке. Отправьте ссылку и начните одновременно, каждый на своём телефоне. Такой тест идёт в статистику и историю (с пометкой «по ссылке»), как обычный; результатов других участников не видно.',infoTestH:'Тест',
+ mTop:'Только самые частые глаголы (59 пар)',
+ infoTestM:'В блоке M «Verben mit Präpositionen» можно оставить только самые частые глаголы: раскройте «Типы заданий» под блоком и включите переключатель (59 пар «глагол + предлог», вроде warten auf, sich freuen über, helfen bei).',
+ infoTest4:'«Тест для друзей» (кнопка на главной, когда в настройках выбран ровно один блок) собирает тест и даёт ссылку: у всех, кто её откроет, будут те же задания в том же порядке. Отправьте ссылку и начните одновременно, каждый на своём телефоне. Такой тест идёт в статистику и историю (с пометкой «по ссылке»), как обычный; результатов других участников не видно. В браузере «Поделиться» даёт ссылку на сайт — она открывает тот же тест в браузере.',infoTestH:'Тест',
  infoTest1:'«Старт» запускает тест по блокам, выбранным в настройках. Задания из всех блоков перемешаны. «Количество заданий» задаёт их число на каждый блок: 5, 10, 15 или 30.',
  infoTest2:'Внутри блока задания делятся по типам в пропорциях из настроек (раскройте «Типы заданий» под блоком). Из банка сначала берутся задания, которые попадались вам реже всего, поэтому повторы начинаются только после того, как пройдены все задания нужного типа.',
  infoTest3:'Незаконченный тест сохраняется после каждого ответа, даже если закрыть приложение: его можно продолжить с главной. «Отменить тест» сбрасывает его без сохранения результата.',
@@ -358,7 +362,7 @@ ru:{
  infoErr1:'На главном экране — журнал последних 30 пройденных тестов (дата, блоки, баллы), сначала 3 последних, остальные — по кнопке «Показать ещё» под списком (она же «Свернуть список»).',
  infoErr2:'«Статистика» (иконка на главной) показывает средний процент баллов по каждому блоку за всю историю прохождений — рядом со шкалой из 4 делений, блок ниже 70% подсвечивается красным. Внизу настроек — «Сбросить всю статистику» (с подтверждением): обнуляет проценты по блокам, историю тестов и счётчики показов текущего уровня, настройки, незаконченный тест и «Слова» не трогает. Та же шкала — и в настройках у каждого блока: шкала из 4 делений (красная — меньше 50%, жёлтая — 50–69%, зелёная — от 70%), серые пустые деления — данных ещё нет, бледные — пройдено меньше 10 заданий.',
  infoOtherH:'Прочее',
- infoOther1:'Кнопки ä ö ü ß под полем ввода включаются в настройках. Настройки и прогресс сохраняются автоматически в облаке Telegram (Cloud Storage), на этом же аккаунте они доступны с любого устройства.',
+ infoOther1:'Кнопки ä ö ü ß под полем ввода включаются в настройках. Настройки и прогресс сохраняются автоматически в облаке Telegram (Cloud Storage), на этом же аккаунте они доступны с любого устройства. В браузере (вне Telegram) прогресс сохраняется только в этом браузере на этом устройстве.',
  infoOther2:'Язык интерфейса определяется языком Telegram (в браузере — языком браузера); изменить его вручную можно в настройках (Українська/Русский). Анонимно считается только число открытий приложения (GoatCounter, без cookies).',
  infoOther3:'Дизайн в настройках — «Тёмный», «Светлый» или «Glass»: меняется только оформление (цвета, скругления, тени, размытый фон), логика и экраны те же. «Тёмный» подстраивается под тему телефона (светлая или тёмная), «Светлый» и «Glass» всегда сохраняют свою палитру, независимо от темы телефона.',
  infoUpdated:'Описание обновлено: 25.11.2026.',
@@ -439,8 +443,8 @@ applyTheme();
 if(TG&&TG.onEvent)TG.onEvent('themeChanged',applyTheme);
 function setTheme(t){THEME=t;if(t=='classic')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',t);applyTheme()}
 function setView(v){VIEW=v;document.body.className=v=='home'?'home':''}
-function saveSet(){csSet(LEVELS[LEVEL].setKey,JSON.stringify({diff:S.diff,defer:S.defer,blocks:S.blocks,types:S.types}))}
-function bank(k){return DATA.tasks.filter(function(t){return t.block==k})}
+function saveSet(){csSet(LEVELS[LEVEL].setKey,JSON.stringify({diff:S.diff,defer:S.defer,blocks:S.blocks,types:S.types,mTop:S.mTop}))}
+function bank(k){return DATA.tasks.filter(function(t){return t.block==k&&!(k=='M'&&S.mTop&&!t.top)})}
 function allTasks(){return DATA.tasks}
 function tw(k){var d=DATA.blocks[k].types,u=S.types[k]||{},o={};Object.keys(d).forEach(function(t){o[t]=u[t]!=null?u[t]:d[t]});return o}
 function plan(k,n){var w=tw(k),ks=Object.keys(w).filter(function(t){return w[t]>0}),sum=ks.reduce(function(a,t){return a+w[t]},0),o={};if(!sum)return o;var r=[],used=0;
@@ -585,6 +589,7 @@ function settings(){setView('set');tgBack(home);
   else if(Object.keys(b.types).length<=1){var onlyT=Object.keys(b.types)[0],tn=TYPE[LANG][onlyT];tn=tn.charAt(0).toLowerCase()+tn.slice(1);
    h+='<div class="tyf">'+L('onlyType',tn,bank(k).length)+'</div>'}
   else{h+='<details class="ty"><summary id="ts'+k+'"></summary>';var w0=tw(k),sum0=Object.keys(w0).reduce(function(a,ty){return a+w0[ty]},0)||1;Object.keys(b.types).forEach(function(ty){h+='<div class="tr"><span>'+TYPE[LANG][ty]+'</span><span class="mut" id="tv'+k+ty+'">'+ofN(plan(k,S.diff)[ty]||0,S.diff)+'</span></div><input type="range" class="sl" id="sl'+k+ty+'" min="0" max="'+sum0+'" value="'+w0[ty]+'" data-k="'+k+'" data-t="'+ty+'">'});
+   if(k=='M')h+='<label class="swrow" style="margin-top:6px"><input type="checkbox" id="mtop" class="swin" '+(S.mTop?'checked':'')+'><span class="sw"><span class="swth"></span></span><span>'+L('mTop')+'</span></label>';
    h+='<div class="tr"><button class="lnk" data-rk="'+k+'">'+L('resetDefault')+'</button></div></details>'}
   h+='</div>'});
  h+='<button class="pri" id="bk2">Готово</button><div style="text-align:center;margin-top:18px"><button class="lnk" id="rst" style="color:var(--bad)">'+L('resetStats')+'</button></div>';
@@ -597,6 +602,7 @@ function settings(){setView('set');tgBack(home);
  document.querySelectorAll('#segTheme button').forEach(function(b){b.onclick=function(){setTheme(b.dataset.th);csSet('dg_theme',b.dataset.th);document.querySelectorAll('#segTheme button').forEach(function(x){x.className=x===b?'on':''});segMove('segTheme')}});
  document.querySelectorAll('#segLevel button').forEach(function(b){b.onclick=function(){if(b.dataset.lv==LEVEL)return;setLevel(b.dataset.lv)}});
  document.getElementById('defer').onchange=function(e){S.defer=e.target.checked;saveSet()};
+ var mt=document.getElementById('mtop');if(mt)mt.onchange=function(e){S.mTop=e.target.checked;saveSet();upd()};
  document.getElementById('uml').onchange=function(e){UM=e.target.checked;csSet('dg_uml',UM?'1':'0')};
  function selB(){S.blocks=[].slice.call(document.querySelectorAll('.blk')).filter(function(x){return x.checked}).map(function(x){return x.value});saveSet();upd()}
  document.querySelectorAll('.blk').forEach(function(c){c.onchange=selB});
@@ -622,7 +628,7 @@ function info(){setView('info');tgBack(home);
  var h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">'+L('infoAria')+'</h1>'+
  '<div class="frame inf"><h3 style="margin-top:0">'+L('infoTestH')+'</h3><p>'+L('infoTest1')+'</p>'+
  '<p>'+L('infoTest2')+'</p>'+
- '<p>'+L('infoTest3')+'</p><p>'+L('infoTest4')+'</p></div>'+
+ '<p>'+L('infoTest3')+'</p><p>'+L('infoTestM')+'</p><p>'+L('infoTest4')+'</p></div>'+
  '<div class="frame inf"><h3 style="margin-top:0">'+L('infoSourceH')+'</h3><p>'+L('infoSource',n,levelBit)+'</p></div>'+
  '<div class="frame inf"><h3 style="margin-top:0">'+L('infoLevelH')+'</h3><p>'+L('infoLevel')+'</p></div>'+
  '<div class="frame inf"><h3 style="margin-top:0">'+L('infoGradeH')+'</h3><p>'+L('infoGrade1')+'</p>'+
@@ -664,8 +670,10 @@ function linkParse(c){var m=/^(a2b2|a1a2)_([A-Z])((?:_\d+)+)$/.exec(c||'');if(!m
  return{lvl:m[1],ids:m[3].slice(1).split('_').map(function(n){return m[2]+n})}}
 function linkGet(){var p=TG&&TG.initDataUnsafe&&TG.initDataUnsafe.start_param,h=/[#&]t=([\w-]+)/.exec(location.hash);
  if(!p&&!h)return null;history.replaceState(null,'',location.pathname+location.search);return linkParse(p||h[1])||{bad:1}}
-function shareTest(ids){var url=BOT_LINK+linkCode(ids),t=L('shareText')+': '+loc(DATA.blocks[ids[0].charAt(0)].name);
- if(TG&&TG.openTelegramLink)TG.openTelegramLink('https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(t));else wCopy(url)}
+function shareTest(ids){var c=linkCode(ids),t=L('shareText')+': '+loc(DATA.blocks[ids[0].charAt(0)].name);
+ if(TG&&TG.initData)return TG.openTelegramLink('https://t.me/share/url?url='+encodeURIComponent(BOT_LINK+c)+'&text='+encodeURIComponent(t));
+ var url=location.origin+location.pathname+'#t='+c;
+ if(navigator.share)navigator.share({text:t,url:url}).catch(function(){});else wCopy(url)}
 function shareScr(ids,own){setView('share');tgBack(home);var qs=ids.map(function(i){return byId[i]}).filter(Boolean);
  if(!qs.length){home();document.getElementById('wmsg').textContent=L('shareBad');return}
  var k=qs[0].block,h='<button class="lnk" id="bk">← Назад</button><h1 style="margin-top:6px">'+L(own?'shareOwnH':'shareLinkH')+'</h1><div class="frame">';
