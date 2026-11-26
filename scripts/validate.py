@@ -28,7 +28,7 @@ for t in d["tasks"]:
         for a in t["answers"]:
             if w(" ".join(tx.split(" / ")))!=w(a): errs.append(f"{i}: слова не совпадают с ответом «{a}»")
     for x in t.get("gram",[]):
-        if x["art"] not in ("best","unbest","ohne","der","ein","menge") or x["num"] not in ("sg","pl") or x["k"] not in ("nom","akk","dat","gen") or x["g"] not in (("m","f","n") if x["num"]=="sg" else ("-",)):
+        if x["art"] not in ("best","unbest","ohne","der","ein","menge","pron") or x["num"] not in ("sg","pl") or x["k"] not in ("nom","akk","dat","gen") or x["g"] not in (("m","f","n","-") if x["art"]=="pron" else ("m","f","n") if x["num"]=="sg" else ("-",)):
             errs.append(f"{i}: неверный gram {x}")
         if "own" in x and (len(x["own"])!=2 or not x["w"].endswith(x["end"])): errs.append(f"{i}: неверный own/end в gram {x}")
         for a in x["adj"]:
