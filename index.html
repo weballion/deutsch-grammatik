@@ -10,8 +10,8 @@
 <style>
 :root{--bg:#faf9f5;--card:#fff;--tx:#1f1e1d;--tx2:#6b6a66;--bd:#e3e1d8;--pri:#1f1e1d;--onpri:#fff;--ok:#2e7d32;--okbg:#e8f3e8;--bad:#b3261e;--badbg:#fbe9e7;--half:#7a5b00;--halfbg:#fff4d6;--radius:10px;--shadow:none;--glass:var(--card);--frame-shadow:0 2px 6px rgba(31,30,29,.06),0 16px 32px rgba(31,30,29,.08);--frame-sheen:linear-gradient(160deg,rgba(255,255,255,.5),rgba(255,255,255,0) 55%);--rbody:#f3f4f8;--rln:#d7d9e3;--rvisor:#262c3d;--gtint:#bbbbbc;--ghi:1;--glo:1;--gsat:150%;--reye:#3fd0c8}
 @media(prefers-color-scheme:dark){:root{--bg:#1c1b19;--card:#262522;--tx:#f0eee6;--tx2:#a8a69e;--bd:#3a3834;--pri:#f0eee6;--onpri:#1c1b19;--ok:#7bc47f;--okbg:#22331f;--bad:#f2867d;--badbg:#3a2220;--half:#e8c766;--halfbg:#3a3217;--glass:var(--card);--frame-shadow:0 2px 6px rgba(0,0,0,.3),0 16px 40px rgba(0,0,0,.35);--frame-sheen:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,0) 55%);--rbody:#e9eaf0;--rln:#c7c9d6;--rvisor:#14161f;--gtint:#bbbbbc;--ghi:.3;--glo:2;--gsat:150%;--reye:var(--pri)}}
-html[data-theme="lavender"]{color-scheme:light;--reye:var(--pri);--bg:#f3f1fb;--card:#fff;--tx:#2a2440;--tx2:#8a84a3;--bd:#e5e1f5;--pri:#6c5ce7;--onpri:#fff;--ok:#2e7d32;--okbg:#e8f3e8;--bad:#b3261e;--badbg:#fbe9e7;--half:#7a5b00;--halfbg:#fff4d6;--radius:16px;--shadow:0 4px 20px rgba(108,92,231,.14);--glass:rgba(255,255,255,.55);--frame-shadow:0 2px 8px rgba(108,92,231,.12),0 20px 48px rgba(108,92,231,.16);--frame-sheen:linear-gradient(160deg,rgba(255,255,255,.55),rgba(255,255,255,0) 55%);--rbody:#fff;--rln:#e5e1f5;--rvisor:#2a2440;--gtint:#8a7fc7;--ghi:1;--glo:1;--gsat:160%}
-html[data-theme="liquid"]{color-scheme:dark;--reye:var(--pri);--bg:#0b0e1a;--card:rgba(20,25,45,.55);--tx:#eef2ff;--tx2:rgba(238,242,255,.6);--bd:rgba(255,255,255,.22);--pri:#5ee7df;--onpri:#0b0e1a;--ok:#a8f08a;--okbg:rgba(168,240,138,.16);--bad:#f87171;--badbg:rgba(239,68,68,.16);--half:#ffd27f;--halfbg:rgba(255,210,127,.16);--radius:20px;--shadow:0 4px 24px rgba(94,231,223,.3);--glass:rgba(255,255,255,.08);--frame-shadow:0 8px 32px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.12);--frame-sheen:linear-gradient(135deg,rgba(255,255,255,.18) 0%,rgba(255,255,255,0) 50%);--rbody:#eef2fb;--rln:rgba(255,255,255,.3);--rvisor:#060810;--gtint:#5ee7df;--ghi:.5;--glo:1.6;--gsat:180%}
+html[data-theme="lavender"]{color-scheme:light;--halo:#faf9fd;--reye:var(--pri);--bg:#f3f1fb;--card:#fff;--tx:#2a2440;--tx2:#8a84a3;--bd:#e5e1f5;--pri:#6c5ce7;--onpri:#fff;--ok:#2e7d32;--okbg:#e8f3e8;--bad:#b3261e;--badbg:#fbe9e7;--half:#7a5b00;--halfbg:#fff4d6;--radius:16px;--shadow:0 4px 20px rgba(108,92,231,.14);--glass:rgba(255,255,255,.55);--frame-shadow:0 2px 8px rgba(108,92,231,.12),0 20px 48px rgba(108,92,231,.16);--frame-sheen:linear-gradient(160deg,rgba(255,255,255,.55),rgba(255,255,255,0) 55%);--rbody:#fff;--rln:#e5e1f5;--rvisor:#2a2440;--gtint:#8a7fc7;--ghi:1;--glo:1;--gsat:160%}
+html[data-theme="liquid"]{color-scheme:dark;--halo:#151a2b;--reye:var(--pri);--bg:#0b0e1a;--card:rgba(20,25,45,.55);--tx:#eef2ff;--tx2:rgba(238,242,255,.6);--bd:rgba(255,255,255,.22);--pri:#5ee7df;--onpri:#0b0e1a;--ok:#a8f08a;--okbg:rgba(168,240,138,.16);--bad:#f87171;--badbg:rgba(239,68,68,.16);--half:#ffd27f;--halfbg:rgba(255,210,127,.16);--radius:20px;--shadow:0 4px 24px rgba(94,231,223,.3);--glass:rgba(255,255,255,.08);--frame-shadow:0 8px 32px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.12);--frame-sheen:linear-gradient(135deg,rgba(255,255,255,.18) 0%,rgba(255,255,255,0) 50%);--rbody:#eef2fb;--rln:rgba(255,255,255,.3);--rvisor:#060810;--gtint:#5ee7df;--ghi:.5;--glo:1.6;--gsat:180%}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,sans-serif;min-height:100vh;min-height:100dvh}
 body.home{display:flex;flex-direction:column}
 body.home main{margin:auto;width:100%}
@@ -102,7 +102,7 @@ label{display:flex;gap:8px;align-items:center}input[type=checkbox]{width:18px;he
 input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:var(--radius);padding:11px;caret-color:var(--tx)}
 .fb{margin-top:14px;padding:12px;border-radius:var(--radius);font-size:15px;box-shadow:var(--shadow)}.fb.ok{background:var(--okbg);color:var(--ok)}.fb.bad{background:var(--badbg);color:var(--bad)}
 .fb .h{color:var(--tx);font-size:14px;margin-top:6px}.fb a{color:var(--tx);text-decoration:underline;cursor:pointer;font-size:14px;display:inline-block;margin-top:8px}
-button.pri.stick{position:sticky;bottom:calc(12px + env(safe-area-inset-bottom));z-index:2}
+button.pri.stick{position:sticky;bottom:calc(12px + env(safe-area-inset-bottom));z-index:2;margin-top:16px}button.pri.stuck{outline:12px solid var(--halo,var(--card))}html[data-theme="liquid"] button.pri.stuck{background:linear-gradient(135deg,#44a0a1 0%,#2e5eaf 100%)}
 .gram{color:var(--tx);font-size:14px}.gg{margin-top:8px;padding:8px 10px;border-radius:10px;border:1px solid var(--bd)}.gg dl{display:grid;grid-template-columns:auto 1fr;gap:1px 10px;margin:4px 0 0}.gg dt{color:var(--tx2)}.gg dd{margin:0}.gw{color:var(--tx2);margin-top:4px;font-size:13px}
 .trin{margin:8px 0 16px;animation:trIn .25s ease}
 .wst{display:flex;gap:8px;text-align:center}.wst div{flex:1;cursor:pointer;border:1.5px solid var(--bd);border-radius:14px;padding:10px 0 8px;background:var(--bg);transition:transform .1s}.wst div:active{transform:scale(.96)}.wst small::after{content:' ›';font-weight:700}.wst b{display:block;font-size:26px;line-height:1.2}
@@ -171,7 +171,7 @@ input:disabled,textarea:disabled{-webkit-text-fill-color:currentColor;opacity:1}
 <script>window.goatcounter={path:function(){var w=window.Telegram&&Telegram.WebApp;return w&&w.initData?'/tg':'/web'}}</script>
 <script data-goatcounter="https://deutsch-grammatik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script>
-var APP_VERSION='v0.64';
+var APP_VERSION='v0.65';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -235,13 +235,13 @@ uk:{
  infoTest4:'«Тест для друзів» (кнопка на головній, коли в налаштуваннях вибрано рівно один блок) збирає тест і дає посилання: у всіх, хто його відкриє, будуть ті самі завдання в тому самому порядку. Надішліть посилання і почніть одночасно, кожен на своєму телефоні. Такий тест іде в статистику й історію (з позначкою «за посиланням»), як звичайний; результатів інших учасників не видно. У браузері «Поділитися» дає посилання на сайт — воно відкриває той самий тест у браузері.',infoTestH:'Тест',
  infoTest1:'«Старт» запускає тест за блоками, вибраними в налаштуваннях. Завдання з усіх блоків перемішані. «Кількість завдань» задає їх число на кожен блок: 5, 10, 15 або 30.',
  infoTest2:'Усередині блоку завдання діляться за типами у пропорціях з налаштувань (розгорніть «Типи завдань» під блоком). З банку спочатку беруться завдання, які траплялися вам рідше за всіх, тому повтори починаються лише після того, як пройдені всі завдання потрібного типу.',
- infoTest3:'Незакінчений тест зберігається після кожної відповіді, навіть якщо закрити застосунок: його можна продовжити з головної. «Скасувати тест» скидає його без збереження результату.',
+ infoTest3:'Незакінчений тест зберігається після кожної відповіді, навіть якщо закрити застосунок: його можна продовжити з головної. «Скасувати тест» скидає його без збереження результату. Кнопка «Перевірити» закріплена внизу екрана — її видно навіть на довгих завданнях.',
  infoSourceH:'Звідки завдання',
  infoSource:function(n,levelBit){return 'Усі завдання — з готового банку: '+n+' завдань'+levelBit+'.'},
  infoSourceA2B2:function(m){return ', близько 100 на кожен блок, у блоці M ('+m+') — список дієслів із прийменниками з підручника плюс завдання про зворотні дієслова'},
  infoSourceA1A2:' для рівня A1–A2 (7 спрощених блоків)',
  infoLevelH:'Рівень',
- infoLevel:'У налаштуваннях можна вибрати рівень A2–B2 (усі 14 блоків) або A1–A2 (7 спрощених блоків із простішими завданнями, без складних тем, як Passiv, Konjunktiv II чи Relativsätze). Це два різні банки завдань: прогрес, помилки і вибір блоків зберігаються окремо для кожного рівня.',
+ infoLevel:'У налаштуваннях можна вибрати рівень B1–B2 (усі 14 блоків) або A1–A2 (7 спрощених блоків із простішими завданнями, без складних тем, як Passiv, Konjunktiv II чи Relativsätze). Це два різні банки завдань: прогрес, помилки і вибір блоків зберігаються окремо для кожного рівня.',
  infoGradeH:'Перевірка і бали',
  infoGrade1:'Правильно — 1 бал, майже правильно — 0,5, неправильно — 0. Регістр і розділові знаки не враховуються, крім блоку K «Правопис».',
  infoGrade2:'Вибір відповіді, вставка слова і складання речення перевіряються за зразком одразу. Якщо в реченні кілька пропусків, кожен заповнюється у своєму полі прямо в тексті: усі правильні — 1 бал, частина — 0,5, жодного — 0; після перевірки правильні поля зелені, неправильні — червоні з правильною відповіддю поруч. Переклад, виправлення і перетворення: при точному збігу — одразу; інакше ви порівнюєте свою відповідь із зразком самі й обираєте «Правильно», «Майже» або «Неправильно».',
@@ -353,13 +353,13 @@ ru:{
  infoTest4:'«Тест для друзей» (кнопка на главной, когда в настройках выбран ровно один блок) собирает тест и даёт ссылку: у всех, кто её откроет, будут те же задания в том же порядке. Отправьте ссылку и начните одновременно, каждый на своём телефоне. Такой тест идёт в статистику и историю (с пометкой «по ссылке»), как обычный; результатов других участников не видно. В браузере «Поделиться» даёт ссылку на сайт — она открывает тот же тест в браузере.',infoTestH:'Тест',
  infoTest1:'«Старт» запускает тест по блокам, выбранным в настройках. Задания из всех блоков перемешаны. «Количество заданий» задаёт их число на каждый блок: 5, 10, 15 или 30.',
  infoTest2:'Внутри блока задания делятся по типам в пропорциях из настроек (раскройте «Типы заданий» под блоком). Из банка сначала берутся задания, которые попадались вам реже всего, поэтому повторы начинаются только после того, как пройдены все задания нужного типа.',
- infoTest3:'Незаконченный тест сохраняется после каждого ответа, даже если закрыть приложение: его можно продолжить с главной. «Отменить тест» сбрасывает его без сохранения результата.',
+ infoTest3:'Незаконченный тест сохраняется после каждого ответа, даже если закрыть приложение: его можно продолжить с главной. «Отменить тест» сбрасывает его без сохранения результата. Кнопка «Проверить» закреплена внизу экрана — её видно даже на длинных заданиях.',
  infoSourceH:'Откуда задания',
  infoSource:function(n,levelBit){return 'Все задания — из готового банка: '+n+' заданий'+levelBit+'.'},
  infoSourceA2B2:function(m){return ', около 100 на каждый блок, в блоке M ('+m+') — список глаголов с предлогами из учебника плюс задания о возвратных глаголах'},
  infoSourceA1A2:' для уровня A1–A2 (7 упрощённых блоков)',
  infoLevelH:'Уровень',
- infoLevel:'В настройках можно выбрать уровень A2–B2 (все 14 блоков) или A1–A2 (7 упрощённых блоков с более простыми заданиями, без сложных тем вроде Passiv, Konjunktiv II или Relativsätze). Это два разных банка заданий: прогресс, ошибки и выбор блоков хранятся отдельно для каждого уровня.',
+ infoLevel:'В настройках можно выбрать уровень B1–B2 (все 14 блоков) или A1–A2 (7 упрощённых блоков с более простыми заданиями, без сложных тем вроде Passiv, Konjunktiv II или Relativsätze). Это два разных банка заданий: прогресс, ошибки и выбор блоков хранятся отдельно для каждого уровня.',
  infoGradeH:'Проверка и баллы',
  infoGrade1:'Верно — 1 балл, почти верно — 0,5, неверно — 0. Регистр и знаки препинания не учитываются, кроме блока K «Правописание».',
  infoGrade2:'Выбор ответа, вставка слова и составление предложения проверяются по эталону сразу. Если в предложении несколько пропусков, каждый заполняется в своём поле прямо в тексте: все верные — 1 балл, часть — 0,5, ни одного — 0; после проверки верные поля зелёные, неверные — красные с правильным ответом рядом. Перевод, исправление и преобразование: при точном совпадении — сразу; иначе вы сравниваете свой ответ с эталоном сами и выбираете «Верно», «Почти» или «Неверно».',
@@ -419,9 +419,11 @@ function ofN(a,b){return a+(LANG=='ru'?' из ':' з ')+b}
 function histRow(e){var pct=e.n?Math.round(e.s/e.n*100):0;
  return '<div class="row"><span>'+e.blocks.map(function(k){return '<span class="bltag">'+k+'</span>'}).join('')+' <small class="mut">'+e.d+(e.l?' · '+L('byLink'):'')+'</small></span><span'+(pct<70?' style="color:var(--bad);font-weight:600"':'')+'>'+ofN(fmt(e.s),e.n)+' · '+pct+'%</span></div>'}
 var app=document.getElementById('app');
+var stickIO=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle('stuck',e.intersectionRatio<1)})},{rootMargin:'0px 0px -13px 0px',threshold:1});
+new MutationObserver(function(){document.querySelectorAll('.stick:not([data-so])').forEach(function(b){b.dataset.so=1;stickIO.observe(b)})}).observe(app,{childList:true,subtree:true});
 function render(h){app.innerHTML=h;app.style.animation='none';app.offsetHeight;app.style.animation=''}
 var DATA=null,byId={},S=null,run=null,saved=null,P={},H=[],UM=false,THEME='classic',VIEW='home',LANG='uk';
-var LEVELS={a2b2:{file:'data/tasks.json',label:'A2–B2',setKey:'dg_set',runKey:'dg_run',progPre:'dg_prog_',seenPre:'dg_seen_',histKey:'dg_hist',wordsFile:'data/words_a2b2.json',wPre:'dg_ws_'},a1a2:{file:'data/tasks_a1a2.json',label:'A1–A2',setKey:'dg_set_a1a2',runKey:'dg_run_a1a2',progPre:'dg_prog_a1a2_',seenPre:'dg_seen_a1a2_',histKey:'dg_hist_a1a2',wordsFile:'data/words_a1a2.json',wPre:'dg_ws_a1a2_'}};
+var LEVELS={a2b2:{file:'data/tasks.json',label:'B1–B2',setKey:'dg_set',runKey:'dg_run',progPre:'dg_prog_',seenPre:'dg_seen_',histKey:'dg_hist',wordsFile:'data/words_a2b2.json',wPre:'dg_ws_'},a1a2:{file:'data/tasks_a1a2.json',label:'A1–A2',setKey:'dg_set_a1a2',runKey:'dg_run_a1a2',progPre:'dg_prog_a1a2_',seenPre:'dg_seen_a1a2_',histKey:'dg_hist_a1a2',wordsFile:'data/words_a1a2.json',wPre:'dg_ws_a1a2_'}};
 var LEVEL='a2b2';
 var TG=window.Telegram&&window.Telegram.WebApp;
 if(TG){try{TG.ready();TG.expand()}catch(e){}}
@@ -737,12 +739,12 @@ function show(){setView('quiz');
  h+='<div class="blk"><button type="button" class="blkb" id="blkb">Блок '+t.block+' · '+esc(loc(DATA.blocks[t.block].name))+'</button> · '+typeLbl+'</div>'+(run.warn&&run.i==0?'<div class="note" style="margin:0 0 10px">'+esc(run.warn)+'</div>':'')+'<div class="qp">'+esc(loc(t.prompt))+(t.type=='fix'||t.type=='build'?trBtn(t):'')+'</div>'+(t.type=='fix'||t.type=='build'?trBox(t):'')+(t.type=='choice'||t.type=='fill'||t.type=='reflexive'?'<div class="q">'+(gapN(t)>1?gapHtml(t):esc(loc(t.text)))+trBtn(t)+'</div>'+trBox(t):'');
  if(t.note)h+='<div class="note">'+L('partOfSpeech')+esc(loc(t.note))+'</div>';
  if(t.type=='choice'||t.type=='reflexive'){shuffle(t.options).forEach(function(o){h+='<button class="opt" data-v="'+esc(o)+'">'+esc(o)+'</button>'})}
- else if(t.type=='fill'&&gapN(t)>1){h+=umRow()+'<button class="pri" id="chk">'+L('check')+'</button>'}
- else if(t.type=='fill'){h+='<input type="text" id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="'+L('answerPh')+'">'+umRow()+'<button class="pri" id="chk">'+L('check')+'</button>'}
- else if(t.type=='build'){h+='<div class="note" style="margin-top:-6px">'+L('buildHint')+'</div><div id="bl" class="bl"></div><div id="bp" class="bp"></div><div class="rw"><button id="rs">'+L('reset')+'</button></div><div id="be" class="mut" style="color:var(--bad);min-height:18px"></div><button class="pri" id="chk">'+L('check')+'</button>'}
+ else if(t.type=='fill'&&gapN(t)>1){h+=umRow()+'<button class="pri stick" id="chk">'+L('check')+'</button>'}
+ else if(t.type=='fill'){h+='<input type="text" id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="'+L('answerPh')+'">'+umRow()+'<button class="pri stick" id="chk">'+L('check')+'</button>'}
+ else if(t.type=='build'){h+='<div class="note" style="margin-top:-6px">'+L('buildHint')+'</div><div id="bl" class="bl"></div><div id="bp" class="bp"></div><div class="rw"><button id="rs">'+L('reset')+'</button></div><div id="be" class="mut" style="color:var(--bad);min-height:18px"></div><button class="pri stick" id="chk">'+L('check')+'</button>'}
  else{
   if(t.type!='fix')h+='<div class="q">'+esc(loc(t.text))+(t.type=='combine'?' <button type="button" id="cp" class="cpy" aria-label="'+L('pasteAria')+'" title="'+L('pasteTitle')+'">'+icCopy+'</button>':'')+trBtn(t)+'</div>'+trBox(t);
-  h+='<textarea id="in" rows="3" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="'+L('answerPh')+'">'+(t.type=='fix'?esc(loc(t.text)):'')+'</textarea>'+umRow()+'<button class="pri" id="chk">'+L('check')+'</button>'}
+  h+='<textarea id="in" rows="3" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="'+L('answerPh')+'">'+(t.type=='fix'?esc(loc(t.text)):'')+'</textarea>'+umRow()+'<button class="pri stick" id="chk">'+L('check')+'</button>'}
  h+='<div id="fb"></div></div>';render(h);
  bindCancel();
  tgBack(function(){var c=document.getElementById('cx');if(c)c.click()});
@@ -917,7 +919,7 @@ function wShow(){var W=wLvl(),r=wR(W),back=W.tmp?wFinish:words;
  setView('quiz');var w=W.byId['W'+r.q[0]],dir=WDIR=='mix'?(Math.random()<.5?'to':'from'):WDIR;wcur=w;
  var h='<div class="qtop">'+robotHtml('think','rbot-sm')+'<div id="cxw"><button class="lnk" id="wend">'+L(W.tmp?'wFinish':'wPause')+'</button></div></div><div class="frame"><div class="top"><span id="wsc">'+wScore(r)+'</span><span>'+ofN(r.t-r.q.length+1,r.t)+'</span></div>';
  h+='<div class="qp">'+L(dir=='to'?'wAskTo':'wAskFrom')+'</div><div class="q">'+esc(dir=='to'?w[LANG]:w.de)+(dir=='to'?'':spk(w.de))+'</div>';
- if(WMODE=='type')h+='<input type="text" id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="'+L('answerPh')+'">'+(dir=='to'?umRow():'')+'<button class="pri" id="chk">'+L('check')+'</button>';
+ if(WMODE=='type')h+='<input type="text" id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="'+L('answerPh')+'">'+(dir=='to'?umRow():'')+'<button class="pri stick" id="chk">'+L('check')+'</button>';
  else wOpts(W,w).forEach(function(o){h+='<button class="opt" data-id="'+o.id+'">'+esc(dir=='to'?o.de:o[LANG])+'</button>'});
  h+='<div id="fb"></div></div>';render(h);
  tgBack(back);document.getElementById('wend').onclick=back;
