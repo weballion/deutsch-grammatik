@@ -171,7 +171,7 @@ input:disabled,textarea:disabled{-webkit-text-fill-color:currentColor;opacity:1}
 <script>window.goatcounter={path:function(){var w=window.Telegram&&Telegram.WebApp;return w&&w.initData?'/tg':'/web'}}</script>
 <script data-goatcounter="https://deutsch-grammatik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script>
-var APP_VERSION='v0.62';
+var APP_VERSION='v0.63';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -603,7 +603,7 @@ function settings(){setView('set');tgBack(home);
    if(k=='M')h+='<label class="swrow" style="margin-top:6px"><input type="checkbox" id="mtop" class="swin" '+(S.mTop?'checked':'')+'><span class="sw"><span class="swth"></span></span><span>'+L('mTop')+'</span></label>';
    h+='<div class="tr"><button class="lnk" data-rk="'+k+'">'+L('resetDefault')+'</button></div></details>'}
   h+='</div>'});
- h+='<button class="pri" id="bk2">Готово</button><div style="text-align:center;margin-top:18px"><button class="lnk" id="rst" style="color:var(--bad)">'+L('resetStats')+'</button></div>';
+ h+='<button class="pri stick" id="bk2">Готово</button><div style="text-align:center;margin-top:18px"><button class="lnk" id="rst" style="color:var(--bad)">'+L('resetStats')+'</button></div>';
  render(h);upd();window.scrollTo(0,0);
  ['segLang','segLevel','seg','segTheme'].forEach(function(id){segMove(id,true)});
  function doneSet(){home();setTimeout(function(){haptic();toast(L('settingsSaved'))},300)}
