@@ -27,6 +27,11 @@ for t in d["tasks"]:
         w=lambda s: sorted(norm(s).split())
         for a in t["answers"]:
             if w(" ".join(tx.split(" / ")))!=w(a): errs.append(f"{i}: слова не совпадают с ответом «{a}»")
+    for x in t.get("gram",[]):
+        if x["art"] not in ("best","unbest","ohne","der","ein","menge") or x["num"] not in ("sg","pl") or x["k"] not in ("nom","akk","dat","gen") or x["g"] not in (("m","f","n") if x["num"]=="sg" else ("-",)):
+            errs.append(f"{i}: неверный gram {x}")
+        for a in x["adj"]:
+            if not a[1].endswith(x["end"]): errs.append(f"{i}: gram {a} не оканчивается на {x['end']}")
     key=(k,norm(tx))
     if key in seen: errs.append(f"{i}: дубль {seen[key]}")
     seen[key]=i

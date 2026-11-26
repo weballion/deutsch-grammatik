@@ -102,6 +102,8 @@ label{display:flex;gap:8px;align-items:center}input[type=checkbox]{width:18px;he
 input[type=text],textarea{width:100%;font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:var(--radius);padding:11px;caret-color:var(--tx)}
 .fb{margin-top:14px;padding:12px;border-radius:var(--radius);font-size:15px;box-shadow:var(--shadow)}.fb.ok{background:var(--okbg);color:var(--ok)}.fb.bad{background:var(--badbg);color:var(--bad)}
 .fb .h{color:var(--tx);font-size:14px;margin-top:6px}.fb a{color:var(--tx);text-decoration:underline;cursor:pointer;font-size:14px;display:inline-block;margin-top:8px}
+button.pri.stick{position:sticky;bottom:calc(12px + env(safe-area-inset-bottom));z-index:2}
+.gram{color:var(--tx);font-size:14px}.gg{margin-top:8px;padding:8px 10px;border-radius:10px;border:1px solid var(--bd)}.gg dl{display:grid;grid-template-columns:auto 1fr;gap:1px 10px;margin:4px 0 0}.gg dt{color:var(--tx2)}.gg dd{margin:0}.gw{color:var(--tx2);margin-top:4px;font-size:13px}
 .trin{margin:8px 0 16px;animation:trIn .25s ease}
 .wst{display:flex;gap:8px;text-align:center}.wst div{flex:1;cursor:pointer;border:1.5px solid var(--bd);border-radius:14px;padding:10px 0 8px;background:var(--bg);transition:transform .1s}.wst div:active{transform:scale(.96)}.wst small::after{content:' ›';font-weight:700}.wst b{display:block;font-size:26px;line-height:1.2}
 .frame>.h{margin:8px 0;font-size:15px}
@@ -169,7 +171,7 @@ input:disabled,textarea:disabled{-webkit-text-fill-color:currentColor;opacity:1}
 <script>window.goatcounter={path:function(){var w=window.Telegram&&Telegram.WebApp;return w&&w.initData?'/tg':'/web'}}</script>
 <script data-goatcounter="https://deutsch-grammatik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script>
-var APP_VERSION='v0.60';
+var APP_VERSION='v0.61';
 var TYPE={uk:{choice:"Вибір відповіді",fill:"Вставити слово",fix:"Виправити помилку",translate:"Переклад UA → DE",build:"Скласти речення",combine:"Об’єднати / перетворити",reflexive:"Займенник і прийменник"},ru:{choice:"Выбор ответа",fill:"Вставить слово",fix:"Исправить ошибку",translate:"Перевод RU → DE",build:"Составить предложение",combine:"Объединить / преобразовать",reflexive:"Местоимение и предлог"}};
 var FREE={fix:1,translate:1,build:1,combine:1};
 var TSH={uk:{choice:'вибір',fill:'вставити',fix:'виправити',translate:'переклад',build:'скласти',combine:'об’єднати',reflexive:'займенник+прийменник'},ru:{choice:'выбор',fill:'вставить',fix:'исправить',translate:'перевод',build:'составить',combine:'объединить',reflexive:'местоимение+предлог'}};
@@ -244,7 +246,7 @@ uk:{
  infoGrade1:'Правильно — 1 бал, майже правильно — 0,5, неправильно — 0. Регістр і розділові знаки не враховуються, крім блоку K «Правопис».',
  infoGrade2:'Вибір відповіді, вставка слова і складання речення перевіряються за зразком одразу. Якщо в реченні кілька пропусків, кожен заповнюється у своєму полі прямо в тексті: усі правильні — 1 бал, частина — 0,5, жодного — 0; після перевірки правильні поля зелені, неправильні — червоні з правильною відповіддю поруч. Переклад, виправлення і перетворення: при точному збігу — одразу; інакше ви порівнюєте свою відповідь із зразком самі й обираєте «Правильно», «Майже» або «Неправильно».',
  infoGrade3:'«Показати результат наприкінці» приховує оцінку після кожної відповіді; підсумок і аналіз помилок завжди показуються в кінці тесту.',
- infoGradeM:'У всіх завданнях з німецьким реченням (крім перекладу) поруч із текстом завдання є кнопка перекладу: вона показує переклад речення ще до відповіді, а після відповіді він з’являється в поясненні. У блоці M для частини дієслів є ще й нотатка про інші прийменники. Після відповіді в завданнях із пропуском показується все речення з правильною відповіддю. Назва блоку над завданням натискається — відкривається шпаргалка з граматики цього блоку: правила, приклади і таблиці.',
+ infoGradeM:'У всіх завданнях з німецьким реченням (крім перекладу) поруч із текстом завдання є кнопка перекладу: вона показує переклад речення ще до відповіді, а після відповіді він з’являється в поясненні. У блоці M для частини дієслів є ще й нотатка про інші прийменники. Після відповіді в завданнях із пропуском показується все речення з правильною відповіддю. Назва блоку над завданням натискається — відкривається шпаргалка з граматики цього блоку: правила, приклади і таблиці. У блоці G після відповіді для кожної групи «артикль + прикметник + іменник» є розбір: Nomen, Numerus, Genus, Kasus, Artikel (bestimmt, unbestimmt, без артикля, der-Wort, ein-Wort, Mengenwort) і закінчення; кнопка «Далі» там закріплена внизу екрана.',
  infoErrH:'Прогрес',
  infoErr1:'На головному екрані — журнал останніх 30 пройдених тестів (дата, блоки, бали), спершу 3 останні, решта — по кнопці «Показати ще» під списком (вона ж «Згорнути список»).',
  infoErr2:'«Статистика» (іконка на головній) показує середній відсоток балів по кожному блоку за всю історію проходжень — поруч зі шкалою з 4 поділок, блок нижче 70% підсвічується червоним. Унизу налаштувань — «Скинути всю статистику» (з підтвердженням): обнуляє відсотки по блоках, історію тестів і лічильники показів поточного рівня, налаштування, незакінчений тест і «Слова» не чіпає. Та сама шкала — і в налаштуваннях біля кожного блоку: шкала з 4 поділок (червона — менше 50%, жовта — 50–69%, зелена — від 70%), сірі порожні поділки — даних ще немає, бліді — пройдено менше 10 завдань.',
@@ -252,7 +254,7 @@ uk:{
  infoOther1:'Кнопки ä ö ü ß під полем введення включаються в налаштуваннях. Налаштування і прогрес зберігаються автоматично в хмарі Telegram (Cloud Storage), на цьому ж акаунті вони доступні з будь-якого пристрою. У браузері (поза Telegram) прогрес зберігається лише в цьому браузері на цьому пристрої.',
  infoOther2:'Мова інтерфейсу визначається мовою Telegram (у браузері — мовою браузера); змінити її вручну можна в налаштуваннях (Українська/Русский). Анонімно рахується лише кількість відкриттів застосунку (GoatCounter, без cookies).',
  infoOther3:'Дизайн у налаштуваннях — «Темна», «Світла» або «Glass»: змінюється лише оформлення (кольори, скруглення, тіні, розмитий фон), логіка і екрани ті самі. «Темна» підлаштовується під тему телефону (світла чи темна), «Світла» і «Glass» завжди зберігають свою палітру, незалежно від теми телефону.',
- infoUpdated:'Опис оновлено: 25.11.2026.',
+ infoUpdated:'Опис оновлено: 26.11.2026.',
  bankUpdated:function(d){return 'Банк оновлено: '+d},
  understood:'Зрозуміло',
  partOfSpeech:'Частина мови: ',
@@ -277,6 +279,9 @@ uk:{
  yourAnswer:'Ваша відповідь: ',
  refAnswer:'Еталон: ',
  orSep:'<br>або: ',
+ gramDer:'der-Wort (dieser, jeder, welcher, alle) відмінюється як der/die/das і сам показує рід і відмінок → у прикметника лише -e або -en.',
+ gramEin:'ein-Wort (mein, dein, sein, unser, kein…) відмінюється як ein: де в нього немає закінчення (Nom ч. р., Nom/Akk с. р.), закінчення роду бере прикметник (-er/-es); у множині — -en.',
+ gramMenge:'Mengenwort (viele, einige, mehrere, wenige, числа) — не артикль: прикметник сам показує відмінок, закінчення як без артикля.',
  saCorrect:'Правильно',saAlmost:'Майже',saWrong:'Неправильно',
  counted:'Зараховано.',halfPoint:'Половина бала.',notCounted:'Не зараховано.',
  byBlocks:'За блоками',
@@ -358,7 +363,7 @@ ru:{
  infoGrade1:'Верно — 1 балл, почти верно — 0,5, неверно — 0. Регистр и знаки препинания не учитываются, кроме блока K «Правописание».',
  infoGrade2:'Выбор ответа, вставка слова и составление предложения проверяются по эталону сразу. Если в предложении несколько пропусков, каждый заполняется в своём поле прямо в тексте: все верные — 1 балл, часть — 0,5, ни одного — 0; после проверки верные поля зелёные, неверные — красные с правильным ответом рядом. Перевод, исправление и преобразование: при точном совпадении — сразу; иначе вы сравниваете свой ответ с эталоном сами и выбираете «Верно», «Почти» или «Неверно».',
  infoGrade3:'«Показать результат в конце» скрывает оценку после каждого ответа; итог и разбор ошибок всегда показываются в конце теста.',
- infoGradeM:'Во всех заданиях с немецким предложением (кроме перевода) рядом с текстом задания есть кнопка перевода: она показывает перевод предложения ещё до ответа, а после ответа он появляется в объяснении. В блоке M для части глаголов есть ещё и заметка про другие предлоги. После ответа в заданиях с пропуском показывается всё предложение с правильным ответом. Название блока над заданием нажимается — открывается шпаргалка по грамматике этого блока: правила, примеры и таблицы.',
+ infoGradeM:'Во всех заданиях с немецким предложением (кроме перевода) рядом с текстом задания есть кнопка перевода: она показывает перевод предложения ещё до ответа, а после ответа он появляется в объяснении. В блоке M для части глаголов есть ещё и заметка про другие предлоги. После ответа в заданиях с пропуском показывается всё предложение с правильным ответом. Название блока над заданием нажимается — открывается шпаргалка по грамматике этого блока: правила, примеры и таблицы. В блоке G после ответа для каждой группы «артикль + прилагательное + существительное» есть разбор: Nomen, Numerus, Genus, Kasus, Artikel (bestimmt, unbestimmt, без артикля, der-Wort, ein-Wort, Mengenwort) и окончание; кнопка «Дальше» там закреплена внизу экрана.',
  infoErrH:'Прогресс',
  infoErr1:'На главном экране — журнал последних 30 пройденных тестов (дата, блоки, баллы), сначала 3 последних, остальные — по кнопке «Показать ещё» под списком (она же «Свернуть список»).',
  infoErr2:'«Статистика» (иконка на главной) показывает средний процент баллов по каждому блоку за всю историю прохождений — рядом со шкалой из 4 делений, блок ниже 70% подсвечивается красным. Внизу настроек — «Сбросить всю статистику» (с подтверждением): обнуляет проценты по блокам, историю тестов и счётчики показов текущего уровня, настройки, незаконченный тест и «Слова» не трогает. Та же шкала — и в настройках у каждого блока: шкала из 4 делений (красная — меньше 50%, жёлтая — 50–69%, зелёная — от 70%), серые пустые деления — данных ещё нет, бледные — пройдено меньше 10 заданий.',
@@ -366,7 +371,7 @@ ru:{
  infoOther1:'Кнопки ä ö ü ß под полем ввода включаются в настройках. Настройки и прогресс сохраняются автоматически в облаке Telegram (Cloud Storage), на этом же аккаунте они доступны с любого устройства. В браузере (вне Telegram) прогресс сохраняется только в этом браузере на этом устройстве.',
  infoOther2:'Язык интерфейса определяется языком Telegram (в браузере — языком браузера); изменить его вручную можно в настройках (Українська/Русский). Анонимно считается только число открытий приложения (GoatCounter, без cookies).',
  infoOther3:'Дизайн в настройках — «Тёмный», «Светлый» или «Glass»: меняется только оформление (цвета, скругления, тени, размытый фон), логика и экраны те же. «Тёмный» подстраивается под тему телефона (светлая или тёмная), «Светлый» и «Glass» всегда сохраняют свою палитру, независимо от темы телефона.',
- infoUpdated:'Описание обновлено: 25.11.2026.',
+ infoUpdated:'Описание обновлено: 26.11.2026.',
  bankUpdated:function(d){return 'Банк обновлён: '+d},
  understood:'Понятно',
  partOfSpeech:'Часть речи: ',
@@ -391,6 +396,9 @@ ru:{
  yourAnswer:'Ваш ответ: ',
  refAnswer:'Эталон: ',
  orSep:'<br>или: ',
+ gramDer:'der-Wort (dieser, jeder, welcher, alle) склоняется как der/die/das и сам показывает род и падеж → у прилагательного только -e или -en.',
+ gramEin:'ein-Wort (mein, dein, sein, unser, kein…) склоняется как ein: где у него нет окончания (Nom м. р., Nom/Akk ср. р.), окончание рода берёт прилагательное (-er/-es); во мн. ч. — -en.',
+ gramMenge:'Mengenwort (viele, einige, mehrere, wenige, числа) — не артикль: прилагательное само показывает падеж, окончания как без артикля.',
  saCorrect:'Верно',saAlmost:'Почти',saWrong:'Неверно',
  counted:'Засчитано.',halfPoint:'Полбалла.',notCounted:'Не засчитано.',
  byBlocks:'По блокам',
@@ -770,6 +778,11 @@ function fullSent(t){if(t.type!='fill'&&t.type!='choice'&&t.type!='reflexive')re
  var x=loc(t.text),a=t.answers[0],adj=x.indexOf('___ ___')>=0,parts=adj?[a.replace(', ',' ')]:x.split('___').length>2?a.split(', '):[a];
  x=x.replace('___ ___','___');parts.forEach(function(p){x=x.replace('___',p=='-'?'':p)});x=x.replace(/ {2,}/g,' ');
  return '<div class="h"><b>'+esc(x.replace(/\s*\([^)]*\)/g,'').trim())+'</b></div>'}
+var GRAM={art:{best:'bestimmt',unbest:'unbestimmt',ohne:'ohne Artikel',der:'der-Wort',ein:'ein-Wort',menge:'Mengenwort'},num:{sg:'Singular',pl:'Plural'},g:{m:'Maskulin',f:'Feminin',n:'Neutrum','-':'— (Plural)'},k:{nom:'Nominativ',akk:'Akkusativ',dat:'Dativ',gen:'Genitiv'},why:{der:'gramDer',ein:'gramEin',menge:'gramMenge'}};
+function gramHtml(t){if(!t.gram)return '';
+ return '<div class="gram">'+t.gram.map(function(x){var w=x.w=='-'?'':x.w,ph=[w].concat(x.adj.map(function(a){return a[1]}),[x.n]).join(' ').trim();
+  var rows=[['Nomen',x.n],['Numerus',GRAM.num[x.num]],['Genus',GRAM.g[x.g]],['Kasus',GRAM.k[x.k]],['Artikel',GRAM.art[x.art]+(w?' · '+w:'')]];if(x.adj.length)rows.push(['Endung',(x.end?'-'+x.end:'—')+' · '+x.adj.map(function(a){return a[0]+' → '+a[1]}).join(', ')]);
+  return '<div class="gg"><b>'+esc(ph)+'</b><dl>'+rows.map(function(r){return '<dt>'+r[0]+'</dt><dd>'+esc(r[1])+'</dd>'}).join('')+'</dl>'+(GRAM.why[x.art]?'<div class="gw">'+L(GRAM.why[x.art])+'</div>':'')+'</div>'}).join('')+'</div>'}
 function trAlt(t){return(t.tr?'<div class="h">'+esc(loc(t.tr))+'</div>':'')+(t.alt?'<div class="h" style="color:var(--tx2)">'+esc(loc(t.alt))+'</div>':'')}
 function answer(v,btn){
  haptic();
@@ -784,8 +797,8 @@ function answer(v,btn){
  setMood(g.s>0?'happy':'sad');
  var f='<div class="fb '+cls+'"><b>'+(g.s==1?L('correct'):g.s==0.5?L('almostHalf'):L('incorrect'))+'</b>';
  if(g.s<1)f+=L('reference')+esc(t.answers[0]);
- f+=fullSent(t)+'<div class="h">'+esc(loc(t.hint))+'</div>'+trAlt(t);
- f+='</div><button class="pri" id="nx">'+(last?'Результат':L('next'))+'</button>';
+ f+=fullSent(t)+gramHtml(t)+'<div class="h">'+esc(loc(t.hint))+'</div>'+trAlt(t);
+ f+='</div><button class="pri'+(t.gram?' stick':'')+'" id="nx">'+(last?'Результат':L('next'))+'</button>';
  document.getElementById('fb').innerHTML=f;
  document.getElementById('nx').onclick=next;
 }
@@ -796,8 +809,8 @@ function selfAsk(t,v,rec,last){document.getElementById('chk').style.display='non
   if(S.defer){next();return}
   setMood(rec.s>0?'happy':'sad');
   var x=document.getElementById('sfb');x.className='fb '+(rec.s==1?'ok':rec.s==0.5?'half':'bad');
-  x.innerHTML='<b>'+(rec.s==1?L('counted'):rec.s==0.5?L('halfPoint'):L('notCounted'))+'</b> '+L('refAnswer')+esc(t.answers[0])+'<div class="h">'+esc(loc(t.hint))+'</div>'+trAlt(t);
-  var nb=document.createElement('button');nb.className='pri';nb.textContent=last?'Результат':L('next');nb.onclick=next;document.getElementById('fb').appendChild(nb)}})}
+  x.innerHTML='<b>'+(rec.s==1?L('counted'):rec.s==0.5?L('halfPoint'):L('notCounted'))+'</b> '+L('refAnswer')+esc(t.answers[0])+gramHtml(t)+'<div class="h">'+esc(loc(t.hint))+'</div>'+trAlt(t);
+  var nb=document.createElement('button');nb.className='pri'+(t.gram?' stick':'');nb.textContent=last?'Результат':L('next');nb.onclick=next;document.getElementById('fb').appendChild(nb)}})}
 function next(){run.i++;if(run.i<run.q.length){save();show()}else finish()}
 function finish(){setView('result');tgBack(home);
  recordProgress();var sc=score(),h='<div class="frame"><small>Результат</small><div class="big">'+ofN(fmt(sc),run.res.length)+'</div><small>'+L('byBlocks')+'</small>';
